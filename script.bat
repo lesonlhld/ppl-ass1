@@ -45,11 +45,13 @@ echo "=============================================="
 echo "Testing Parser..."
 python run.py test ParserSuite
 
-echo.
-echo "=============================================="
-echo "Checking solution..."
-echo.
 
-python check.py
+if exist %CD%"/src/test/solutionsSample/" (
+    echo.
+    echo "=============================================="
+    echo "Checking solution..."
+    echo.
+    python check.py
+)
 
 ::pause >nul

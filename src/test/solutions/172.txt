@@ -1,1 +1,1 @@
-Unterminated Comment
+Illegal Escape In String:  This is a test '" asdsadasd \h

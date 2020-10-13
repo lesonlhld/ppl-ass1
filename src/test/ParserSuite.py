@@ -376,6 +376,7 @@ class ParserSuite(unittest.TestCase):
             EndIf.
         EndBody."""
         expect = "Error on line 8 col 12: Else"
+        self.assertTrue(TestParser.checkParser(input,expect,233))
     
     def test34(self):
         """ test noelse """
@@ -403,3 +404,226 @@ class ParserSuite(unittest.TestCase):
         EndBody."""
         expect = "Error on line 5 col 16: Var"
         self.assertTrue(TestParser.checkParser(input,expect,235))
+
+######################################################################
+    # ARRAY TEST: 7 testcases
+
+    def test01_valid_normal_array(self):
+        """Valid normal array"""
+        input = """Var: x[123] = {1,2,3};"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 236))
+
+    def test02_empty_array(self):
+        """Check empty array"""
+        input = """Var: x[0] = {};"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 237))
+
+    def test03_array_contains_array(self):
+        """Check array contains arrays"""
+        input = \
+"""Var: x[0] = {{}};
+Var: y = {"asd", 0, {123, 12.3}, 1.23};"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 238))
+
+    def test04_array_contains_comment(self):
+        """Check array contains comment"""
+        input = """Var: x = {{1,2,3}, **asdkhasd!@#!@$!@** "abc"};"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 239))
+
+    def test05_array_contains_id(self):
+        """Check array contains id"""
+        input = """Var: x[0] = {abc};"""
+        expect = "Error on line 1 col 13: abc"
+        self.assertTrue(TestParser.checkParser(input, expect, 240))
+
+    def test06_unclosed_array(self):
+        """Check unclosed array"""
+        input = """Var: x[0] = {1,2,3 ;"""
+        expect = "Error on line 1 col 19: ;"
+        self.assertTrue(TestParser.checkParser(input, expect, 241))
+
+    def test07_array_with_ws(self):
+        """Check array with various white space"""
+        input = """Var: x[0] = {   1,  2,3 
+        };"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 242))
+
+
+    ######################################################################
+    # VAR DECL TEST: 14 testcases
+
+    def test11_simple_var_decl(self):
+        """Check simple var decl"""
+        input = \
+"""Var  :       anyid;
+Var:a = 123.321e-123;"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 243))
+
+    def test12_multiple_var_decl(self):
+        """Check var decl with multiple ids"""
+        input = """Var  :       anyid, moreid,  mUchm0r31d;"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 244))
+
+    def test13_single_var_decl_assign(self):
+        """Check single var decl with assignment"""
+        input = """Var:someid=True;"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 245))
+
+    def test14_multiple_var_decl_assign(self):
+        """Check multiple var decl, some has assignment"""
+        input = """Var:someid, mor3Id= "SomeSTRING",   some_more_id,muchmoreID = 123.321e-2;"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 246))
+
+    def test15_multiple_var_decl_ws(self):
+        """Check multiple var decl, some has assignment with various white spaces"""
+        input = """Var :         someid, mor3Id
+        = "SomeSTRING"
+        ,
+    some_more_id,muchmoreID = {"str","s"},  lots_m0rE_1D = False;"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 247))
+
+    def test16_multiple_var_decl_ws_composites(self):
+        """Check multiple var decl, add some composite ids"""
+        input = """Var: someid[0][1][123][999], mor3Id[1000] = "SomeSTRING",
+some_more_id[987],muchmoreID = 123.321e-2,  lots_m0rE_1D[123][123] = {12,3};"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 248))
+
+    def test17_composite_var_no_dim(self):
+        """Check composite id with no literal in brackets"""
+        input = """Var: someid[] = {"w","h","oops"};"""
+        expect = "Error on line 1 col 12: ]"
+        self.assertTrue(TestParser.checkParser(input, expect, 249))
+
+    def test18_composite_var_wrong_dim(self):
+        """Check composite id with wrong literal in dimension"""
+        input = """Var: someid[1.23E-2] = {"w","h","oops"};"""
+        expect = "Error on line 1 col 12: 1.23E-2"
+        self.assertTrue(TestParser.checkParser(input, expect, 250))
+
+    def test19_var_decl_wrong_keyword(self):
+        """Check var decl with wrong keyword"""
+        input = """vAr: someid;"""
+        expect = "Error on line 1 col 0: vAr"
+        self.assertTrue(TestParser.checkParser(input, expect, 251))
+
+    def test20_var_decl_missing_comma(self):
+        """Check var decl missing comma"""
+        input = """Var someid;"""
+        expect = "Error on line 1 col 4: someid"
+        self.assertTrue(TestParser.checkParser(input, expect, 252))
+
+    def test21_var_decl_no_id(self):
+        """Check var decl without id"""
+        input = """Var: ;"""
+        expect = "Error on line 1 col 5: ;"
+        self.assertTrue(TestParser.checkParser(input, expect, 253))
+
+    def test22_var_decl_missing_semi(self):
+        """Check var decl missing semicolon"""
+        input = """Var: someid = 123"""
+        expect = "Error on line 1 col 17: <EOF>"
+        self.assertTrue(TestParser.checkParser(input, expect, 254))
+
+    def test23_var_decl_assign_exp(self):
+        """Check var decl with expression assignment"""
+        input = """Var: someid = 1+2+3;"""
+        expect = "Error on line 1 col 15: +"
+        self.assertTrue(TestParser.checkParser(input, expect, 255))
+
+    def test24_var_decl_comment(self):
+        """Check var decl with expression assignment"""
+        input = """Var **some COMMENT**: ****someid = 3
+        **more more**;"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 256))
+
+    ######################################################################
+    # FUNC DECL TEST: xx testcases
+
+    def test31_simple_func_decl(self):
+        """Check simple func decl"""
+        input = \
+"""Function: foo
+    Body:
+    EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 257))
+
+    def test32_simple_func_decl_param(self):
+        """Check simple func decl with some param"""
+        input = \
+"""Function: foo
+    Parameter: a, b,c[123] ,d[123][234][0]  ,e
+    Body:
+    EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 258))
+
+    def test33_simple_func_decl_param_no_id(self):
+        """Check simple func decl with some param"""
+        input = \
+"""Function: foo
+    Parameter:
+    Body:
+    EndBody."""
+        expect = "Error on line 3 col 4: Body"
+        self.assertTrue(TestParser.checkParser(input, expect, 259))
+
+    def test34_simple_func_decl_param_assign(self):
+        """Check simple func decl with some params have assignment"""
+        input = \
+"""Function: foo
+    Parameter: a, b = 123,c[123] ,d[123][234][0]  ,e
+    Body:
+    EndBody."""
+        expect = "Error on line 2 col 20: ="
+        self.assertTrue(TestParser.checkParser(input, expect, 260))
+
+    def test35_func_param_semi(self):
+        """Check simple func decl param has semicolon"""
+        input = \
+"""Function: foo
+    Parameter: abc;
+    Body:
+    EndBody."""
+        expect = "Error on line 2 col 18: ;"
+        self.assertTrue(TestParser.checkParser(input, expect, 261))
+
+    def test36_func_miss_dot(self):
+        """Check simple func decl without dot at the end"""
+        input = \
+"""Function: foo
+    Parameter: abc
+    Body:
+    EndBody"""
+        expect = "Error on line 4 col 11: <EOF>"
+        self.assertTrue(TestParser.checkParser(input, expect, 262))
+
+    def test37_func_with_comment(self):
+        """Check simple func decl with comments"""
+        input = \
+"""** some comment **
+Function: foo ** some more comment **
+    Parameter: abc ** MuchM0re comment **
+    Body:  ** LOTS of comment !@#$%^^&%&*() **
+    EndBody **Here some too**. """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 263))
+
+    def test38_multiple_func_decl(self):
+        """Check multiple func decl"""
+        input = """Function: foo Parameter: abc Body: EndBody. Function: foo Body: EndBody.
+Function: goo Parameter: abc Body: EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 264))

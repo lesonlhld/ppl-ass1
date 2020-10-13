@@ -1,1 +1,1 @@
-*,Unterminated Comment
+abc,<EOF>

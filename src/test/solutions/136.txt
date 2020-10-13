@@ -1,1 +1,1 @@
-<,-,mod,>=,not,+,mod,+,and,+,not,<EOF>
+123,abc,Illegal Escape In String: xyz\k

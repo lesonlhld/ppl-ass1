@@ -30,17 +30,20 @@ fragment LETTER: [a-zA-Z];
 fragment DIGIT: [0-9];
 fragment NON_ZERO_DIGIT: [1-9];
 fragment OCT_DIGIT: [0-7];
-fragment HEX_DIGIT: [0-9a-fA-F];
-fragment INT_PART: DIGIT+;
-fragment DEC_PART: DOT DIGIT+;
-fragment EXPONENT: [eE][+-]? DIGIT+;
+fragment NON_OCT_DIGIT: [1-7];
+fragment HEX_DIGIT: [0-9A-F];
+fragment NON_HEX_DIGIT: [1-9A-F];
+fragment INT_PART: DECIMAL_INTEGER;
+fragment DEC_PART: DOT DECIMAL_INTEGER;
+fragment EXPONENT: [eE][+-]? DECIMAL_INTEGER;
 fragment POINT_FLOAT : (INT_PART DEC_PART) | INT_PART DOT;
 fragment EXPONENT_FLOAT : (INT_PART | POINT_FLOAT) EXPONENT;
 fragment WS: [ \t\r\n\f]+; // White-space characters
 fragment COMMENT: '**' .*? '**';
+fragment NEWLINE: ('\r' '\n'? | '\n');
 fragment DOUBLE_QUOTE: ["];
 fragment SINGLE_QUOTE: ['];
-fragment STRING_CONTENT: ~["\b\f\r\n\t'\\] | '\'"' | ESCAPE_SEQ;
+fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t'\\] | ESCAPE_SEQ;
 fragment ESCAPE_SEQ: '\\' [bfrnt'\\"];
 fragment ESCAPE_ILLEGAL: '\\' ~[bfrnt'\\"] | ~'\\';
 fragment ARRAY_LIST: ARRAY_TYPE (COMMA ARRAY_TYPE)*;
@@ -125,8 +128,8 @@ ASSIGN: '=';
 
 // Literals
 DECIMAL_INTEGER: NON_ZERO_DIGIT DIGIT* | [0];
-HEX_INTEGER: [0][xX] HEX_DIGIT+;
-OCT_INTEGER: [0][oO] OCT_DIGIT+;
+HEX_INTEGER: [0][xX] NON_HEX_DIGIT HEX_DIGIT*;
+OCT_INTEGER: [0][oO] NON_OCT_DIGIT OCT_DIGIT*;
 
 FLOAT: POINT_FLOAT | EXPONENT_FLOAT;
 
@@ -140,14 +143,16 @@ STRING: DOUBLE_QUOTE STRING_CONTENT*? DOUBLE_QUOTE {
 ARRAY: LEFT_BRACE ARRAY_LIST? RIGHT_BRACE;
 ARRAY_DECL: ID DIMENSION+;
 
-SKIP_ : (COMMENT | WS) -> skip ; // skip spaces, tabs, newlines or comment
+SKIP_ : (COMMENT | WS | NEWLINE) -> skip ; // skip spaces, tabs, newlines or comment
 
 /*
  * Parser rules
  */
 variable_decl: VAR COLON variable_list (ASSIGN init_value)? SEMI;
 
-variable_list: ID | ARRAY_DECL | array_index | (ID | ARRAY_DECL | array_index) COMMA variable_list;
+variable_list: ID | ARRAY_DECL | (ID | ARRAY_DECL) COMMA variable_list;
+
+var_list: ID | ARRAY_DECL | array_index | (ID | ARRAY_DECL | array_index) COMMA variable_list;
 
 init_value: literal (COMMA literal)*;
 
@@ -155,22 +160,22 @@ literal: DECIMAL_INTEGER|FLOAT|BOOLEAN|STRING|ARRAY|ID;
 
 array_index: ID index_operators;
 
-body_decl: init_body? body;
+body_decl: init_body body;
 
-init_body: FUNCTION COLON ID parameter;
+init_body: FUNCTION COLON ID parameter?;
 
 parameter: PARAMETER COLON variable_list;
 
-body: BODY COLON variable_decl*? stmt_list ENDBODY DOT;
+body: BODY COLON variable_decl*? stmt_list? ENDBODY DOT;
 
 // Statement
 stmt: assign_stmt | if_stmt | for_stmt | while_stmt | do_while_stmt | break_stmt | continue_stmt | call_stmt | return_stmt;
 
 stmt_list: stmt*;
 
-assign_stmt: variable_list ASSIGN exp SEMI;
+assign_stmt: var_list ASSIGN exp SEMI;
 
-if_stmt: IF exp THEN stmt_list? (ELSEIF exp THEN stmt_list?)*? (ELSE stmt_list?)? ENDIF DOT;
+if_stmt: IF exp THEN stmt_list? (ELSEIF exp THEN stmt_list?)* (ELSE stmt_list?)? ENDIF DOT;
 
 for_stmt: FOR LEFT_PAREN for_condition RIGHT_PAREN DO stmt_list ENDFOR DOT;
 
@@ -229,7 +234,7 @@ index_operators: LEFT_BRACKET exp RIGHT_BRACKET | LEFT_BRACKET exp RIGHT_BRACKET
 
 
 ERROR_CHAR: .;
-UNCLOSE_STRING: '"' STRING_CONTENT* ([\t\b\n\f\r"'\\] | EOF) {
+UNCLOSE_STRING: '"' STRING_CONTENT* ([\b\f\r\n\t'\\"] | EOF) {
 		y = str(self.text)
 		self.text = y[1:]
 	};

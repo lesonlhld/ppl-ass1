@@ -1,1 +1,1 @@
-{,Error Token S
+{,abc,},1.,abc,<EOF>

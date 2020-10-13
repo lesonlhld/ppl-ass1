@@ -1,73 +1,73 @@
-0: True
-101: True
-102: True
-103: True
-104: True
-105: True
-106: True
-107: True
-108: True
-109: True
-110: True
-111: True
-112: True
-113: True
-114: True
-115: True
-116: True
-117: True
-118: True
-119: True
-120: True
-121: True
-131: True
-132: True
-133: True
-134: True
-135: True
-136: True
-137: True
-138: True
-139: True
-140: True
-141: True
-142: True
-143: True
-144: True
-145: True
-146: True
-147: True
-148: True
-149: True
-150: True
-151: True
-152: True
-153: True
-155: True
-156: True
-157: True
-158: True
-159: True
-161: True
-162: True
-163: True
-164: True
-165: True
-166: True
-167: True
-168: True
-169: True
-170: True
-171: True
-172: True
-173: True
-174: True
-175: True
-176: True
-177: True
-178: True
-179: True
-180: True
+0: File khong ton tai
+101: File khong ton tai
+102: File khong ton tai
+103: File khong ton tai
+104: File khong ton tai
+105: File khong ton tai
+106: File khong ton tai
+107: File khong ton tai
+108: File khong ton tai
+109: File khong ton tai
+110: File khong ton tai
+111: File khong ton tai
+112: File khong ton tai
+113: File khong ton tai
+114: File khong ton tai
+115: File khong ton tai
+116: File khong ton tai
+117: File khong ton tai
+118: File khong ton tai
+119: File khong ton tai
+120: File khong ton tai
+121: File khong ton tai
+131: File khong ton tai
+132: File khong ton tai
+133: File khong ton tai
+134: File khong ton tai
+135: File khong ton tai
+136: File khong ton tai
+137: File khong ton tai
+138: File khong ton tai
+139: File khong ton tai
+140: File khong ton tai
+141: File khong ton tai
+142: File khong ton tai
+143: File khong ton tai
+144: File khong ton tai
+145: File khong ton tai
+146: File khong ton tai
+147: File khong ton tai
+148: File khong ton tai
+149: File khong ton tai
+150: File khong ton tai
+151: File khong ton tai
+152: File khong ton tai
+153: File khong ton tai
+155: File khong ton tai
+156: File khong ton tai
+157: File khong ton tai
+158: File khong ton tai
+159: File khong ton tai
+161: File khong ton tai
+162: File khong ton tai
+163: File khong ton tai
+164: File khong ton tai
+165: File khong ton tai
+166: File khong ton tai
+167: File khong ton tai
+168: File khong ton tai
+169: File khong ton tai
+170: File khong ton tai
+171: File khong ton tai
+172: File khong ton tai
+173: File khong ton tai
+174: File khong ton tai
+175: File khong ton tai
+176: File khong ton tai
+177: File khong ton tai
+178: File khong ton tai
+179: File khong ton tai
+180: File khong ton tai
 201: True
 202: True
 203: True

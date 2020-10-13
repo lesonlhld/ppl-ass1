@@ -1,1 +1,1 @@
-Error Token N
+Var,x0,.,12e51,.,2,<EOF>

@@ -1,1 +1,1 @@
-*,<EOF>
+vaRiab,<EOF>
