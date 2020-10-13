@@ -201,13 +201,13 @@ exp4: NOT exp4 | exp5;
 
 exp5: sign_operators exp5 | exp6;
 
-exp6: exp6 LEFT_BRACKET exp7 RIGHT_BRACKET | exp7;
+exp6: exp6 LEFT_BRACKET exp7 (COMMA exp7)* RIGHT_BRACKET | exp7;
 
 exp7: function_call | operands;
 
 exp_list: exp (COMMA exp)*;
 
-operands: literal | LEFT_PAREN exp RIGHT_PAREN | index_operators;
+operands: literal | LEFT_PAREN exp RIGHT_PAREN | index_operators | ARRAY_DECL;
 
 // Funtion call
 function_call: ID LEFT_PAREN exp_list? RIGHT_PAREN;

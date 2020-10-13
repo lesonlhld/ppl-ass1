@@ -379,8 +379,3 @@ class ParserSuite(unittest.TestCase):
         EndBody."""
         expect = "Error on line 8 col 12: Else"
         self.assertTrue(TestParser.checkParser(input,expect,234))
-    # Template 
-    def test3242323(self):
-        "truong(acb, a);"
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,235))

@@ -170,18 +170,3 @@ a[3+foo(3)] = a[b[2][3]] + 4;
         self.assertTrue(TestLexer.checkLexeme("*** **","<EOF>",177))
     def test_comment11(self):
         self.assertTrue(TestLexer.checkLexeme("***** \"\"\"","<EOF>",178))
-
-    def test1(self):
-        self.assertTrue(TestLexer.checkLexeme(""""hello xon  jgt \\' egfe" ""","<EOF>",179))
-
-    def test_illegal_escape(self):
-        """test illegal escape"""
-        self.assertTrue(TestLexer.checkLexeme(""" "abc\\h def"  ""","""Illegal Escape In String: abc\\h""",180))
-
-    def test_unterminated_string(self):
-        """test unclosed string"""
-        self.assertTrue(TestLexer.checkLexeme(""" "abc def  ""","""Unclosed String: abc def  """,181))
-
-    def test_normal_string_with_escape(self):
-        """test normal string with escape"""
-        self.assertTrue(TestLexer.checkLexeme(""" "ab'"c\\n def"  ""","""ab'"c\\n def,<EOF>""",182))
