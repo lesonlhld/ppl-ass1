@@ -43,9 +43,9 @@ fragment COMMENT: '**' .*? '**';
 fragment NEWLINE: ('\r' '\n'? | '\n');
 fragment DOUBLE_QUOTE: ["];
 fragment SINGLE_QUOTE: ['];
-fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t'\\] | ESCAPE_SEQ;
+fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t\\] | ESCAPE_SEQ;
 fragment ESCAPE_SEQ: '\\' [bfrnt'\\"];
-fragment ESCAPE_ILLEGAL: '\\' ~[bfrnt'\\"] | ~'\\';
+fragment ESCAPE_ILLEGAL: '\\' ~[bfrnt'\\"] | ~'\\' | '\'' ~["];
 fragment ARRAY_LIST: ARRAY_TYPE (COMMA ARRAY_TYPE)*;
 fragment ARRAY_TYPE: DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT | ARRAY;
 fragment DIMENSION: LEFT_BRACKET (DECIMAL_INTEGER | ID) RIGHT_BRACKET;
@@ -234,7 +234,7 @@ index_operators: LEFT_BRACKET exp RIGHT_BRACKET | LEFT_BRACKET exp RIGHT_BRACKET
 
 
 ERROR_CHAR: .;
-UNCLOSE_STRING: '"' STRING_CONTENT* ([\b\f\r\n\t'\\] | EOF) {
+UNCLOSE_STRING: '"' STRING_CONTENT* ([\b\f\r\n\t\\] | EOF) {
 		y = str(self.text)
 		self.text = y[1:]
 	};
