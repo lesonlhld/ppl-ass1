@@ -161,10 +161,10 @@ init_body: FUNCTION COLON ID parameter;
 
 parameter: PARAMETER COLON variable_list;
 
-body: BODY COLON stmt_list ENDBODY DOT;
+body: BODY COLON variable_decl*? stmt_list ENDBODY DOT;
 
 // Statement
-stmt: variable_decl | assign_stmt | if_stmt | for_stmt | while_stmt | do_while_stmt | break_stmt | continue_stmt | call_stmt | return_stmt;
+stmt: assign_stmt | if_stmt | for_stmt | while_stmt | do_while_stmt | break_stmt | continue_stmt | call_stmt | return_stmt;
 
 stmt_list: stmt*;
 

@@ -207,6 +207,19 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,219))
 
+    def test20(self):
+        input= """Function: foo
+        Parameter: a[5], b
+        Body:
+        Var: i = 0;
+        While (i < 5)
+        a[i] = b +. 1.0;
+        i = i + 1;
+        EndWhile.
+        EndBody."""
+        expect = "Error on line 5 col 8: While"
+        self.assertTrue(TestParser.checkParser(input,expect,220))
+
     def test21(self):
         """ test return_stmt in function """
         input = """Function: foo 
@@ -379,3 +392,14 @@ class ParserSuite(unittest.TestCase):
         EndBody."""
         expect = "Error on line 8 col 12: Else"
         self.assertTrue(TestParser.checkParser(input,expect,234))
+
+    def test35(self):
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            While x>1 Do
+                Var: a = 10;
+            EndWhile.
+        EndBody."""
+        expect = "Error on line 5 col 16: Var"
+        self.assertTrue(TestParser.checkParser(input,expect,235))
