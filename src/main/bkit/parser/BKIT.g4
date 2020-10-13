@@ -234,7 +234,7 @@ index_operators: LEFT_BRACKET exp RIGHT_BRACKET | LEFT_BRACKET exp RIGHT_BRACKET
 
 
 ERROR_CHAR: .;
-UNCLOSE_STRING: '"' STRING_CONTENT* ([\b\f\r\n\t'\\"] | EOF) {
+UNCLOSE_STRING: '"' STRING_CONTENT* ([\b\f\r\n\t'\\] | EOF) {
 		y = str(self.text)
 		self.text = y[1:]
 	};
