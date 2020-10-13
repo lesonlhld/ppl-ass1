@@ -365,4 +365,5 @@ class LexerSuite(unittest.TestCase):
         """test unclosed string"""
         self.assertTrue(TestLexer.checkLexeme(""" "abc def  ""","""Unclosed String: abc def  """,306))
 
-    
+    def testdwsa(self):
+        self.assertTrue(TestLexer.checkLexeme("""{{1,2,3}, **asdkhasd!@#!@$!@** "abc"}""","",307))

@@ -39,6 +39,11 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by BKITParser#boolean_literal.
+    def visitBoolean_literal(self, ctx:BKITParser.Boolean_literalContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by BKITParser#array_index.
     def visitArray_index(self, ctx:BKITParser.Array_indexContext):
         return self.visitChildren(ctx)

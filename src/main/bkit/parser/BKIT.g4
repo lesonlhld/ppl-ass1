@@ -43,11 +43,11 @@ fragment COMMENT: '**' .*? '**';
 fragment NEWLINE: ('\r' '\n'? | '\n');
 fragment DOUBLE_QUOTE: ["];
 fragment SINGLE_QUOTE: ['];
-fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t\\] | ESCAPE_SEQ;
+fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t'\\] | ESCAPE_SEQ;
 fragment ESCAPE_SEQ: '\\' [bfrnt'\\"];
 fragment ESCAPE_ILLEGAL: '\\' ~[bfrnt'\\"] | ~'\\' | '\'' ~["];
 fragment ARRAY_LIST: ARRAY_TYPE (COMMA ARRAY_TYPE)*;
-fragment ARRAY_TYPE: DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT | ARRAY;
+fragment ARRAY_TYPE: [ ]* (DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT | ARRAY | COMMENT) [ ]*;
 fragment DIMENSION: LEFT_BRACKET (DECIMAL_INTEGER | ID) RIGHT_BRACKET;
 
 /*
@@ -148,7 +148,7 @@ SKIP_ : (COMMENT | WS | NEWLINE) -> skip ; // skip spaces, tabs, newlines or com
 /*
  * Parser rules
  */
-variable_decl: VAR COLON variable_list (ASSIGN init_value)? SEMI;
+variable_decl: VAR COLON variable_list (ASSIGN init_value)? (COMMA variable_list (ASSIGN init_value)?)* SEMI;
 
 variable_list: ID | ARRAY_DECL | (ID | ARRAY_DECL) COMMA variable_list;
 
@@ -156,7 +156,9 @@ var_list: ID | ARRAY_DECL | array_index | (ID | ARRAY_DECL | array_index) COMMA 
 
 init_value: literal (COMMA literal)*;
 
-literal: DECIMAL_INTEGER|FLOAT|BOOLEAN|STRING|ARRAY|ID;
+literal: ARRAY|DECIMAL_INTEGER|FLOAT|boolean_literal|STRING|ID;
+
+boolean_literal: TRUE | FALSE ;
 
 array_index: ID index_operators;
 

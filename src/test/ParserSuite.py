@@ -350,7 +350,7 @@ class ParserSuite(unittest.TestCase):
                 Return True;
             EndIf.
         EndBody."""
-        expect = "Error on line 8 col 23: True"
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,231))
     
     def test32(self):
@@ -627,3 +627,9 @@ Function: foo ** some more comment **
 Function: goo Parameter: abc Body: EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 264))
+
+    def test38_multiple_func_decl(self):
+        """Check multiple func decl"""
+        input = """Var: a=False;"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 265))
