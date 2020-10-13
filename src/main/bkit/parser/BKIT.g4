@@ -201,7 +201,7 @@ exp4: NOT exp4 | exp5;
 
 exp5: sign_operators exp5 | exp6;
 
-exp6: LEFT_BRACKET exp6 RIGHT_BRACKET | exp7;
+exp6: exp6 LEFT_BRACKET exp7 RIGHT_BRACKET | exp7;
 
 exp7: function_call | operands;
 

@@ -1,4 +1,4 @@
-# Generated from d:\PPL\assignment1\src\main\bkit\parser\BKIT.g4 by ANTLR 4.7.1
+# Generated from d:\PPL\assignment1\src\main\bkit\parser\BKIT.g4 by ANTLR 4.8
 from antlr4 import *
 from io import StringIO
 from typing.io import TextIO
@@ -6,6 +6,7 @@ import sys
 
 
 from lexererr import *
+
 
 
 def serializedATN():
@@ -426,7 +427,7 @@ class BKITLexer(Lexer):
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.7.1")
+        self.checkVersion("4.8")
         self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
         self._actions = None
         self._predicates = None
@@ -459,6 +460,7 @@ class BKITLexer(Lexer):
             action(localctx, actionIndex)
         else:
             raise Exception("No registered action for:" + str(ruleIndex))
+
 
     def STRING_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 0:
