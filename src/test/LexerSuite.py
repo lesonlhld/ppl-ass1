@@ -7,7 +7,7 @@ class LexerSuite(unittest.TestCase):
         Parameter: n
         Body: 
 a[3+foo(3)] = a[b[2][3]] + 4;
-        EndBody.""","<EOF>",0))
+        EndBody.""","Function,:,foo,Parameter,:,n,Body,:,a,[,3,+,foo,(,3,),],=,a,[,b[2][3],],+,4,;,EndBody,.,<EOF>",0))
     def test_lower_identifier(self):
         """test identifiers"""
         self.assertTrue(TestLexer.checkLexeme(""" abcxyz ""","abcxyz,<EOF>",101))
@@ -64,7 +64,7 @@ a[3+foo(3)] = a[b[2][3]] + 4;
         self.assertTrue(TestLexer.checkLexeme("12while int 1.12 INTEGER oR 12function","12,while,int,1.12,Error Token I",120))
 
     def test_string1(self):
-        self.assertTrue(TestLexer.checkLexeme(""" "This is a string containing tab \\t" """,""" "This is a string containing tab \\t",<EOF>""",121))
+        self.assertTrue(TestLexer.checkLexeme(""" "This is a string containing tab \\t" ""","""This is a string containing tab \\t,<EOF>""",121))
 
     def test_operator1(self):
         self.assertTrue(TestLexer.checkLexeme("ddsls<l>02>=d1s<=123","ddsls,<,l,>,0,2,>=,d1s,<=,123,<EOF>",131))
@@ -73,7 +73,7 @@ a[3+foo(3)] = a[b[2][3]] + 4;
     def test_operator3(self):
         self.assertTrue(TestLexer.checkLexeme("lsddl<>=1<>=112>=<=d1","lsddl,<,>=,1,<,>=,112,>=,<=,d1,<EOF>",133))
     def test_operator4(self):
-        self.assertTrue(TestLexer.checkLexeme("13ek3<9e=9eend<>=Edasdndm<=>erE","13,ek3,<,9,e,Error Token =",134))
+        self.assertTrue(TestLexer.checkLexeme("13ek3<9e=9eend<>=Edasdndm<=>erE","13,ek3,<,9,e,=,9,eend,<,>=,Error Token E",134))
     def test_operator5(self):
         self.assertTrue(TestLexer.checkLexeme("djeiwjd1A<=>12>=<=d","djeiwjd1A,<=,>,12,>=,<=,d,<EOF>",135))
     def test_operator6(self):
@@ -81,7 +81,7 @@ a[3+foo(3)] = a[b[2][3]] + 4;
     def test_operator7(self):
         self.assertTrue(TestLexer.checkLexeme("*and<=>mod</<=","*,and,<=,>,mod,<,Error Token /",137))
     def test_operator8(self):
-        self.assertTrue(TestLexer.checkLexeme("=or<=<><>=-<=>","Error Token =",138))
+        self.assertTrue(TestLexer.checkLexeme("=or<=<><>=-<=>","=,or,<=,<,>,<,>=,-,<=,>,<EOF>",138))
     def test_operator9(self):
         self.assertTrue(TestLexer.checkLexeme("not<>=and>=mod<=-and","not,<,>=,and,>=,mod,<=,-,and,<EOF>",139))
     def test_operator10(self):
@@ -101,7 +101,7 @@ a[3+foo(3)] = a[b[2][3]] + 4;
     def test_illegal_escape6(self):
         self.assertTrue(TestLexer.checkLexeme("\"aa\wb\"","Illegal Escape In String: aa\\w",146))
     def test_illegal_escape7(self):
-        self.assertTrue(TestLexer.checkLexeme("ba+12+\"na\"\"md+1.2-468\lb","ba,+,12,+,\"na\",Illegal Escape In String: md+1.2-468\\l",147))
+        self.assertTrue(TestLexer.checkLexeme("ba+12+\"na\"\"md+1.2-468\lb","ba,+,12,+,na,Illegal Escape In String: md+1.2-468\\l",147))
     def test_illegal_escape8(self):
         self.assertTrue(TestLexer.checkLexeme("\"1.2+1.3+1.4\\o'\"123","Illegal Escape In String: 1.2+1.3+1.4\\o",148))
     def test_illegal_escape9(self):
@@ -157,16 +157,21 @@ a[3+foo(3)] = a[b[2][3]] + 4;
         self.assertTrue(TestLexer.checkLexeme("**1.e0 - 101** {11.E} //22.12\\n","{,11.,Error Token E",171))
     def test_comment5(self):
         #TODO: Fix reallit , intlit
-        self.assertTrue(TestLexer.checkLexeme("**12.e0\\nabc -101","",172))
+        self.assertTrue(TestLexer.checkLexeme("**12.e0\\nabc -101","Unterminated Comment",172))
     def test_comment6(self):
-        self.assertTrue(TestLexer.checkLexeme("13ek3<9e=9eendE//dasd1.ndm<>d1.02erE","13,ek3,<,9,e,Error Token =",173))
+        self.assertTrue(TestLexer.checkLexeme("13ek3<9e=9eendE//dasd1.ndm<>d1.02erE","13,ek3,<,9,e,=,9,eendE,Error Token /",173))
     def test_comment7(self):
         self.assertTrue(TestLexer.checkLexeme("//dasd1.ndm\\n<>d1.02erE","Error Token /",174))
     def test_comment8(self):
-        self.assertTrue(TestLexer.checkLexeme("{ +abc<>xyzb>cv } **12mds<>dsd=(*dsd*)*)**","*,),*{,+,abc,<,>,xyzb,>,cv,},<EOF>",175))
+        self.assertTrue(TestLexer.checkLexeme("{ +abc<>xyzb>cv } **12mds<>dsd=(*dsd*)*)**","{,+,abc,<,>,xyzb,>,cv,},<EOF>",175))
     def test_comment9(self):
-        self.assertTrue(TestLexer.checkLexeme(""" * **""","\"**\",<EOF>",176))
+        self.assertTrue(TestLexer.checkLexeme(""" * **""","*,Unterminated Comment",176))
     def test_comment10(self):
         self.assertTrue(TestLexer.checkLexeme("*** **","<EOF>",177))
     def test_comment11(self):
-        self.assertTrue(TestLexer.checkLexeme("***** \"\"\"","<EOF>",178))
+        self.assertTrue(TestLexer.checkLexeme("***** \"\"\"","*,Unclosed String: ",178))
+
+    def test_comment12(self):
+        self.assertTrue(TestLexer.checkLexeme("*****","*,<EOF>",179))
+    def test_comment13(self):
+        self.assertTrue(TestLexer.checkLexeme("*** **","<EOF>",180))
