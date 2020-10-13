@@ -1,24 +1,35 @@
 @echo off
 set "CurDir="
 for %%a in ("%cd%") do set "CurDir=%%~nxa"
-if "%CurDir%" == "assignment1" cd src
+if NOT "%CurDir%" == "assignment1" exit
 
-echo %CD%
-
-if exist %CD%"/test/testcases/" (
+if exist %CD%"/src/test/testcases/" (
     echo "Cleaning testcases"
-	rmdir /Q /S %CD%"/test/testcases/"
+	rmdir /Q /S %CD%"/src/test/testcases/"
+)
     echo "Creating testcases"
-    mkdir %CD%"/test/testcases"
-)
+    mkdir %CD%"/src/test/testcases"
 
-if exist %CD%"/test/solutions/" (
+
+if exist %CD%"/src/test/solutions/" (
     echo "Cleaning solutions"
-	rmdir /Q /S %CD%"/test/solutions/"
+	rmdir /Q /S %CD%"/src/test/solutions/"
+)
     echo "Creating solutions"
-    mkdir %CD%"/test/solutions"
+    mkdir %CD%"/src/test/solutions"
+
+
+if exist %CD%"/solutionsSample/" (
+    echo "Copying solution sample"
+    robocopy  %CD%"\solutionsSample" %CD%"\src\test\solutionsSample" /move
 )
 
+if exist %CD%\check.py (
+    echo "Copying check.py"
+    robocopy  %CD% %CD%"\src" check.py /mov
+)
+
+cd src
 
 echo "Cleaning and Generatting..."
 python run.py clean
@@ -37,6 +48,8 @@ python run.py test ParserSuite
 echo.
 echo "=============================================="
 echo "Checking solution..."
+echo.
+
 python check.py
 
-pause >nul
+::pause >nul

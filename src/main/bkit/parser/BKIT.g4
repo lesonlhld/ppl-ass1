@@ -170,7 +170,7 @@ stmt_list: stmt*;
 
 assign_stmt: variable_list ASSIGN exp SEMI;
 
-if_stmt: IF exp THEN stmt_list ((ELSEIF exp THEN stmt_list)* ELSE stmt_list)? ENDIF DOT;
+if_stmt: IF exp THEN stmt_list? (ELSEIF exp THEN stmt_list?)*? (ELSE stmt_list?)? ENDIF DOT;
 
 for_stmt: FOR LEFT_PAREN for_condition RIGHT_PAREN DO stmt_list ENDFOR DOT;
 
