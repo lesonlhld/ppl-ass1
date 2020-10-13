@@ -34,4 +34,9 @@ echo "=============================================="
 echo "Testing Parser..."
 python run.py test ParserSuite
 
+echo.
+echo "=============================================="
+echo "Checking solution..."
+python check.py
+
 pause >nul
