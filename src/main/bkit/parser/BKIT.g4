@@ -46,7 +46,7 @@ fragment SINGLE_QUOTE: ['];
 fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t'\\] | ESCAPE_SEQ;
 fragment ESCAPE_SEQ: '\\' [bfrnt'\\"];
 fragment ESCAPE_ILLEGAL: '\\' ~[bfrnt'\\"] | ~'\\' | '\'' ~["];
-fragment ARRAY_LIST: ARRAY_TYPE (COMMA ARRAY_TYPE)*;
+fragment ARRAY_LIST:  ARRAY_TYPE (COMMA ARRAY_TYPE)*;
 fragment ARRAY_TYPE: [ ]* (DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT | ARRAY | COMMENT) [ ]*;
 fragment DIMENSION: LEFT_BRACKET (DECIMAL_INTEGER | ID) RIGHT_BRACKET;
 
