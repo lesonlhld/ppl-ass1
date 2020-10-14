@@ -156,7 +156,7 @@ var_list: ID | ARRAY_DECL | array_index | (ID | ARRAY_DECL | array_index) COMMA 
 
 init_value: literal (COMMA literal)*;
 
-literal: ARRAY|DECIMAL_INTEGER|FLOAT|boolean_literal|STRING|ID;
+literal: ARRAY | DECIMAL_INTEGER | FLOAT  |boolean_literal | STRING | ID;
 
 boolean_literal: TRUE | FALSE ;
 
