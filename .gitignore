@@ -1,4 +1,4 @@
 target
-src/test/testcases
-src/test/solutions
-src/test/solutionsSample
+src/test/testcases/
+src/test/solutions/
+src/test/solutionsSample/
