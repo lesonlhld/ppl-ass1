@@ -1,1 +1,1 @@
-123.123,e,<EOF>
+True,+,False,<EOF>

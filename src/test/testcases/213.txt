@@ -4,7 +4,6 @@
         Body: 
             If a==5 Then b = 5;
             ElseIf a==6 Then c=6; 
-            Else b=0;
             EndIf.
         EndBody.
         

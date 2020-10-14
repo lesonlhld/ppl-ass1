@@ -1,3 +1,7 @@
-Function: foo
-    Body:
-    EndBody.
+Function: foo 
+        Parameter: n
+        Body: 
+            While x>1 Do
+                Var: a = 10;
+            EndWhile.
+        EndBody.

@@ -168,16 +168,16 @@ init_body: FUNCTION COLON ID parameter?;
 
 parameter: PARAMETER COLON variable_list;
 
-body: BODY COLON variable_decl*? stmt_list? ENDBODY DOT;
+body: BODY COLON stmt_list ENDBODY DOT;
 
 // Statement
 stmt: assign_stmt | if_stmt | for_stmt | while_stmt | do_while_stmt | break_stmt | continue_stmt | call_stmt | return_stmt;
 
-stmt_list: stmt*;
+stmt_list: variable_decl* stmt*;
 
 assign_stmt: var_list ASSIGN exp SEMI;
 
-if_stmt: IF exp THEN stmt_list? (ELSEIF exp THEN stmt_list?)* (ELSE stmt_list?)? ENDIF DOT;
+if_stmt: IF exp THEN stmt_list (ELSEIF exp THEN stmt_list)* (ELSE stmt_list)? ENDIF DOT;
 
 for_stmt: FOR LEFT_PAREN for_condition RIGHT_PAREN DO stmt_list ENDFOR DOT;
 
@@ -208,13 +208,13 @@ exp4: NOT exp4 | exp5;
 
 exp5: sign_operators exp5 | exp6;
 
-exp6: exp6 LEFT_BRACKET exp7 (COMMA exp7)* RIGHT_BRACKET | exp7;
+exp6: exp6 index_operators | exp7;
 
 exp7: function_call | operands;
 
 exp_list: exp (COMMA exp)*;
 
-operands: literal | LEFT_PAREN exp RIGHT_PAREN | index_operators | ARRAY_DECL;
+operands: literal | LEFT_PAREN exp RIGHT_PAREN | element_exp | ARRAY_DECL;
 
 // Funtion call
 function_call: ID LEFT_PAREN exp_list? RIGHT_PAREN;
@@ -230,10 +230,11 @@ boolean_operators: NOT | ANDAND | OROR;
 
 relational_operators: EQUAL | NOT_EQUAL | LESS_THAN | GREATER_THAN | GREATER_EQUAL | LESS_EQUAL | NOT_EQUAL_F | LESS_EQUAL_F | GREATER_THAN_F | GREATER_EQUAL_F | LESS_EQUAL_F;
 
-element_exp: exp index_operators;
+element_exp: expr_index index_operators;
 
 index_operators: LEFT_BRACKET exp RIGHT_BRACKET | LEFT_BRACKET exp RIGHT_BRACKET index_operators;
 
+expr_index: ID | function_call;
 
 ERROR_CHAR: .;
 UNCLOSE_STRING: '"' STRING_CONTENT* ([\b\f\r\n\t\\] | EOF) {

@@ -1,1 +1,1 @@
-.,123,<EOF>
+Error Token T

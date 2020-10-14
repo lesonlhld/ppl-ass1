@@ -1,82 +1,114 @@
 0: File khong ton tai
-101: File khong ton tai
-102: File khong ton tai
-103: File khong ton tai
-104: File khong ton tai
-105: File khong ton tai
-106: File khong ton tai
-107: File khong ton tai
-108: File khong ton tai
-109: File khong ton tai
-110: File khong ton tai
-111: File khong ton tai
-112: File khong ton tai
-113: File khong ton tai
-114: File khong ton tai
-115: File khong ton tai
-116: File khong ton tai
-117: File khong ton tai
-118: File khong ton tai
-119: File khong ton tai
-120: File khong ton tai
-121: File khong ton tai
-131: File khong ton tai
-132: File khong ton tai
-133: File khong ton tai
-134: File khong ton tai
-135: File khong ton tai
-136: File khong ton tai
-137: File khong ton tai
-138: File khong ton tai
-139: File khong ton tai
-140: File khong ton tai
-141: File khong ton tai
-142: File khong ton tai
-143: File khong ton tai
-144: File khong ton tai
-145: File khong ton tai
-146: File khong ton tai
-147: File khong ton tai
-148: File khong ton tai
-149: File khong ton tai
-150: File khong ton tai
-151: File khong ton tai
-152: File khong ton tai
-153: File khong ton tai
-155: File khong ton tai
-156: File khong ton tai
-157: File khong ton tai
-158: File khong ton tai
-159: File khong ton tai
-161: File khong ton tai
-162: File khong ton tai
-163: File khong ton tai
-164: File khong ton tai
-165: File khong ton tai
-166: File khong ton tai
-167: File khong ton tai
-168: File khong ton tai
-169: File khong ton tai
-170: File khong ton tai
-171: File khong ton tai
-172: File khong ton tai
-173: File khong ton tai
-174: File khong ton tai
-175: File khong ton tai
-176: File khong ton tai
-177: File khong ton tai
-178: File khong ton tai
-179: File khong ton tai
-180: File khong ton tai
+101: True
+102: True
+103: False
+104: False
+105: False
+106: True
+107: False
+108: False
+109: False
+110: False
+111: False
+112: False
+113: False
+114: False
+115: False
+116: False
+117: False
+118: False
+119: False
+120: False
+121: False
+122: False
+123: False
+124: False
+125: False
+126: False
+127: False
+128: False
+129: False
+130: False
+131: False
+132: False
+133: False
+134: False
+135: True
+136: False
+137: False
+138: False
+139: False
+140: False
+141: False
+142: False
+143: False
+144: False
+145: False
+146: False
+147: True
+148: True
+149: True
+150: True
+151: False
+152: False
+153: False
+154: False
+155: False
+156: False
+157: False
+158: False
+159: False
+160: False
+161: False
+162: True
+163: True
+164: True
+165: True
+166: True
+167: True
+168: True
+169: True
+170: True
+171: False
+172: False
+173: False
+174: False
+175: False
+176: False
+177: False
+178: False
+179: False
+180: False
+181: False
+182: False
+183: False
+184: False
+185: False
+186: False
+187: False
+188: False
+189: False
+190: False
+191: False
+192: True
+193: True
+194: True
+195: True
+196: True
+197: True
+198: True
+199: True
+200: True
 201: True
 202: True
-203: True
+203: False
 204: True
 205: True
 206: True
 207: True
 208: True
 209: True
+21: File khong ton tai
 210: True
 211: True
 212: True
@@ -87,7 +119,7 @@
 217: True
 218: True
 219: True
-220: True
+220: False
 221: True
 222: True
 223: True
@@ -98,7 +130,29 @@
 228: True
 229: True
 230: True
-231: True
+231: False
 232: True
-234: True
+233: True
+234: False
 235: True
+236: True
+237: True
+238: True
+239: True
+24: File khong ton tai
+240: True
+241: True
+242: True
+243: True
+244: True
+245: True
+246: True
+247: True
+248: True
+249: True
+25: File khong ton tai
+250: False
+251: True
+252: True
+253: True
+254: True

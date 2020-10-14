@@ -1,1 +1,6 @@
-Var: someid[1.23E-2] = {"w","h","oops"};
+
+        Function: foo 
+        Parameter: n 
+        Body: 
+            For (a[i] = 0, i != 5, i*1) Do x=6; EndFor.
+        EndBody.

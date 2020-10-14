@@ -1,2 +1,11 @@
-Var **some COMMENT**: ****someid = 3
-        **more more**;
+Function: foo 
+        Parameter: n
+        Body: 
+            If n == 0 Then
+                Return 1;
+            Else
+                Return n * fact (n - 1);
+            Else
+                Return n;
+            EndIf.
+        EndBody.

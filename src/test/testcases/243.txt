@@ -1,2 +1,9 @@
-Var  :       anyid;
-Var:a = 123.321e-123;
+Function: foo 
+        Parameter: n
+        Body: 
+            While i < 5 
+                Var: k = 10;
+                a[i] = b +. 1.0;
+                i = i + 1;
+            EndWhile.
+        EndBody.

@@ -1,1 +1,6 @@
-vAr: someid;
+
+        Function: foo 
+        Parameter: n 
+        Body: 
+            For (, i != 5, i*1) Do x=6; EndFor.
+        EndBody.

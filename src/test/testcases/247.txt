@@ -1,4 +1,10 @@
-Var :         someid, mor3Id
-        = "SomeSTRING"
-        ,
-    some_more_id,muchmoreID = {"str","s"},  lots_m0rE_1D = False;
+Function: test
+        Parameter: n
+        Body:
+            If n > 10 Then
+                Return 
+                If n > 10 Then Return x=3;
+                EndIf.
+                ;
+            EndIf.
+        EndBody.

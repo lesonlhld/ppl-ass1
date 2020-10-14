@@ -1,4 +1,1 @@
-Function: foo
-    Parameter: a, b,c[123] ,d[123][234][0]  ,e
-    Body:
-    EndBody.
+Var: x[123] = {1,2,3};

@@ -1,1 +1,1 @@
-Unclosed String: bacxyc
+This is a string containing tab \t,<EOF>

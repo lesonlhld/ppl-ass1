@@ -1,4 +1,2 @@
-Function: foo
-    Parameter: a, b = 123,c[123] ,d[123][234][0]  ,e
-    Body:
-    EndBody.
+Var: x[0] = {{}};
+Var: y = {"asd", 0, {123, 12.3}, 1.23};

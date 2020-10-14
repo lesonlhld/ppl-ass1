@@ -1,1 +1,1 @@
-"bacxyc
+ "This is a string containing tab \t"  

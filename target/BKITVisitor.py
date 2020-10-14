@@ -219,5 +219,10 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by BKITParser#expr_index.
+    def visitExpr_index(self, ctx:BKITParser.Expr_indexContext):
+        return self.visitChildren(ctx)
+
+
 
 del BKITParser
