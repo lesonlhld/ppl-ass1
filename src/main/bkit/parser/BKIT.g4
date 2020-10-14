@@ -168,12 +168,12 @@ init_body: FUNCTION COLON ID parameter?;
 
 parameter: PARAMETER COLON variable_list;
 
-body: BODY COLON stmt_list ENDBODY DOT;
+body: BODY COLON variable_decl* stmt_list ENDBODY DOT;
 
 // Statement
 stmt: assign_stmt | if_stmt | for_stmt | while_stmt | do_while_stmt | break_stmt | continue_stmt | call_stmt | return_stmt;
 
-stmt_list: variable_decl* stmt*;
+stmt_list: stmt*;
 
 assign_stmt: var_list ASSIGN exp SEMI;
 
@@ -191,9 +191,12 @@ break_stmt: BREAK SEMI;
 
 continue_stmt: CONTINUE SEMI;
 
-//call_stmt: ID LEFT_PAREN exp_list? RIGHT_PAREN SEMI;
+call_stmt: ID LEFT_PAREN exp_list? RIGHT_PAREN SEMI;
 
 return_stmt: RETURN exp? SEMI;
+
+// Funtion call
+function_call: ID LEFT_PAREN exp_list? RIGHT_PAREN;
 
 // Expression
 exp: exp1 relational_operators exp1 | exp1;
@@ -215,9 +218,6 @@ exp7: function_call | operands;
 exp_list: exp (COMMA exp)*;
 
 operands: literal | LEFT_PAREN exp RIGHT_PAREN | element_exp | ARRAY_DECL;
-
-// Funtion call
-function_call: ID LEFT_PAREN exp_list? RIGHT_PAREN;
 
 // Operators
 multiplying_operators: MULTI | MULTI_F | DIV | DIV_F | MOD;
