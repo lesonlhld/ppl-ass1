@@ -191,7 +191,7 @@ break_stmt: BREAK SEMI;
 
 continue_stmt: CONTINUE SEMI;
 
-call_stmt: ID LEFT_PAREN exp_list? RIGHT_PAREN SEMI;
+//call_stmt: ID LEFT_PAREN exp_list? RIGHT_PAREN SEMI;
 
 return_stmt: RETURN exp? SEMI;
 
