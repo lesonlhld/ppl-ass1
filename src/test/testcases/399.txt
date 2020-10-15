@@ -1,1 +1,4 @@
-.123
+Function: abc
+    Body:
+        s = "abc
+    Endbody.

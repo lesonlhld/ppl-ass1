@@ -19,14 +19,14 @@ if exist %CD%"/src/test/solutions/" (
     mkdir %CD%"/src/test/solutions"
 
 
-if exist %CD%"/solutionsSample/" (
+if exist %CD%"/test/solutions/" (
     echo "Copying solution sample"
-    robocopy  %CD%"\solutionsSample" %CD%"\src\test\solutionsSample" /move
+    robocopy  %CD%"\test\solutions" %CD%"\src\test\solutionsSample" /move
 )
 
-if exist %CD%\check.py (
+if exist %CD%\test\check.py (
     echo "Copying check.py"
-    robocopy  %CD% %CD%"\src" check.py /mov
+    robocopy  %CD%"\test" %CD%"\src" check.py /move
 )
 
 cd src
