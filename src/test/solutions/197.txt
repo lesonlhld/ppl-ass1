@@ -1,1 +1,1 @@
-{{"abc"},"asd"},<EOF>
+{,{"abc"},,,asd,},<EOF>

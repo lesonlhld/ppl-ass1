@@ -582,10 +582,11 @@ class LexerSuite(unittest.TestCase):
     def test_unterminated_string(self):
         """test unclosed string"""
         self.assertTrue(TestLexer.checkLexeme(""" "abc def  ""","""Unclosed String: abc def  """,406))
-
-    def testdwsa(self):
-        self.assertTrue(TestLexer.checkLexeme("""{{1,2,3}, **asdkhasd!@#!@$!@** "abc"}""","",407))
-
         
     def test_unclose_String4(self):
         self.assertTrue(TestLexer.checkLexeme("\"acms!,lds \" {\"abc\"} 123\"abc","acms!,lds ,{,abc,},323,Unclosed String: abc",408))
+
+        
+    def testt(self):
+        self.assertTrue(TestLexer.checkLexeme("""Var: x[0] = {1,3
+};    ""","",500))

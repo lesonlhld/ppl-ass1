@@ -47,7 +47,7 @@ fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t'\\] | ESCAPE_SEQ;
 fragment ESCAPE_SEQ: '\\' [bfrnt'\\"];
 fragment ESCAPE_ILLEGAL: '\\' ~[bfrnt'\\"] | ~'\\' | '\'' ~["];
 fragment ARRAY_LIST:  ARRAY_TYPE (COMMA ARRAY_TYPE)*;
-fragment ARRAY_TYPE: [ ]* (DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT | ARRAY | COMMENT) [ ]*;
+fragment ARRAY_TYPE: SKIP_* (DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT) SKIP_*;
 fragment DIMENSION: LEFT_BRACKET (DECIMAL_INTEGER | ID) RIGHT_BRACKET;
 
 /*
@@ -140,7 +140,7 @@ STRING: DOUBLE_QUOTE STRING_CONTENT*? DOUBLE_QUOTE {
 		self.text = y[1:-1]
 	};
 
-ARRAY: LEFT_BRACE ARRAY_LIST? RIGHT_BRACE;
+ARRAY: LEFT_BRACE ARRAY (COMMA ARRAY)* RIGHT_BRACE | LEFT_BRACE ARRAY_LIST? RIGHT_BRACE;
 ARRAY_DECL: ID DIMENSION+;
 
 SKIP_ : (COMMENT | WS | NEWLINE) -> skip ; // skip spaces, tabs, newlines or comment
