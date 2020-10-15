@@ -9,6 +9,22 @@ from BKITLexer import BKITLexer
 from BKITParser import BKITParser
 from lexererr import *
 
+testcase = "./test/testLexer.txt"
+testfile = open(testcase,"a")
+testfile.write("""import unittest
+from TestUtils import TestLexer
+
+class LexerSuite(unittest.TestCase):""")
+testfile.close()
+
+testcase = "./test/testParser.txt"
+testfile = open(testcase,"a")
+testfile.write("""import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):""")
+testfile.close()
+
 class TestUtil:
     @staticmethod
     def makeSource(inputStr,num):
@@ -24,6 +40,14 @@ class TestUtil:
 class TestLexer:
     @staticmethod
     def checkLexeme(input,expect,num):
+        testcase = "./test/testLexer.txt"
+        testfile = open(testcase,"a")
+        testfile.write("""
+    def test_""" + str(num)+"""(self):
+        \"\"\"Created automatically\"\"\"
+        input = \"\"\"""" + input + """\"\"\" 
+        output = \"\"\"""")
+        
         inputfile = TestUtil.makeSource(input,num)
         dest = open("./test/solutions/" + str(num) + ".txt","w")
         lexer = BKITLexer(inputfile)
@@ -35,6 +59,11 @@ class TestLexer:
             dest.close() 
         dest = open("./test/solutions/" + str(num) + ".txt","r")
         line = dest.read()
+
+        testfile.write(line + """\"\"\"
+        self.assertTrue(TestLexer.checkLexeme(input,output,"""+str(num)+"""))""")
+        testfile.close()
+
         return line == expect
 
     @staticmethod    
@@ -62,6 +91,14 @@ class TestParser:
 
     @staticmethod
     def checkParser(input,expect,num):
+        testcase = "./test/testParser.txt"
+        testfile = open(testcase,"a")
+        testfile.write("""
+    def test_""" + str(num)+"""(self):
+        \"\"\"Created automatically\"\"\"
+        input = \"\"\"""" + input + """\"\"\" 
+        output = \"\"\"""")
+
         inputfile = TestUtil.makeSource(input,num)
         dest = open("./test/solutions/" + str(num) + ".txt","w")
         lexer = BKITLexer(inputfile)
@@ -83,7 +120,9 @@ class TestParser:
             dest.close()
         dest = open("./test/solutions/" + str(num) + ".txt","r")
         line = dest.read()
-        return line == expect
-
-
         
+        testfile.write(line+"""\"\"\"
+        self.assertTrue(TestParser.checkParser(input,expect,"""+str(num)+"""))""")
+        testfile.close()
+
+        return line == expect

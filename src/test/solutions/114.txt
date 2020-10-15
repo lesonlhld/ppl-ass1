@@ -1,1 +1,1 @@
-Var,x0,.,12e51,.,2,<EOF>
+0,Error Token O

@@ -1,1 +1,1 @@
-Illegal Escape In String:  This is a test '" asdsadasd ' 
+String nay chua cac ky tu dac biet !@#$%^^&*()?/|~!%>:P{}<> :))),<EOF>

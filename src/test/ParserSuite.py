@@ -884,3 +884,17 @@ Function: goo Parameter: abc Body: EndBody."""
         input = """Var: a=False;"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 287))
+
+    def test1233(self):
+        input="""**hihihaha
+*hihi
+*"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 289))
+
+    def test1233321(self):
+        input="""**hihihaha
+*hihi
+** Hihi"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 290))

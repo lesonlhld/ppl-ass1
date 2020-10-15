@@ -1,0 +1,518 @@
+import unittest
+from TestUtils import TestLexer
+
+class LexerSuite(unittest.TestCase):
+    def test_116(self):
+        """Created automatically"""
+        input = """20.e5 18.E9 9.e+3 33.e-3 0.e """ 
+        output = """20.e5,18.E9,9.e+3,33.e-3,0.,e,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,116))
+    def test_117(self):
+        """Created automatically"""
+        input = """0.0 52.. 43124. 120000e-1""" 
+        output = """0.0,52.,.,43124.,120000e-1,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,117))
+    def test_118(self):
+        """Created automatically"""
+        input = """0.4254 654.321 .7582 87867. .""" 
+        output = """0.4254,654.321,.,7582,87867.,.,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,118))
+    def test_119(self):
+        """Created automatically"""
+        input = """4.e.6 -0 -404 -.e3 -10.e -10.e3""" 
+        output = """4.,e,.,6,-,0,-,404,-.,e3,-,10.,e,-,10.e3,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,119))
+    def test_120(self):
+        """Created automatically"""
+        input = """e97 E-66 16e 30E4 12.0e3""" 
+        output = """e97,Error Token E"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,120))
+    def test_101(self):
+        """Created automatically"""
+        input = """abc""" 
+        output = """abc,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,101))
+    def test_110(self):
+        """Created automatically"""
+        input = """tu1 1a` le^ trun9 son!!!""" 
+        output = """tu1,1,a,Error Token `"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,110))
+    def test_102(self):
+        """Created automatically"""
+        input = """Var""" 
+        output = """Var,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,102))
+    def test_103(self):
+        """Created automatically"""
+        input = """day la 1 test""" 
+        output = """day,la,1,test,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,103))
+    def test_104(self):
+        """Created automatically"""
+        input = """xin chao cac ban""" 
+        output = """xin,chao,cac,ban,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,104))
+    def test_105(self):
+        """Created automatically"""
+        input = """co so dau tien 108NVH""" 
+        output = """co,so,dau,tien,108,Error Token N"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,105))
+    def test_106(self):
+        """Created automatically"""
+        input = """viet hoa IDENTIFIERS""" 
+        output = """viet,hoa,Error Token I"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,106))
+    def test_107(self):
+        """Created automatically"""
+        input = """vIet Lon XOn nE""" 
+        output = """vIet,Error Token L"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,107))
+    def test_108(self):
+        """Created automatically"""
+        input = """co ky tu dac biet @@""" 
+        output = """co,ky,tu,dac,biet,Error Token @"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,108))
+    def test_109(self):
+        """Created automatically"""
+        input = """Var: x""" 
+        output = """Var,:,x,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,109))
+    def test_121(self):
+        """Created automatically"""
+        input = """ "abc\\h def"  """ 
+        output = """Illegal Escape In String: abc\\h"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,121))
+    def test_130(self):
+        """Created automatically"""
+        input = """ "ngoi TAo \\\\tESt eScapE '" ne ' \\r" """ 
+        output = """Illegal Escape In String: ngoi TAo \\\\tESt eScapE '" ne ' """
+        self.assertTrue(TestLexer.checkLexeme(input,output,130))
+    def test_122(self):
+        """Created automatically"""
+        input = """ "hello\\'\\myfriend" """ 
+        output = """Illegal Escape In String: hello\\'\\m"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,122))
+    def test_123(self):
+        """Created automatically"""
+        input = """ "chao cac ban nhaaa \\Hom\\nay cac ban the nao" """ 
+        output = """Illegal Escape In String: chao cac ban nhaaa \\H"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,123))
+    def test_124(self):
+        """Created automatically"""
+        input = """ "24 naif ^%$^% cdasjh\\Fncueyew" """ 
+        output = """Illegal Escape In String: 24 naif ^%$^% cdasjh\\F"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,124))
+    def test_125(self):
+        """Created automatically"""
+        input = """ "To la Chung Xon \\Ne" """ 
+        output = """Illegal Escape In String: To la Chung Xon \\N"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,125))
+    def test_126(self):
+        """Created automatically"""
+        input = """ xin chao "phan thanh truong\\haha" 456""" 
+        output = """xin,chao,Illegal Escape In String: phan thanh truong\\h"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,126))
+    def test_127(self):
+        """Created automatically"""
+        input = """ "ahihi do ngoc\\\\" """ 
+        output = """ahihi do ngoc\\\\,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,127))
+    def test_128(self):
+        """Created automatically"""
+        input = """ "Day la ' illegal" """ 
+        output = """Illegal Escape In String: Day la ' """
+        self.assertTrue(TestLexer.checkLexeme(input,output,128))
+    def test_129(self):
+        """Created automatically"""
+        input = """ "Test met qua troi \\Wa dat luon ne""" 
+        output = """Illegal Escape In String: Test met qua troi \\W"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,129))
+    def test_111(self):
+        """Created automatically"""
+        input = """0X54J54""" 
+        output = """0X54,Error Token J"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,111))
+    def test_112(self):
+        """Created automatically"""
+        input = """0X5456A 0x205F 0XBCD 0X0 0X567 0x2""" 
+        output = """0X5456A,0x205F,0XBCD,0,Error Token X"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,112))
+    def test_113(self):
+        """Created automatically"""
+        input = """01 8 0108 2000 000""" 
+        output = """0,1,8,0,108,2000,0,0,0,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,113))
+    def test_114(self):
+        """Created automatically"""
+        input = """0O0 0o1 0o413215""" 
+        output = """0,Error Token O"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,114))
+    def test_115(self):
+        """Created automatically"""
+        input = """0B2005""" 
+        output = """0,Error Token B"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,115))
+    def test_141(self):
+        """Created automatically"""
+        input = """ "Day la 1 string nha Dang Huynh Minh Tri"  """ 
+        output = """Day la 1 string nha Dang Huynh Minh Tri,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,141))
+    def test_150(self):
+        """Created automatically"""
+        input = """ "\\b\\f\\r\\n\\t\\'\\\\"  """ 
+        output = """\\b\\f\\r\\n\\t\\'\\\\,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,150))
+    def test_142(self):
+        """Created automatically"""
+        input = """ "This is a string containing tab \\t"  """ 
+        output = """This is a string containing tab \\t,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,142))
+    def test_143(self):
+        """Created automatically"""
+        input = """ "He asked me: '"Where is John?'""  """ 
+        output = """He asked me: '"Where is John?'",<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,143))
+    def test_144(self):
+        """Created automatically"""
+        input = """ "String nay chua cac ky tu dac biet !@#$%^^&*()?/|~!%>:P{}<> :)))"  """ 
+        output = """String nay chua cac ky tu dac biet !@#$%^^&*()?/|~!%>:P{}<> :))),<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,144))
+    def test_145(self):
+        """Created automatically"""
+        input = """ "ab'"c\\n def"  """ 
+        output = """ab'"c\\n def,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,145))
+    def test_146(self):
+        """Created automatically"""
+        input = """ "Sau day la 1 string rong" ""  """ 
+        output = """Sau day la 1 string rong,,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,146))
+    def test_147(self):
+        """Created automatically"""
+        input = """ "bool_of_string ('"True'")"  """ 
+        output = """bool_of_string ('"True'"),<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,147))
+    def test_148(self):
+        """Created automatically"""
+        input = """ "** cai nay hong phai comment nha **"  """ 
+        output = """** cai nay hong phai comment nha **,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,148))
+    def test_149(self):
+        """Created automatically"""
+        input = """" This is a test 0925919727 \\' PHONE" abc 
+"YKYUUD '" \\f fsgre " """ 
+        output = """ This is a test 0925919727 \\' PHONE,abc,YKYUUD '" \\f fsgre ,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,149))
+    def test_131(self):
+        """Created automatically"""
+        input = """ "abc def  """ 
+        output = """Unclosed String: abc def  """
+        self.assertTrue(TestLexer.checkLexeme(input,output,131))
+    def test_140(self):
+        """Created automatically"""
+        input = """"fe23%$.81r " {"abc"} 123"abc""" 
+        output = """fe23%$.81r ,{"abc"},123,Unclosed String: abc"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,140))
+    def test_132(self):
+        """Created automatically"""
+        input = """ "Hi Chau Thanh""Tan """ 
+        output = """Hi Chau Thanh,Unclosed String: Tan """
+        self.assertTrue(TestLexer.checkLexeme(input,output,132))
+    def test_133(self):
+        """Created automatically"""
+        input = """ "vi su nghiep qua PPL \\n" """ 
+        output = """vi su nghiep qua PPL \\n,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,133))
+    def test_134(self):
+        """Created automatically"""
+        input = """ "String ket thuc bang EOF" """ 
+        output = """String ket thuc bang EOF,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,134))
+    def test_135(self):
+        """Created automatically"""
+        input = """ "abc\\n """ 
+        output = """Unclosed String: abc\\n """
+        self.assertTrue(TestLexer.checkLexeme(input,output,135))
+    def test_136(self):
+        """Created automatically"""
+        input = """ "khok '" 1" "dong song~~~ EOF""" 
+        output = """khok '" 1,Unclosed String: dong song~~~ EOF"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,136))
+    def test_137(self):
+        """Created automatically"""
+        input = """ "" " """ 
+        output = """,Unclosed String:  """
+        self.assertTrue(TestLexer.checkLexeme(input,output,137))
+    def test_138(self):
+        """Created automatically"""
+        input = """Function: assignment Body: str = "Hello World!!! Endbody.""" 
+        output = """Function,:,assignment,Body,:,str,=,Unclosed String: Hello World!!! Endbody."""
+        self.assertTrue(TestLexer.checkLexeme(input,output,138))
+    def test_139(self):
+        """Created automatically"""
+        input = """ "8n[#F*`~.~+C_D""" 
+        output = """Unclosed String: 8n[#F*`~.~+C_D"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,139))import unittest
+from TestUtils import TestLexer
+
+class LexerSuite(unittest.TestCase):
+    def test_101(self):
+        """Created automatically"""
+        input = """abc""" 
+        output = """abc,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,101))
+    def test_102(self):
+        """Created automatically"""
+        input = """Var""" 
+        output = """Var,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,102))
+    def test_103(self):
+        """Created automatically"""
+        input = """day la 1 test""" 
+        output = """day,la,1,test,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,103))
+    def test_104(self):
+        """Created automatically"""
+        input = """xin chao cac ban""" 
+        output = """xin,chao,cac,ban,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,104))
+    def test_105(self):
+        """Created automatically"""
+        input = """co so dau tien 108NVH""" 
+        output = """co,so,dau,tien,108,Error Token N"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,105))
+    def test_106(self):
+        """Created automatically"""
+        input = """viet hoa IDENTIFIERS""" 
+        output = """viet,hoa,Error Token I"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,106))
+    def test_107(self):
+        """Created automatically"""
+        input = """vIet Lon XOn nE""" 
+        output = """vIet,Error Token L"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,107))
+    def test_108(self):
+        """Created automatically"""
+        input = """co ky tu dac biet @@""" 
+        output = """co,ky,tu,dac,biet,Error Token @"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,108))
+    def test_109(self):
+        """Created automatically"""
+        input = """Var: x""" 
+        output = """Var,:,x,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,109))
+    def test_110(self):
+        """Created automatically"""
+        input = """tu1 1a` le^ trun9 son!!!""" 
+        output = """tu1,1,a,Error Token `"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,110))
+    def test_111(self):
+        """Created automatically"""
+        input = """0X54J54""" 
+        output = """0X54,Error Token J"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,111))
+    def test_112(self):
+        """Created automatically"""
+        input = """0X5456A 0x205F 0XBCD 0X0 0X567 0x2""" 
+        output = """0X5456A,0x205F,0XBCD,0,Error Token X"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,112))
+    def test_113(self):
+        """Created automatically"""
+        input = """01 8 0108 2000 000""" 
+        output = """0,1,8,0,108,2000,0,0,0,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,113))
+    def test_114(self):
+        """Created automatically"""
+        input = """0O0 0o1 0o413215""" 
+        output = """0,Error Token O"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,114))
+    def test_115(self):
+        """Created automatically"""
+        input = """0B2005""" 
+        output = """0,Error Token B"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,115))
+    def test_116(self):
+        """Created automatically"""
+        input = """20.e5 18.E9 9.e+3 33.e-3 0.e """ 
+        output = """20.e5,18.E9,9.e+3,33.e-3,0.,e,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,116))
+    def test_117(self):
+        """Created automatically"""
+        input = """0.0 52.. 43124. 120000e-1""" 
+        output = """0.0,52.,.,43124.,120000e-1,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,117))
+    def test_118(self):
+        """Created automatically"""
+        input = """0.4254 654.321 .7582 87867. .""" 
+        output = """0.4254,654.321,.,7582,87867.,.,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,118))
+    def test_119(self):
+        """Created automatically"""
+        input = """4.e.6 -0 -404 -.e3 -10.e -10.e3""" 
+        output = """4.,e,.,6,-,0,-,404,-.,e3,-,10.,e,-,10.e3,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,119))
+    def test_120(self):
+        """Created automatically"""
+        input = """e97 E-66 16e 30E4 12.0e3""" 
+        output = """e97,Error Token E"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,120))
+    def test_121(self):
+        """Created automatically"""
+        input = """ "abc\h def"  """ 
+        output = """Illegal Escape In String: abc\h"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,121))
+    def test_122(self):
+        """Created automatically"""
+        input = """ "hello\'\myfriend" """ 
+        output = """Illegal Escape In String: hello\'\m"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,122))
+    def test_123(self):
+        """Created automatically"""
+        input = """ "chao cac ban nhaaa \Hom\nay cac ban the nao" """ 
+        output = """Illegal Escape In String: chao cac ban nhaaa \H"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,123))
+    def test_124(self):
+        """Created automatically"""
+        input = """ "24 naif ^%$^% cdasjh\Fncueyew" """ 
+        output = """Illegal Escape In String: 24 naif ^%$^% cdasjh\F"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,124))
+    def test_125(self):
+        """Created automatically"""
+        input = """ "To la Chung Xon \Ne" """ 
+        output = """Illegal Escape In String: To la Chung Xon \N"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,125))
+    def test_126(self):
+        """Created automatically"""
+        input = """ xin chao "phan thanh truong\haha" 456""" 
+        output = """xin,chao,Illegal Escape In String: phan thanh truong\h"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,126))
+    def test_127(self):
+        """Created automatically"""
+        input = """ "ahihi do ngoc\\" """ 
+        output = """ahihi do ngoc\\,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,127))
+    def test_128(self):
+        """Created automatically"""
+        input = """ "Day la ' illegal" """ 
+        output = """Illegal Escape In String: Day la ' """
+        self.assertTrue(TestLexer.checkLexeme(input,output,128))
+    def test_129(self):
+        """Created automatically"""
+        input = """ "Test met qua troi \Wa dat luon ne""" 
+        output = """Illegal Escape In String: Test met qua troi \W"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,129))
+    def test_130(self):
+        """Created automatically"""
+        input = """ "ngoi TAo \\tESt eScapE '" ne ' \r" """ 
+        output = """Illegal Escape In String: ngoi TAo \\tESt eScapE '" ne ' """
+        self.assertTrue(TestLexer.checkLexeme(input,output,130))
+    def test_131(self):
+        """Created automatically"""
+        input = """ "abc def  """ 
+        output = """Unclosed String: abc def  """
+        self.assertTrue(TestLexer.checkLexeme(input,output,131))
+    def test_132(self):
+        """Created automatically"""
+        input = """ "Hi Chau Thanh""Tan """ 
+        output = """Hi Chau Thanh,Unclosed String: Tan """
+        self.assertTrue(TestLexer.checkLexeme(input,output,132))
+    def test_133(self):
+        """Created automatically"""
+        input = """ "vi su nghiep qua PPL \n" """ 
+        output = """vi su nghiep qua PPL \n,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,133))
+    def test_134(self):
+        """Created automatically"""
+        input = """ "String ket thuc bang EOF" """ 
+        output = """String ket thuc bang EOF,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,134))
+    def test_135(self):
+        """Created automatically"""
+        input = """ "abc\n """ 
+        output = """Unclosed String: abc\n """
+        self.assertTrue(TestLexer.checkLexeme(input,output,135))
+    def test_136(self):
+        """Created automatically"""
+        input = """ "khok '" 1" "dong song~~~ EOF""" 
+        output = """khok '" 1,Unclosed String: dong song~~~ EOF"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,136))
+    def test_137(self):
+        """Created automatically"""
+        input = """ "" " """ 
+        output = """,Unclosed String:  """
+        self.assertTrue(TestLexer.checkLexeme(input,output,137))
+    def test_138(self):
+        """Created automatically"""
+        input = """Function: assignment Body: str = "Hello World!!! Endbody.""" 
+        output = """Function,:,assignment,Body,:,str,=,Unclosed String: Hello World!!! Endbody."""
+        self.assertTrue(TestLexer.checkLexeme(input,output,138))
+    def test_139(self):
+        """Created automatically"""
+        input = """ "8n[#F*`~.~+C_D""" 
+        output = """Unclosed String: 8n[#F*`~.~+C_D"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,139))
+    def test_140(self):
+        """Created automatically"""
+        input = """"fe23%$.81r " {"abc"} 123"abc""" 
+        output = """fe23%$.81r ,{"abc"},123,Unclosed String: abc"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,140))
+    def test_141(self):
+        """Created automatically"""
+        input = """ "Day la 1 string nha Dang Huynh Minh Tri"  """ 
+        output = """Day la 1 string nha Dang Huynh Minh Tri,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,141))
+    def test_142(self):
+        """Created automatically"""
+        input = """ "This is a string containing tab \t"  """ 
+        output = """This is a string containing tab \t,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,142))
+    def test_143(self):
+        """Created automatically"""
+        input = """ "He asked me: '"Where is John?'""  """ 
+        output = """He asked me: '"Where is John?'",<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,143))
+    def test_144(self):
+        """Created automatically"""
+        input = """ "String nay chua cac ky tu dac biet !@#$%^^&*()?/|~!%>:P{}<> :)))"  """ 
+        output = """String nay chua cac ky tu dac biet !@#$%^^&*()?/|~!%>:P{}<> :))),<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,144))
+    def test_145(self):
+        """Created automatically"""
+        input = """ "ab'"c\n def"  """ 
+        output = """ab'"c\n def,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,145))
+    def test_146(self):
+        """Created automatically"""
+        input = """ "Sau day la 1 string rong" ""  """ 
+        output = """Sau day la 1 string rong,,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,146))
+    def test_147(self):
+        """Created automatically"""
+        input = """ "bool_of_string ('"True'")"  """ 
+        output = """bool_of_string ('"True'"),<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,147))
+    def test_148(self):
+        """Created automatically"""
+        input = """ "** cai nay hong phai comment nha **"  """ 
+        output = """** cai nay hong phai comment nha **,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,148))
+    def test_149(self):
+        """Created automatically"""
+        input = """" This is a test 0925919727 \' PHONE" abc 
+"YKYUUD '" \f fsgre " """ 
+        output = """ This is a test 0925919727 \' PHONE,abc,YKYUUD '" \f fsgre ,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,149))
+    def test_150(self):
+        """Created automatically"""
+        input = """ "\b\f\r\n\t\'\\"  """ 
+        output = """\b\f\r\n\t\'\\,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,output,150))import unittest
+from TestUtils import TestLexer
+
+class LexerSuite(unittest.TestCase):import unittest
+from TestUtils import TestLexer
+
+class LexerSuite(unittest.TestCase):import unittest
+from TestUtils import TestLexer
+
+class LexerSuite(unittest.TestCase):

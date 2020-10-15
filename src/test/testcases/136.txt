@@ -1,1 +1,1 @@
- a+11.2+"mam.123" 12 "%^&
+ "khok '" 1" "dong song~~~ EOF

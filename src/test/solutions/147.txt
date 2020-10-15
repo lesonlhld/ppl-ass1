@@ -1,1 +1,1 @@
-Error Token T
+bool_of_string ('"True'"),<EOF>

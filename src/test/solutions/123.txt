@@ -1,1 +1,1 @@
-Illegal Escape In String: bad game toDay\H
+Illegal Escape In String: chao cac ban nhaaa \H

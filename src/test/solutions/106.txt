@@ -1,1 +1,1 @@
-tuoitre,chuwa,trai,su,doi,<EOF>
+viet,hoa,Error Token I

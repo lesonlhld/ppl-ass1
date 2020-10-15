@@ -24,7 +24,7 @@ options{
 	language=Python3;
 }
 
-program  : (variable_decl | body_decl)+ EOF;
+program  : (variable_decl | body_decl | SKIP_)+ EOF;
 
 fragment LETTER: [a-zA-Z];
 fragment DIGIT: [0-9];

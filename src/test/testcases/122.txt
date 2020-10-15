@@ -1,1 +1,1 @@
- "bac\ma" 
+ "hello\'\myfriend" 
