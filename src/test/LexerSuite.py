@@ -146,7 +146,18 @@ class LexerSuite(unittest.TestCase):
 
 	###########################################################
 	# Test operator
-
+    def test_truong1(self):
+        self.assertTrue(TestLexer.checkLexeme("truong_555!","",161))
+    def test_truong2(self):
+        self.assertTrue(TestLexer.checkLexeme("0123p","",162))
+    def test_truong3(self):
+        self.assertTrue(TestLexer.checkLexeme("0000000","",163))
+    def test_truong4(self):
+        self.assertTrue(TestLexer.checkLexeme("**truong**","",164))
+    def test_truong5(self):
+        self.assertTrue(TestLexer.checkLexeme("** truong **","",165))
+    def test_truong6(self):
+        self.assertTrue(TestLexer.checkLexeme(""" "phan thanh truong" ""","",166))
 	###########################################################
 	# Test comment
 

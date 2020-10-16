@@ -3275,4 +3275,40 @@ Function: goo Parameter: abc Body: EndBody."""
         EndBody.
         """ 
         output = """successful"""
-        self.assertTrue(TestParser.checkParser(input,expect,209))
+        self.assertTrue(TestParser.checkParser(input,expect,209))import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):import unittest
+from TestUtils import TestParser
+
+class ParserSuite(unittest.TestCase):

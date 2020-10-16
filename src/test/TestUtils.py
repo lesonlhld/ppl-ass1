@@ -38,12 +38,13 @@ class TestUtil:
 
 
 class TestLexer:
+    __count = 1
     @staticmethod
     def checkLexeme(input,expect,num):
         testcase = "./test/testLexer.txt"
         testfile = open(testcase,"a")
         testfile.write("""
-    def test_""" + str(num)+"""(self):
+    def test_""" + str(TestLexer._TestLexer__count)+"""(self):
         \"\"\"Created automatically\"\"\"
         input = \"\"\"""" + input + """\"\"\" 
         output = \"\"\"""")
@@ -61,8 +62,9 @@ class TestLexer:
         line = dest.read()
 
         testfile.write(line + """\"\"\"
-        self.assertTrue(TestLexer.checkLexeme(input,output,"""+str(num)+"""))""")
+        self.assertTrue(TestLexer.checkLexeme(input,output,"""+str(TestLexer._TestLexer__count)+"""))""")
         testfile.close()
+        TestLexer.__count += 1
 
         return line == expect
 
@@ -85,6 +87,7 @@ class SyntaxException(Exception):
         self.message = msg
 
 class TestParser:
+    __count = 1
     @staticmethod
     def createErrorListener():
          return NewErrorListener.INSTANCE
@@ -94,7 +97,7 @@ class TestParser:
         testcase = "./test/testParser.txt"
         testfile = open(testcase,"a")
         testfile.write("""
-    def test_""" + str(num)+"""(self):
+    def test_""" + str(TestParser._TestParser__count)+"""(self):
         \"\"\"Created automatically\"\"\"
         input = \"\"\"""" + input + """\"\"\" 
         output = \"\"\"""")
@@ -122,7 +125,8 @@ class TestParser:
         line = dest.read()
         
         testfile.write(line+"""\"\"\"
-        self.assertTrue(TestParser.checkParser(input,expect,"""+str(num)+"""))""")
+        self.assertTrue(TestParser.checkParser(input,expect,"""+str(TestParser._TestParser__count)+"""))""")
         testfile.close()
+        TestParser.__count += 1
 
         return line == expect
