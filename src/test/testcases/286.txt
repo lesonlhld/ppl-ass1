@@ -1,5 +1,2 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            a[12] = {"abc",123};
-        EndBody.
+Function: foo Parameter: abc Body: EndBody. Function: foo Body: EndBody.
+Function: goo Parameter: abc Body: EndBody.

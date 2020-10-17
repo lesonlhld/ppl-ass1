@@ -1,5 +1,1 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            x= (y+3)+. 0.e3 - (z -. -9);
-        EndBody.
+Var: someid[1.23E-2] = {"w","h","oops"};

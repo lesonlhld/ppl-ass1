@@ -1,5 +1,1 @@
- Function: main
-                    Body:
-                        Var: a[5][5][9], b = 1.55, c = -10;
-                    EndBody.
-                    
+Var: x[0] = {};

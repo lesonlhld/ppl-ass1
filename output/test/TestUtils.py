@@ -38,7 +38,7 @@ class TestUtil:
 
 
 class TestLexer:
-    __count = 1
+    __count = 100
     @staticmethod
     def checkLexeme(input,expect,num):
         testcase = "./test/testLexer.py"
@@ -87,7 +87,7 @@ class SyntaxException(Exception):
         self.message = msg
 
 class TestParser:
-    __count = 1
+    __count = 200
     @staticmethod
     def createErrorListener():
          return NewErrorListener.INSTANCE

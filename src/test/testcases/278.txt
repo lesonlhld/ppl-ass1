@@ -1,5 +1,2 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            a= foo(a,b) + goo (x);
-        EndBody.
+Var **some COMMENT**: ****someid = 3
+        **more more**;

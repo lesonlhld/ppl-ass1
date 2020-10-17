@@ -1,6 +1,1 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            a= (a==b)!= c ;
-            x= (x =/= y) <. z >.t;
-        EndBody.
+Var: someid[] = {"w","h","oops"};

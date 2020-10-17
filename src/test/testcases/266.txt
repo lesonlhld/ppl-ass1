@@ -1,10 +1,1 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            Do
-                Do
-                    While(b!=4);
-                While(a!=3);
-                EndDo.
-            EndDo.
-        EndBody.
+Var  :       anyid, moreid,  mUchm0r31d;

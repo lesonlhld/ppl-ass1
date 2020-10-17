@@ -24,7 +24,7 @@ class ParserSuite(unittest.TestCase):
             c = [a+3];
         EndBody.
         """
-        expect = "successful"
+        expect = "Error on line 5 col 16: ["
         self.assertTrue(TestParser.checkParser(input,expect,203))
     
     def test4(self):
@@ -205,7 +205,20 @@ class ParserSuite(unittest.TestCase):
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,219))
-
+    def test20(self):
+        """ test return_stmt in function """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            If n == 0 Then
+                Return 1;
+            Else
+                Return break;
+            EndIf.
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,220))
+    
     def test21(self):
         """ test return_stmt in function """
         input = """Function: foo 
@@ -336,7 +349,7 @@ class ParserSuite(unittest.TestCase):
                 Return True;
             EndIf.
         EndBody."""
-        expect = "Error on line 8 col 23: True"
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,231))
     
     def test32(self):
@@ -362,8 +375,7 @@ class ParserSuite(unittest.TestCase):
             EndIf.
         EndBody."""
         expect = "Error on line 8 col 12: Else"
-        self.assertTrue(TestParser.checkParser(input,expect,233))
-
+    
     def test34(self):
         """ test no else """
         input = """Function: foo 
@@ -614,287 +626,444 @@ class ParserSuite(unittest.TestCase):
         EndBody."""
         expect = "Error on line 5 col 17: ,"
         self.assertTrue(TestParser.checkParser(input,expect,254))
-    
-    
-    def test20(self):
-        input= """Function: foo
-        Parameter: a[5], b
-        Body:
-        Var: i = 0;
-        While (i < 5)
-        a[i] = b +. 1.0;
-        i = i + 1;
-        EndWhile.
-        EndBody."""
-        expect = "Error on line 5 col 8: While"
+    def test55(self):
+        """ test empty parameter function """
+        input = """Var: x;
+                   Var: a,b,c;
+                   Var: a[100];
+                """
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,255))
-
-    def test3411(self):
-        """ test noelse """
-        input = """Function: foo 
-        Parameter: n
-        Body: 
-            If n == 0 Then
-                Return 1;
-            Else
-                Return n * fact (n - 1);
-            Else
-                Return n;
-            EndIf.
-        EndBody."""
-        expect = "Error on line 8 col 12: Else"
+    def test56(self):
+        input = """Var: a[100];
+                   Var: b[10][200], c[9999], e[];
+                """
+        expect = "Error on line 2 col 47: ]"
         self.assertTrue(TestParser.checkParser(input,expect,256))
-
-    def test35111(self):
+    def test57(self):
+        input = """Var: e[5];
+                   Var: decArray[987654321], hexArray[0x123456789][0XABCDEF], octArray[0o1234567][0O5731321];
+                """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,257))
+    def test58(self):
+        input = """ Function: main
+                        Body:
+                        Var: a, b, c;
+                        a = False;
+                        b = True;
+                        c = a || b;
+                        a = (!(b && c)||!(a && c)||!(a&&b)); 
+                        EndBody.
+                    """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,258))
+    def test59(self):
+        input = """ Function: main
+                    Body:
+                        Var: a[5][5][9], b = 1.55, c = -10;
+                    EndBody.
+                    """
+        expect = "Error on line 3 col 55: -"
+        self.assertTrue(TestParser.checkParser(input,expect,259))
+    def test60(self):
+        input = """ Function: testIfStatement
+                        Parameter: x, a, b, c
+                        Body:
+                            If(x == ((False||True) && (a > b + c))) Then
+                                a = b - c;
+                            Else
+                                a = b + c;
+                                x = True;
+                            EndIf.
+                        EndBody.
+                    """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,260))
+    def test61(self):
+        """ test for_stmt """
+        input = """Function: foo
+                        Parameter: x
+                        Body:
+                            For (i = 1, i <= x*x*x,i + x ) Do
+                                writeln(i);
+                            EndFor.
+                        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,261))
+    def test62(self):
+        """ Test while stmt """
         input = """Function: foo 
         Parameter: n
         Body: 
-            While x>1 Do
-                Var: a = 10;
+            While(1) Do
+                While(!x) Do
+                    x = True;
+                EndWhile.
             EndWhile.
         EndBody."""
-        expect = "Error on line 5 col 16: Var"
-        self.assertTrue(TestParser.checkParser(input,expect,257))
-
-######################################################################
-    # ARRAY TEST: 7 testcases
-
-    def test01_valid_normal_array(self):
-        """Valid normal array"""
-        input = """Var: x[123] = {1,2,3};"""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 258))
+        self.assertTrue(TestParser.checkParser(input,expect,262))
 
-    def test02_empty_array(self):
-        """Check empty array"""
-        input = """Var: x[0] = {};"""
+    def test63(self):
+        """ Test miss endwhile stmt """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            While((x > a) && (x < b)) Do
+                While((x >= b) || (x >= a)) Do
+                    While((x > c * b) && (x < b*b)) Do
+                        x = x - 1;
+                        c = 2 * c;
+                        While( !False ) Do
+                            a = a * 1;
+                        EndWhile.
+                    EndWhile.
+                EndWhile.
+        EndBody."""
+        expect = "Error on line 14 col 8: EndBody"
+        self.assertTrue(TestParser.checkParser(input,expect,263))
+    def test64(self):
+        """ Test miss EndDo."""
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            Do
+                x = a + b;
+                writeln(x);
+            While(True || False || True || (a > b))
+        EndBody."""
+        expect = "Error on line 8 col 8: EndBody"
+        self.assertTrue(TestParser.checkParser(input,expect,264))
+    def test65(self):
+        """  """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            Do
+            While();
+            EndDo.
+        EndBody."""
+        expect = "Error on line 5 col 18: )"
+        self.assertTrue(TestParser.checkParser(input,expect,265))
+    def test66(self):
+        """  """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            Do
+                Do
+                    While(b!=4);
+                While(a!=3);
+                EndDo.
+            EndDo.
+        EndBody."""
+        expect = "Error on line 6 col 31: ;"
+        self.assertTrue(TestParser.checkParser(input,expect,266))
+    def test67(self):
+        """ Test break stmt """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            Break;
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 259))
-
-    def test03_array_contains_array(self):
-        """Check array contains arrays"""
-        input = \
-"""Var: x[0] = {{}};
-Var: y = {"asd", 0, {123, 12.3}, 1.23};"""
+        self.assertTrue(TestParser.checkParser(input,expect,267))
+    def test68(self):
+        """ Test continue stmt """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            Continue;
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 260))
-
-    def test04_array_contains_comment(self):
-        """Check array contains comment"""
-        input = """Var: x = {{1,2,3}, **asdkhasd!@#!@$!@** "abc"};"""
+        self.assertTrue(TestParser.checkParser(input,expect,268))
+    def test69(self):
+        """ Test complex func_call """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            test(a,3*7,y[1],z[2] + 5,"string",True);
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 261))
-
-    def test05_array_contains_id(self):
-        """Check array contains id"""
-        input = """Var: x[0] = {abc};"""
-        expect = "Error on line 1 col 13: abc"
-        self.assertTrue(TestParser.checkParser(input, expect, 262))
-
-    def test06_unclosed_array(self):
-        """Check unclosed array"""
-        input = """Var: x[0] = {1,2,3 ;"""
-        expect = "Error on line 1 col 19: ;"
-        self.assertTrue(TestParser.checkParser(input, expect, 263))
-
-    def test07_array_with_ws(self):
-        """Check array with various white space"""
-        input = """Var: x[0] = {   1,  2,3 
-        };"""
+        self.assertTrue(TestParser.checkParser(input,expect,269))
+    def test70(self):
+        """ Test return stmt  """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            Do  
+                Return foo(x,y);
+            While (True)
+            EndDo.
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 264))
-
-
-    ######################################################################
-    # VAR DECL TEST: 14 testcases
-
-    def test11_simple_var_decl(self):
-        """Check simple var decl"""
-        input = \
-"""Var  :       anyid;
-Var:a = 123.321e-123;"""
+        self.assertTrue(TestParser.checkParser(input,expect,270))
+    def test71(self):
+        """ test relational arithmetic """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a= (a==b)!= c ;
+            x= (x =/= y) <. z >.t;
+        EndBody."""
+        expect = "Error on line 5 col 30: >."
+        self.assertTrue(TestParser.checkParser(input,expect,271))
+    def test72(self):
+        """ test adding operator  """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            x= (y+3)+. 0.e3 - (z -. -9);
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 265))
-
-    def test12_multiple_var_decl(self):
-        """Check var decl with multiple ids"""
-        input = """Var  :       anyid, moreid,  mUchm0r31d;"""
+        self.assertTrue(TestParser.checkParser(input,expect,272))
+    def test73(self):
+        """ test multiplying operator  """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            x= (x*3)*. 0x3E \ (y \. 0.123) % 5;
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 266))
-
-    def test13_single_var_decl_assign(self):
-        """Check single var decl with assignment"""
-        input = """Var:someid=True;"""
+        self.assertTrue(TestParser.checkParser(input,expect,273))
+    def test74(self):
+        """ test sign operator """
+        input = """Function: foo 
+        Parameter: n
+        Body:
+            a= -3;
+            b= -0x123;
+            c= -0o77;
+            d= -a;
+            c= -foo(x); 
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 267))
-
-    def test14_multiple_var_decl_assign(self):
-        """Check multiple var decl, some has assignment"""
-        input = """Var:someid, mor3Id= "SomeSTRING",   some_more_id,muchmoreID = 123.321e-2;"""
+        self.assertTrue(TestParser.checkParser(input,expect,274))
+    def test75(self):
+        """ test boolean operator """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            x = !(True);
+            y = (False || True) && True;
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 268))
-
-    def test15_multiple_var_decl_ws(self):
-        """Check multiple var decl, some has assignment with various white spaces"""
-        input = """Var :         someid, mor3Id
-        = "SomeSTRING"
-        ,
-    some_more_id,muchmoreID = {"str","s"},  lots_m0rE_1D = False;"""
+        self.assertTrue(TestParser.checkParser(input,expect,275))
+    def test76(self):
+        """ Test boolean and expression """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            x = !(!(!(y) && z) || (x > 3) !(y < 2));
+        EndBody."""
+        expect = "Error on line 4 col 42: !"
+        self.assertTrue(TestParser.checkParser(input,expect,276))
+    def test77(self):
+        """ test index operator """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a[a[3 + foo(2)][b||True]][b[b[1+0x369]]] = a[b[2][b[12E-9]*3]] + 4;
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 269))
-
-    def test16_multiple_var_decl_ws_composites(self):
-        """Check multiple var decl, add some composite ids"""
-        input = """Var: someid[0][1][123][999], mor3Id[1000] = "SomeSTRING",
-some_more_id[987],muchmoreID = 123.321e-2,  lots_m0rE_1D[123][123] = {12,3};"""
+        self.assertTrue(TestParser.checkParser(input,expect,277))
+    def test78(self):
+        """ Test func_call expression """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a= foo(a,b) + goo (x);
+        EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 270))
+        self.assertTrue(TestParser.checkParser(input,expect,278))
+    def test79(self):
+        """ Test funcall_expr  """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            foo(2.34,"string",-9.2e11);
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,279))
+    def test80(self):
+        """ test simple program """
+        input = """Function: foo 
+            Parameter: n
+            Body: 
+            Var : a;
+            EndBody.
 
-    def test17_composite_var_no_dim(self):
-        """Check composite id with no literal in brackets"""
-        input = """Var: someid[] = {"w","h","oops"};"""
-        expect = "Error on line 1 col 12: ]"
-        self.assertTrue(TestParser.checkParser(input, expect, 271))
+            Function: program1
+            Parameter: e
+            Body:
+            EndBody.
 
-    def test18_composite_var_wrong_dim(self):
-        """Check composite id with wrong literal in dimension"""
-        input = """Var: someid[1.23E-2] = {"w","h","oops"};"""
-        expect = "Error on line 1 col 12: 1.23E-2"
-        self.assertTrue(TestParser.checkParser(input, expect, 272))
-
-    def test19_var_decl_wrong_keyword(self):
-        """Check var decl with wrong keyword"""
-        input = """vAr: someid;"""
-        expect = "Error on line 1 col 0: vAr"
-        self.assertTrue(TestParser.checkParser(input, expect, 273))
-
-    def test20_var_decl_missing_comma(self):
-        """Check var decl missing comma"""
-        input = """Var someid;"""
-        expect = "Error on line 1 col 4: someid"
-        self.assertTrue(TestParser.checkParser(input, expect, 274))
-
-    def test21_var_decl_no_id(self):
-        """Check var decl without id"""
-        input = """Var: ;"""
-        expect = "Error on line 1 col 5: ;"
-        self.assertTrue(TestParser.checkParser(input, expect, 275))
-
-    def test22_var_decl_missing_semi(self):
-        """Check var decl missing semicolon"""
-        input = """Var: someid = 123"""
-        expect = "Error on line 1 col 17: <EOF>"
-        self.assertTrue(TestParser.checkParser(input, expect, 276))
-
-    def test23_var_decl_assign_exp(self):
-        """Check var decl with expression assignment"""
-        input = """Var: someid = 1+2+3;"""
-        expect = "Error on line 1 col 15: +"
-        self.assertTrue(TestParser.checkParser(input, expect, 277))
-
-    def test24_var_decl_comment(self):
-        """Check var decl with expression assignment"""
+            Function: main
+            Body:
+            EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,280))
+    def test81(self):
+        """ test missing parameter """
+        input = """
+            Function: main
+            Body:
+            EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,281))
+    def test82(self):
+        """ Miss parameter  """
+        input = """
+        Function: foo 
+        Parameter: 
+        Body: 
+        EndBody."""
+        expect = "Error on line 4 col 8: Body"
+        self.assertTrue(TestParser.checkParser(input,expect,282))
+    def test83(self):
+        """ Test var_declare   """
+        input = """
+            Function: main
+            Body:
+            EndBody.
+            Var:x=10;"""
+        expect = "Error on line 5 col 12: Var"
+        self.assertTrue(TestParser.checkParser(input,expect,283))
+    def test84(self):
+        """ test array literal """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a[123]= {1,2,3};
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,284))
+    def test85(self):
+        """ Test arrayliteral """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a[12] = { 1 ,2 , 3};
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,285))
+    def test86(self):
+        """ Test arrayLiteral """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a[12] = {"abc",123};
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,286))
+    def test87(self):
+        """ Test array """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a[123]={};
+            b[1]={{{}}};
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,287))
+    def test88(self):
+        """ Test array """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a[12]={{1,2,3},{"abc"},{0.12e3,0X12F,0o456}};
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,288))
+    def test89(self):
+        """  """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            array[12]={a,b,c};
+        EndBody."""
+        expect = "Error on line 4 col 23: a"
+        self.assertTrue(TestParser.checkParser(input,expect,289))
+    def test90(self):
+        """ Test empty program """
+        input = """ """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,290))
+    def test91(self):
+        """ Test relational operator """
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            If (x == y) || (x != y) Then
+                x = ((a >=. 2.3e-13) || (x =/= 2e-35));
+            EndIf.
+            z = (x < 3) && (y > 4);
+            a = (x != z);
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,291))
+    def test92(self):
+        """ Test func_call + expression"""
+        input = """Function: foo 
+        Parameter: n
+        Body: 
+            a =(foo(3) != foo(4))* 0.e2;
+        EndBody."""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,292))
+    def test93(self):
+        """ Test array with comment"""
+        input = """Var: x = {{1,2,3}, **Comment here** "abc"};"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,293))
+    def test94(self):
+        """ Check wrong composite type """
+        input = """
+        Var: x[]=1;
+        """
+        expect = "Error on line 2 col 15: ]"
+        self.assertTrue(TestParser.checkParser(input,expect,294))
+    def test95(self):
+        """Check wrong composite type  """
+        input = """
+        Var: x[12.e3]=1;
+        """
+        expect = "Error on line 2 col 15: 12.e3"
+        self.assertTrue(TestParser.checkParser(input,expect,295))
+    def test96(self):
+        """ Check wrong inital-values """
+        input = """Var:x[1]=1+2;"""
+        expect = "Error on line 1 col 10: +"
+        self.assertTrue(TestParser.checkParser(input,expect,296))
+    def test97(self):
+        """ Check var_decl with comment """
         input = """Var **some COMMENT**: ****someid = 3
         **more more**;"""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 278))
-
-    ######################################################################
-    # FUNC DECL TEST: xx testcases
-
-    def test31_simple_func_decl(self):
-        """Check simple func decl"""
-        input = \
-"""Function: foo
-    Body:
-    EndBody."""
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 279))
-
-    def test32_simple_func_decl_param(self):
-        """Check simple func decl with some param"""
-        input = \
-"""Function: foo
-    Parameter: a, b,c[123] ,d[123][234][0]  ,e
-    Body:
-    EndBody."""
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 280))
-
-    def test33_simple_func_decl_param_no_id(self):
-        """Check simple func decl with some param"""
-        input = \
-"""Function: foo
-    Parameter:
-    Body:
-    EndBody."""
-        expect = "Error on line 3 col 4: Body"
-        self.assertTrue(TestParser.checkParser(input, expect, 281))
-
-    def test34_simple_func_decl_param_assign(self):
-        """Check simple func decl with some params have assignment"""
-        input = \
-"""Function: foo
-    Parameter: a, b = 123,c[123] ,d[123][234][0]  ,e
-    Body:
-    EndBody."""
-        expect = "Error on line 2 col 20: ="
-        self.assertTrue(TestParser.checkParser(input, expect, 282))
-
-    def test35_func_param_semi(self):
-        """Check simple func decl param has semicolon"""
-        input = \
-"""Function: foo
-    Parameter: abc;
-    Body:
-    EndBody."""
-        expect = "Error on line 2 col 18: ;"
-        self.assertTrue(TestParser.checkParser(input, expect, 283))
-
-    def test36_func_miss_dot(self):
-        """Check simple func decl without dot at the end"""
-        input = \
-"""Function: foo
-    Parameter: abc
-    Body:
-    EndBody"""
-        expect = "Error on line 4 col 11: <EOF>"
-        self.assertTrue(TestParser.checkParser(input, expect, 284))
-
-    def test37_func_with_comment(self):
-        """Check simple func decl with comments"""
-        input = \
-"""** some comment **
-Function: foo ** some more comment **
-    Parameter: abc ** MuchM0re comment **
-    Body:  ** LOTS of comment !@#$%^^&%&*() **
-    EndBody **Here some too**. """
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 285))
-
-    def test38_multiple_func_decl(self):
-        """Check multiple func decl"""
-        input = """Function: foo Parameter: abc Body: EndBody. Function: foo Body: EndBody.
-Function: goo Parameter: abc Body: EndBody."""
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 286))
-
-    def test38_multiple_func_decl1(self):
-        """Check multiple func decl"""
-        input = """Var: a=False;"""
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 287))
-
-    def test1233(self):
-        input=r"""
-        Function: main
-        Body:
-            While True print("Hello World"); EndWhile.
+        self.assertTrue(TestParser.checkParser(input,expect,297))
+    def test98(self):
+        """ Failed funcall """
+        input = """ Function: testfuncallexpression
+                    Parameter: a,b,c
+                    Body:
+                        foo;
+                    EndBody."""
+        expect = "Error on line 4 col 27: ;"
+        self.assertTrue(TestParser.checkParser(input,expect,298))
+    def test99(self):
+        """ Test no name func """
+        input = """Function:
+        Parameter: n
+        Body: 
         EndBody."""
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 289))
-
-    def test1233321(self):
-        input=r"""Var: a = {1,2,3}, b[2][3] = 5, c[2] = {{1,3},{,5,7}}"""
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 290))
+        expect = "Error on line 2 col 8: Parameter"
+        self.assertTrue(TestParser.checkParser(input,expect,299))
+    def test100(self):
+        """ Test no body func """
+        input = """Function: foo 
+        Parameter: n"""
+        expect = "Error on line 2 col 20: <EOF>"
+        self.assertTrue(TestParser.checkParser(input,expect,300))
+    
+   

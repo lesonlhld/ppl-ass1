@@ -1,5 +1,5 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            array[12]={a,b,c};
+
+        Function: main
+        Body:
+            While True print("Hello World"); EndWhile.
         EndBody.

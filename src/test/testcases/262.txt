@@ -1,9 +1,1 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            While(1) Do
-                While(!x) Do
-                    x = True;
-                EndWhile.
-            EndWhile.
-        EndBody.
+Var: x[0] = {abc};

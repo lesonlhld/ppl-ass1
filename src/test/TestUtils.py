@@ -9,7 +9,7 @@ from BKITLexer import BKITLexer
 from BKITParser import BKITParser
 from lexererr import *
 
-testcase = "./test/testLexer.py"
+testcase = "./test/testLexer.txt"
 testfile = open(testcase,"a")
 testfile.write("""import unittest
 from TestUtils import TestLexer
@@ -17,7 +17,7 @@ from TestUtils import TestLexer
 class LexerSuite(unittest.TestCase):""")
 testfile.close()
 
-testcase = "./test/testParser.py"
+testcase = "./test/testParser.txt"
 testfile = open(testcase,"a")
 testfile.write("""import unittest
 from TestUtils import TestParser
@@ -38,13 +38,12 @@ class TestUtil:
 
 
 class TestLexer:
-    __count = 1
     @staticmethod
     def checkLexeme(input,expect,num):
-        testcase = "./test/testLexer.py"
+        testcase = "./test/testLexer.txt"
         testfile = open(testcase,"a")
         testfile.write("""
-    def test_""" + str(TestLexer._TestLexer__count)+"""(self):
+    def test_""" + str(num)+"""(self):
         \"\"\"Created automatically\"\"\"
         input = r\"\"\"""" + input + """\"\"\" 
         output = r\"\"\"""")
@@ -62,9 +61,8 @@ class TestLexer:
         line = dest.read()
 
         testfile.write(line + """\"\"\"
-        self.assertTrue(TestLexer.checkLexeme(input,output,"""+str(TestLexer._TestLexer__count)+"""))""")
+        self.assertTrue(TestLexer.checkLexeme(input,output,"""+str(num)+"""))""")
         testfile.close()
-        TestLexer.__count += 1
 
         return line == expect
 
@@ -87,17 +85,16 @@ class SyntaxException(Exception):
         self.message = msg
 
 class TestParser:
-    __count = 1
     @staticmethod
     def createErrorListener():
          return NewErrorListener.INSTANCE
 
     @staticmethod
     def checkParser(input,expect,num):
-        testcase = "./test/testParser.py"
+        testcase = "./test/testParser.txt"
         testfile = open(testcase,"a")
         testfile.write("""
-    def test_""" + str(TestParser._TestParser__count)+"""(self):
+    def test_""" + str(num)+"""(self):
         \"\"\"Created automatically\"\"\"
         input = r\"\"\"""" + input + """\"\"\" 
         output = r\"\"\"""")
@@ -125,8 +122,7 @@ class TestParser:
         line = dest.read()
         
         testfile.write(line+"""\"\"\"
-        self.assertTrue(TestParser.checkParser(input,expect,"""+str(TestParser._TestParser__count)+"""))""")
+        self.assertTrue(TestParser.checkParser(input,expect,"""+str(num)+"""))""")
         testfile.close()
-        TestParser.__count += 1
 
         return line == expect

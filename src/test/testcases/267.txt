@@ -1,5 +1,1 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            Break;
-        EndBody.
+Var:someid=True;

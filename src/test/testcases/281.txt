@@ -1,4 +1,4 @@
-
-            Function: main
-            Body:
-            EndBody.
+Function: foo
+    Parameter:
+    Body:
+    EndBody.

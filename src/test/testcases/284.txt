@@ -1,5 +1,4 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            a[123]= {1,2,3};
-        EndBody.
+Function: foo
+    Parameter: abc
+    Body:
+    EndBody
