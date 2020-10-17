@@ -10,6 +10,5 @@ Function: foo
                         iF x==5 tHEN Break;
                     While x>1 
                     EndDo.
-                EndIf.
             EndIf.
         EndBody.
