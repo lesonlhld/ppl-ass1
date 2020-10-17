@@ -1,1 +1,5 @@
-Var:someid, mor3Id= "SomeSTRING",   some_more_id,muchmoreID = 123.321e-2;
+Function: foo 
+        Parameter: n
+        Body: 
+            Continue;
+        EndBody.

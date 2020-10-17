@@ -1,1 +1,9 @@
-Var: x[123] = {1,2,3};
+ Function: main
+                        Body:
+                        Var: a, b, c;
+                        a = False;
+                        b = True;
+                        c = a || b;
+                        a = (!(b && c)||!(a && c)||!(a&&b)); 
+                        EndBody.
+                    

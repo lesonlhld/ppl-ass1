@@ -1,1 +1,9 @@
-Var someid;
+Function: foo 
+        Parameter: n
+        Body:
+            a= -3;
+            b= -0x123;
+            c= -0o77;
+            d= -a;
+            c= -foo(x); 
+        EndBody.

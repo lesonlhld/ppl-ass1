@@ -1,2 +1,11 @@
-Var: x[0] = {{}};
-Var: y = {"asd", 0, {123, 12.3}, 1.23};
+ Function: testIfStatement
+                        Parameter: x, a, b, c
+                        Body:
+                            If(x == ((False||True) && (a > b + c))) Then
+                                a = b - c;
+                            Else
+                                a = b + c;
+                                x = True;
+                            EndIf.
+                        EndBody.
+                    

@@ -1,5 +1,5 @@
-** some comment **
-Function: foo ** some more comment **
-    Parameter: abc ** MuchM0re comment **
-    Body:  ** LOTS of comment !@#$%^^&%&*() **
-    EndBody **Here some too**. 
+Function: foo 
+        Parameter: n
+        Body: 
+            a[12] = { 1 ,2 , 3};
+        EndBody.

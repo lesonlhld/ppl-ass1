@@ -1,4 +1,5 @@
-Function: foo
-    Parameter: abc;
-    Body:
-    EndBody.
+
+            Function: main
+            Body:
+            EndBody.
+            Var:x=10;

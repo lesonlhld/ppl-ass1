@@ -46,9 +46,6 @@ fragment SINGLE_QUOTE: ['];
 fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t'\\] | ESCAPE_SEQ;
 fragment ESCAPE_SEQ: '\\' [bfrnt'\\"];
 fragment ESCAPE_ILLEGAL: '\\' ~[bfrnt'\\"] | ~'\\' | '\'' ~["];
-fragment ARRAY_LIST: ARRAY_TYPE (COMMA ARRAY_TYPE)*;
-fragment ARRAY_TYPE: DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT;
-fragment DIMENSION: LEFT_BRACKET (DECIMAL_INTEGER | ID) RIGHT_BRACKET;
 
 /*
  * Lexer rules
@@ -140,9 +137,6 @@ STRING: DOUBLE_QUOTE STRING_CONTENT*? DOUBLE_QUOTE {
 		self.text = y[1:-1]
 	};
 
-ARRAY: LEFT_BRACE ARRAY (COMMA ARRAY)* RIGHT_BRACE | ARRAY_LIST;
-ARRAY_DECL: ID DIMENSION+;
-
 SKIP_ : (COMMENT | WS | NEWLINE) -> skip ; // skip spaces, tabs, newlines or comment
 
 /*
@@ -150,17 +144,23 @@ SKIP_ : (COMMENT | WS | NEWLINE) -> skip ; // skip spaces, tabs, newlines or com
  */
 variable_decl: VAR COLON variable_list (ASSIGN init_value)? (COMMA variable_list (ASSIGN init_value)?)* SEMI;
 
-variable_list: ID | ARRAY_DECL | (ID | ARRAY_DECL) COMMA variable_list;
+variable_list: (ID | array_decl) COMMA variable_list | ID | array_decl;
 
-var_list: ID | ARRAY_DECL | array_index | (ID | ARRAY_DECL | array_index) COMMA variable_list;
+array_decl: ID dimension+;
+
+dimension: LEFT_BRACKET integer RIGHT_BRACKET;
 
 init_value: literal (COMMA literal)*;
 
-literal: ARRAY | DECIMAL_INTEGER | FLOAT  |boolean_literal | STRING | ID;
+literal: array | integer | FLOAT  | boolean_literal | STRING;
+
+integer: DECIMAL_INTEGER | HEX_INTEGER | OCT_INTEGER;
 
 boolean_literal: TRUE | FALSE ;
 
-array_index: ID index_operators;
+array: LEFT_BRACE array_list? RIGHT_BRACE;
+
+array_list: literal (COMMA literal)*;
 
 body_decl: init_body body;
 
@@ -175,7 +175,7 @@ stmt: assign_stmt | if_stmt | for_stmt | while_stmt | do_while_stmt | break_stmt
 
 stmt_list: stmt*;
 
-assign_stmt: var_list ASSIGN exp SEMI;
+assign_stmt: ID index_operators? ASSIGN exp SEMI;
 
 if_stmt: IF exp THEN stmt_list (ELSEIF exp THEN stmt_list)* (ELSE stmt_list)? ENDIF DOT;
 
@@ -213,11 +213,11 @@ exp5: sign_operators exp5 | exp6;
 
 exp6: exp6 index_operators | exp7;
 
-exp7: function_call | operands;
+exp7: function_call | LEFT_PAREN exp RIGHT_PAREN | operands;
 
 exp_list: exp (COMMA exp)*;
 
-operands: literal | LEFT_PAREN exp RIGHT_PAREN | element_exp | ARRAY_DECL;
+operands: ID | literal | element_exp;
 
 // Operators
 multiplying_operators: MULTI | MULTI_F | DIV | DIV_F | MOD;
@@ -226,13 +226,13 @@ adding_operators: ADD | ADD_F | SUB | SUB_F;
 
 sign_operators: SUB| SUB_F;
 
-boolean_operators: NOT | ANDAND | OROR;
+boolean_operators: ANDAND | OROR;
 
-relational_operators: EQUAL | NOT_EQUAL | LESS_THAN | GREATER_THAN | GREATER_EQUAL | LESS_EQUAL | NOT_EQUAL_F | LESS_EQUAL_F | GREATER_THAN_F | GREATER_EQUAL_F | LESS_EQUAL_F;
+relational_operators: EQUAL | NOT_EQUAL | LESS_THAN | GREATER_THAN | GREATER_EQUAL | LESS_EQUAL | NOT_EQUAL_F | LESS_THAN_F | GREATER_THAN_F | GREATER_EQUAL_F | LESS_EQUAL_F;
 
 element_exp: expr_index index_operators;
 
-index_operators: LEFT_BRACKET exp RIGHT_BRACKET | LEFT_BRACKET exp RIGHT_BRACKET index_operators;
+index_operators: LEFT_BRACKET exp RIGHT_BRACKET | LEFT_BRACKET exp RIGHT_BRACKET index_operators; //Dimension
 
 expr_index: ID | function_call;
 

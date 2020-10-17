@@ -1,7 +1,3 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            While x>1 Do
-                Var: a = 10;
-            EndWhile.
-        EndBody.
+Var: e[5];
+                   Var: decArray[987654321], hexArray[0x123456789][0XABCDEF], octArray[0o1234567][0O5731321];
+                

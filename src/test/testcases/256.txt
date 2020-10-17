@@ -1,11 +1,3 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            If n == 0 Then
-                Return 1;
-            Else
-                Return n * fact (n - 1);
-            Else
-                Return n;
-            EndIf.
-        EndBody.
+Var: a[100];
+                   Var: b[10][200], c[9999], e[];
+                
