@@ -1,1 +1,1 @@
-EndDoEndForWhWhileileWhileWhile
+IfaThenbElseWhile(x>0)Thena++EndWhileEndIF

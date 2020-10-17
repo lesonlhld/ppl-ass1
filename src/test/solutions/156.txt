@@ -1,1 +1,1 @@
-oR,diVModNTEGER,Error Token M
+x,oR,y,assign,!,k,<EOF>

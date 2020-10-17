@@ -886,15 +886,15 @@ Function: goo Parameter: abc Body: EndBody."""
         self.assertTrue(TestParser.checkParser(input, expect, 287))
 
     def test1233(self):
-        input="""**hihihaha
-*hihi
-*"""
+        input=r"""
+        Function: main
+        Body:
+            While True print("Hello World"); EndWhile.
+        EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 289))
 
     def test1233321(self):
-        input="""**hihihaha
-*hihi
-** Hihi"""
+        input=r"""Var: a = {1,2,3}, b[2][3] = 5, c[2] = {{1,3},{,5,7}}"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 290))

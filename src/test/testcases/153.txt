@@ -1,1 +1,1 @@
-Varr VaR
+EndFor EndIff EndDoOO EndGame

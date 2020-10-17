@@ -83,11 +83,12 @@ class LexerSuite(unittest.TestCase):
     def test_unclosed_string_3(self):
         self.assertTrue(TestLexer.checkLexeme(""" "vi su nghiep qua PPL \\n" ""","""Unclosed String: adsfa \\n""",133))
     def test_unclosed_string_4(self):
-        self.assertTrue(TestLexer.checkLexeme(""" "String ket thuc bang EOF" ""","""Unclosed String: acnv EOF """,134))
+        self.assertTrue(TestLexer.checkLexeme(""" "String ket thuc bang '" ""","""Unclosed String: acnv EOF """,134))
     def test_unclosed_string_5(self):
         self.assertTrue(TestLexer.checkLexeme(""" "abc\\n ""","""Unclosed String: abc\\n """,135))
     def test_unclosed_string_6(self):
-        self.assertTrue(TestLexer.checkLexeme(""" "khok '" 1" "dong song~~~ EOF""","""a,+,11.2,+,mam.123,12,Unclosed String: %^&""",136))
+        self.assertTrue(TestLexer.checkLexeme(""" "khok '" 1" "dong song~~~ 
+        newline" " ""","""a,+,11.2,+,mam.123,12,Unclosed String: %^&""",136))
     def test_unclosed_string_7(self):
         self.assertTrue(TestLexer.checkLexeme(""" "" " """,""", ,Unclosed String:  """,137))
     def test_unclosed_string_8(self):
@@ -124,57 +125,188 @@ class LexerSuite(unittest.TestCase):
 	###########################################################
 	# Test keyword
     def test_keyword_1(self):
-        self.assertTrue(TestLexer.checkLexeme("abc For 12 BreaK Continue dot","For,brEaK,Continue,km,<EOF>",151))
+        self.assertTrue(TestLexer.checkLexeme("Body Break  Continue Do Else ElseIf EndBody EndIf EndFor EndWhile For Function If Parameter Return Then Var While True False EndDo","For,brEaK,Continue,km,<EOF>",151))
     def test_keyword_2(self):
-        self.assertTrue(TestLexer.checkLexeme("if thEn ElSE Then ","Do,if,thEn,Error Token E",152))
+        self.assertTrue(TestLexer.checkLexeme("if thEn ElsE Then ","Do,if,thEn,Error Token E",152))
     def test_keyword_3(self):
-        self.assertTrue(TestLexer.checkLexeme("Varr VaR","Var,r,Error Token V",153))
+        self.assertTrue(TestLexer.checkLexeme("EndFor EndIff EndDoOO EndGame","Var,r,Error Token V",153))
     def test_keyword_4(self):
-        self.assertTrue(TestLexer.checkLexeme("Parameter: x","Parameter,:,x,<EOF>",154))
+        self.assertTrue(TestLexer.checkLexeme("Parameter: x[123],n","Parameter,:,x,<EOF>",154))
     def test_keyword_5(self):
-        self.assertTrue(TestLexer.checkLexeme("BODY int 1.12INTEGER 12and","Error Token B",155))
+        self.assertTrue(TestLexer.checkLexeme(" int var_ =. int(1.12)*1.0 12and","Error Token B",155))
     def test_keyword_6(self):
-        self.assertTrue(TestLexer.checkLexeme("oR diVModNTEGER Mod nottrEu","oR,diVModNTEGER,Error Token M",156))
+        self.assertTrue(TestLexer.checkLexeme("x oR y assign !k","oR,diVModNTEGER,Error Token M",156))
     def test_keyword_7(self):
-        self.assertTrue(TestLexer.checkLexeme("If then else false","If,then,else,false,<EOF>",157))
+        self.assertTrue(TestLexer.checkLexeme("If a == true then Return 1. elseIf a = False Returnn 0","If,then,else,false,<EOF>",157))
     def test_keyword_8(self):
-        self.assertTrue(TestLexer.checkLexeme("anD then false","anD,then,false,<EOF>",158))
+        self.assertTrue(TestLexer.checkLexeme("""If bool_of_string ("True") Then
+a = int_of_string (read ());
+b = float_of_int (a) +. 2.0;
+EndIf.""","anD,then,false,<EOF>",158))
     def test_keyword_9(self):
-        self.assertTrue(TestLexer.checkLexeme("sTRIng False","sTRIng,False,<EOF>",159))
+        self.assertTrue(TestLexer.checkLexeme("""Function: foo
+Parameter: a[5], b
+Body:
+Var: i = 0;
+While (i < 5)
+a[i] = b +. 1.0;
+i = i + 1;
+EndWhile.
+EndBody.""","sTRIng,False,<EOF>",159))
     def test_keyword_10(self):
-        self.assertTrue(TestLexer.checkLexeme("EndDoEndForWhWhileileWhileWhile","EndDo,EndFor,Error Token W",160))
+        self.assertTrue(TestLexer.checkLexeme("IfaThenbElseWhile(x>0)Thena++EndWhileEndIF","EndDo,EndFor,Error Token W",160))
 
 	###########################################################
 	# Test operator
-    def test_truong1(self):
-        self.assertTrue(TestLexer.checkLexeme("truong_555!","",161))
-    def test_truong2(self):
-        self.assertTrue(TestLexer.checkLexeme("0123p","",162))
-    def test_truong3(self):
-        self.assertTrue(TestLexer.checkLexeme("0000000","",163))
-    def test_truong4(self):
-        self.assertTrue(TestLexer.checkLexeme("**truong**","",164))
-    def test_truong5(self):
-        self.assertTrue(TestLexer.checkLexeme("** truong **","",165))
-    def test_truong6(self):
-        self.assertTrue(TestLexer.checkLexeme(""" "phan thanh truong" ""","",166))
-	###########################################################
+    def test_operator_1(self):
+        self.assertTrue(TestLexer.checkLexeme("25+6-.2.5%3\\100","a,+,bas,+.,asdf,-,ddas,-.,<EOF>",161))
+    def test_operator_2(self):
+        self.assertTrue(TestLexer.checkLexeme("2e-5*.41+-18","a,+,+,bcds,-,-,cd,<EOF>",162))
+    def test_operator_3(self):
+        self.assertTrue(TestLexer.checkLexeme("test&&lexer||parser&h=4/5","asdf,*,dsf,*.,123,Error Token /",163))
+    def test_operator_4(self):
+        self.assertTrue(TestLexer.checkLexeme("=<=<>>=>=.=/===>.<<.!=","a,*.,0.123e12,<EOF>",164))
+    def test_operator_5(self):
+        self.assertTrue(TestLexer.checkLexeme("!x&&a<=.b\\.d*","!,a,%,5,&&,b,||,c,<EOF>",165))
+
+    ###########################################################
 	# Test comment
+    def test_comment_1(self):
+        self.assertTrue(TestLexer.checkLexeme("** This is a single-line comment. **","<EOF>",166))
+    def test_comment_2(self):
+        self.assertTrue(TestLexer.checkLexeme("***** *** **","*,<EOF>",167))
+    def test_comment_3(self):
+        self.assertTrue(TestLexer.checkLexeme("""** This is a
+* multi-line
+* comment.
+** ""","*,<EOF>",168))
+    def test_comment_4(self):
+        self.assertTrue(TestLexer.checkLexeme("* * **** * *","asda,<EOF>",169))
+    def test_comment_5(self):
+        self.assertTrue(TestLexer.checkLexeme("**Tui SaP Bj LAG luon r =.= (T.T) :v 2654^$$%!{><>~}{5}[789]!@#$%^&* \\v \\n   **","Unterminated Comment",170))
+    def test_comment_6(self):
+        self.assertTrue(TestLexer.checkLexeme("""hello **"be mo"** **cUG wa tr wa dat lun""","13,ek3,<,9,end,*,das,Unterminated Comment",171))
+    def test_comment_7(self):
+        self.assertTrue(TestLexer.checkLexeme("**met xiu luon a* kok tie9 con bo","2,er,*,Error Token E",172))
+    def test_comment_8(self):
+        self.assertTrue(TestLexer.checkLexeme("""**VI DU CO EOF TRONG CMT** "\\\\den day la oke\\n" ""","+,abc,<,>,xyzb,>,cv,<EOF>",173))
+    def test_comment_9(self):
+        self.assertTrue(TestLexer.checkLexeme(""" "**comment trong string nha \\haha**" oke hem???""","*,Unterminated Comment",174))
+    def test_comment_10(self):
+        self.assertTrue(TestLexer.checkLexeme("""**sau day
+        *la
+        * **comment trong cmt**
+        *
+        **""","{,abc,},1.,abc,<EOF>",175))
 
-
+	###########################################################
+	# Test error token
+    def test_error_token_1(self):
+        self.assertTrue(TestLexer.checkLexeme("""fjiwef883_Fef_GRWE4324 r3fe 23728DFRfdw""","{,abc,},1.,abc,<EOF>",176))
+    def test_error_token_2(self):
+        self.assertTrue(TestLexer.checkLexeme("""__count in function""","{,abc,},1.,abc,<EOF>",177))
+    def test_error_token_3(self):
+        self.assertTrue(TestLexer.checkLexeme("""iwqoue9432@#$8(!/da""","{,abc,},1.,abc,<EOF>",178))
+    def test_error_token_4(self):
+        self.assertTrue(TestLexer.checkLexeme("""!!=x/y""","{,abc,},1.,abc,<EOF>",179))
+    def test_error_token_5(self):
+        self.assertTrue(TestLexer.checkLexeme(""""string nay co 2 \\' nha qui vi ^.^"' ""","{,abc,},1.,abc,<EOF>",180))
+    
 	###########################################################
 	# Test array
-
+    def test_array_1(self):
+        self.assertTrue(TestLexer.checkLexeme("""{996,712,216}""","""{1,2,3},<EOF>""",181))
+    def test_array_2(self):
+        self.assertTrue(TestLexer.checkLexeme("""{{867,345,987},{76,12,744}}""","""{{1},{1,2,3}},<EOF>""",182))
+    def test_array_3(self):
+        self.assertTrue(TestLexer.checkLexeme("""{y65,de3DEF,ca_rFE245_2E23}""","""{,a,,,b,,,c,},<EOF>""",183))
+    def test_array_4(self):
+        self.assertTrue(TestLexer.checkLexeme("""{"STRING","aRraY1","Array2"}""","""{"abc","asd"},<EOF>""",184))
+    def test_array_5(self):
+        self.assertTrue(TestLexer.checkLexeme("""{   20, 2   ,108  }""","""{1 , 2, 3},<EOF>""",185))
+    def test_array_6(self):
+        self.assertTrue(TestLexer.checkLexeme("""{10.e13, 0.123, 543.0e-6  }""","""{10.e13, 0.123},<EOF>""",186))
+    def test_array_7(self):
+        self.assertTrue(TestLexer.checkLexeme("""{{"xe mau xanh"},"xe mau do"}""","""{{"abc"},"asd"},<EOF>""",187))
+    def test_array_8(self):
+        self.assertTrue(TestLexer.checkLexeme(""" {"duwat73\\r \\t", "@#&\\n rwFEW54", 54312}  ""","""{,3,,,2,,,3,,,4,},<EOF>""",188))
+    def test_array_9(self):
+        self.assertTrue(TestLexer.checkLexeme(""" {**comment trong array**}  ""","""{,3,,,2,,,3,,,4,},<EOF>""",189))
+    def test_array_10(self):
+        self.assertTrue(TestLexer.checkLexeme(""" {True,False}  ""","""{,3,,,2,,,3,,,4,},<EOF>""",190))
 	###########################################################
-	# Test boolean
+	# Test Fucntion
+    def test_function_1(self):
+        self.assertTrue(TestLexer.checkLexeme("""** comment nha **
+    Function: foo 
+        Parameter: n 
+        Body: 
+            For (i == 0, i != 5, i*1) Do x=6; EndFor.
+        EndBody.""","""{1,2,3},<EOF>""",191))
+    def test_function_2(self):
+        self.assertTrue(TestLexer.checkLexeme("""Var: someid[0][1][123][999], mor3Id[1000] = "SomeSTRING",
+some_more_id[987],muchmoreID = 123.321e-2,  lots_m0rE_1D[123][123] = {12,3};""","""{{1},{1,2,3}},<EOF>""",192))
+    def test_function_3(self):
+        self.assertTrue(TestLexer.checkLexeme("""Function: foo
+        Parameter: a[5], b
+        Body:
+        Var: i = 0;
+        While (i < 5)
+        a[i] = b +. 1.0;
+        i = i + 1;
+        EndWhile.
+        EndBody.""","""{,a,,,b,,,c,},<EOF>""",193))
+    def test_function_4(self):
+        self.assertTrue(TestLexer.checkLexeme("""Function: foo 
+        Parameter: n
+        Body: 
+            While i < 5 
+                Var: k = 10;
+                a[i] = b +. 1.0;
+                i = i + 1;
+            EndWhile.
+        EndBody.""","""{"abc","asd"},<EOF>""",194))
+    def test_function_5(self):
+        self.assertTrue(TestLexer.checkLexeme("""Function: foo 
+        Parameter: n
+        Body: 
+            Var: r = 10., v;
+            v = (4. \. 3.) *. 3.14 *. r *. r *. r;
+        EndBody.""","""{1 , 2, 3},<EOF>""",195))
+    def test_function_6(self):
+        self.assertTrue(TestLexer.checkLexeme("""Function: foo
+    Parameter: abc;
+    Body:
+    Var **some COMMENT**: ****someid = 3
+        **more more**
+    vAr: someid;
+    EndBody.""","""{10.e13, 0.123},<EOF>""",196))
+    def test_function_7(self):
+        self.assertTrue(TestLexer.checkLexeme("""Function:fooParameter:nBody:Ifn==0ThenReturn1;ElseReturnn*fact(n-1);ElseReturnn;EndIf.EndBody.""","""{{"abc"},"asd"},<EOF>""",197))
+    def test_function_8(self):
+        self.assertTrue(TestLexer.checkLexeme("""Function: foo 
+        Parameter: n
+        Body: 
+            If n == 0 Then
+                If n!=0 Then
+                    c =a && b;
+                Else 
+                    Do
+                        x= x+1;
+                        iF x==5 tHEN Break;
+                    While x>1 
+                    EndDo.
+                EndIf.
+            EndIf.
+        EndBody.""","""{,3,,,2,,,3,,,4,},<EOF>""",198))
+    def test_function_9(self):
+        self.assertTrue(TestLexer.checkLexeme(""" **global declaration**  Var: a = 5;
+        Varr: b[2][3] = {{2,3,4},{4,5,6}};
+        Varrr: c, d = 6, e, f;
+        Var: m, n[10];""","""{,3,,,2,,,3,,,4,},<EOF>""",199))
+    def test_function_10(self):
+        self.assertTrue(TestLexer.checkLexeme("""Function:testdjiDEW__214__wsaParameter:ne23Body:x1 = a[3-foo(3)];Var:x,y[1][3]={{{12,1}, {12., 12e3}},{23}, {13,32}};WhileTrueprint("Hello_World\\n");EndWhile.EndBody.""","""{,3,,,2,,,3,,,4,},<EOF>""",200))
 
-	###########################################################
-	# Test array
-
-	###########################################################
-	# Test array
-
-	###########################################################
-	# Test array
+	
 
 

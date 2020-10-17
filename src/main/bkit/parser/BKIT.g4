@@ -24,7 +24,7 @@ options{
 	language=Python3;
 }
 
-program  : (variable_decl | body_decl | SKIP_)+ EOF;
+program  : SKIP_* variable_decl* SKIP_* body_decl* SKIP_* EOF;
 
 fragment LETTER: [a-zA-Z];
 fragment DIGIT: [0-9];
@@ -36,7 +36,7 @@ fragment NON_HEX_DIGIT: [1-9A-F];
 fragment INT_PART: DECIMAL_INTEGER;
 fragment DEC_PART: DOT DECIMAL_INTEGER;
 fragment EXPONENT: [eE][+-]? DECIMAL_INTEGER;
-fragment POINT_FLOAT : (INT_PART DEC_PART) | INT_PART DOT;
+fragment POINT_FLOAT : (INT_PART DEC_PART) | (INT_PART DOT);
 fragment EXPONENT_FLOAT : (INT_PART | POINT_FLOAT) EXPONENT;
 fragment WS: [ \t\r\n\f]+; // White-space characters
 fragment COMMENT: '**' .*? '**';
@@ -46,8 +46,8 @@ fragment SINGLE_QUOTE: ['];
 fragment STRING_CONTENT: '\'"' | ~["\b\f\r\n\t'\\] | ESCAPE_SEQ;
 fragment ESCAPE_SEQ: '\\' [bfrnt'\\"];
 fragment ESCAPE_ILLEGAL: '\\' ~[bfrnt'\\"] | ~'\\' | '\'' ~["];
-fragment ARRAY_LIST:  ARRAY_TYPE (COMMA ARRAY_TYPE)*;
-fragment ARRAY_TYPE: SKIP_* (DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT) SKIP_*;
+fragment ARRAY_LIST: ARRAY_TYPE (COMMA ARRAY_TYPE)*;
+fragment ARRAY_TYPE: DECIMAL_INTEGER | STRING | BOOLEAN | FLOAT;
 fragment DIMENSION: LEFT_BRACKET (DECIMAL_INTEGER | ID) RIGHT_BRACKET;
 
 /*
@@ -140,7 +140,7 @@ STRING: DOUBLE_QUOTE STRING_CONTENT*? DOUBLE_QUOTE {
 		self.text = y[1:-1]
 	};
 
-ARRAY: LEFT_BRACE ARRAY (COMMA ARRAY)* RIGHT_BRACE | LEFT_BRACE ARRAY_LIST? RIGHT_BRACE;
+ARRAY: LEFT_BRACE ARRAY (COMMA ARRAY)* RIGHT_BRACE | ARRAY_LIST;
 ARRAY_DECL: ID DIMENSION+;
 
 SKIP_ : (COMMENT | WS | NEWLINE) -> skip ; // skip spaces, tabs, newlines or comment

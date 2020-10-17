@@ -9,7 +9,7 @@ from BKITLexer import BKITLexer
 from BKITParser import BKITParser
 from lexererr import *
 
-testcase = "./test/testLexer.txt"
+testcase = "./test/testLexer.py"
 testfile = open(testcase,"a")
 testfile.write("""import unittest
 from TestUtils import TestLexer
@@ -17,7 +17,7 @@ from TestUtils import TestLexer
 class LexerSuite(unittest.TestCase):""")
 testfile.close()
 
-testcase = "./test/testParser.txt"
+testcase = "./test/testParser.py"
 testfile = open(testcase,"a")
 testfile.write("""import unittest
 from TestUtils import TestParser
@@ -41,13 +41,13 @@ class TestLexer:
     __count = 1
     @staticmethod
     def checkLexeme(input,expect,num):
-        testcase = "./test/testLexer.txt"
+        testcase = "./test/testLexer.py"
         testfile = open(testcase,"a")
         testfile.write("""
     def test_""" + str(TestLexer._TestLexer__count)+"""(self):
         \"\"\"Created automatically\"\"\"
-        input = \"\"\"""" + input + """\"\"\" 
-        output = \"\"\"""")
+        input = r\"\"\"""" + input + """\"\"\" 
+        output = r\"\"\"""")
         
         inputfile = TestUtil.makeSource(input,num)
         dest = open("./test/solutions/" + str(num) + ".txt","w")
@@ -94,7 +94,7 @@ class TestParser:
 
     @staticmethod
     def checkParser(input,expect,num):
-        testcase = "./test/testParser.txt"
+        testcase = "./test/testParser.py"
         testfile = open(testcase,"a")
         testfile.write("""
     def test_""" + str(TestParser._TestParser__count)+"""(self):

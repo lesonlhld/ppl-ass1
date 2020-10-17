@@ -1,1 +1,1 @@
-EndDo,EndFor,Error Token W
+If,aThenbElseWhile,(,x,>,0,),Then,a,+,+,EndWhile,Error Token E

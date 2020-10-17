@@ -1,1 +1,1 @@
-BODY int 1.12INTEGER 12and
+ int var_ =. int(1.12)*1.0 12and

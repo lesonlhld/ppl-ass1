@@ -1,0 +1,7 @@
+Function: foo
+    Parameter: abc;
+    Body:
+    Var **some COMMENT**: ****someid = 3
+        **more more**
+    vAr: someid;
+    EndBody.

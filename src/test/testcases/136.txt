@@ -1,1 +1,2 @@
- "khok '" 1" "dong song~~~ EOF
+ "khok '" 1" "dong song~~~ 
+        newline" " 

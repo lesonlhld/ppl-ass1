@@ -1,1 +1,1 @@
-anD,then,false,<EOF>
+If,bool_of_string,(,True,),Then,a,=,int_of_string,(,read,(,),),;,b,=,float_of_int,(,a,),+.,2.0,;,EndIf,.,<EOF>

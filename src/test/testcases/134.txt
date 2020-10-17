@@ -1,1 +1,1 @@
- "String ket thuc bang EOF" 
+ "String ket thuc bang '" 
