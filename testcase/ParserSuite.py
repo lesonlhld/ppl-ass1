@@ -233,7 +233,7 @@ Function:**het y r** main ** test ne;**
         self.assertTrue(TestParser.checkParser(input,expect,225))
     def test26(self):
         input = """Var **test comment**: **bien = "STRING"**
-        ****fu={0X74365,0o86523**cmt**}****;****"""
+        ****fu={0X74365,0o86523,321 **cmt**}****;****"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,226))
 
@@ -254,8 +254,8 @@ Function:**het y r** main ** test ne;**
     def test28(self):
         input = """Function: keyword 
         Body: 
-            Iff=1 Then Return;
-            EndIf.
+            Dooo=1; While True
+            EndDo.
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,228))
@@ -287,7 +287,7 @@ Function:**het y r** main ** test ne;**
             If n <=. 1.2E-4 Then
             n=n*.3.3;
             ElseIf n>.100.2 Then
-            n=n\.5;
+            n=n\\.5;
             EndIf.
         EndBody.
         """
@@ -306,7 +306,7 @@ Function:**het y r** main ** test ne;**
         input = """Function: calculate 
         Parameter: n
         Body: 
-            Var: a = {1,2,3}, b[2][3] = 5, c[2] = {{1,3},{,5,7}};
+            Var: a = {1,2,3}, b[2][3] = 5, c[2] = {{1,3},{3,5,7}};
             a[3+foo(3)] = a[b[2][3]] + 4;
         EndBody."""
         expect = "successful"
@@ -315,7 +315,7 @@ Function:**het y r** main ** test ne;**
         input = """Function: test_precedence___ 
         Parameter: n
         Body: 
-            x = !(!(!a && b) || (c >. 3.e+3) !(d < 2);
+            x = !(!(!a && b) || (c >. 3.e+3) !(d < 2));
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,235))
@@ -333,7 +333,7 @@ Function:**het y r** main ** test ne;**
         input = """Function: stmtcallinindex 
         Parameter: n
         Body: 
-            a = 3*.4.5\\.0e-2+arr[3-function("call")];
+            a = 3*.4.5\\0e-2+arr[3-function("call")];
         EndBody."""
         expect = "Error on line 5 col 12: Var"
         self.assertTrue(TestParser.checkParser(input,expect,237))
@@ -358,7 +358,7 @@ Function:**het y r** main ** test ne;**
         Parameter: n
         Body: 
             While (True) Do
-                logic=[e+3]&&var!variable;
+                logic=a&&var!variable;
             EndWhile.
         EndBody."""
         expect = "successful"
@@ -372,7 +372,7 @@ Function:**het y r** main ** test ne;**
             c = -0o21345;
             d = -a;
             c = -call(a);
-            b = -.352.4E-12 
+            b = -.352.4E-12 ;
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,241))
@@ -419,14 +419,14 @@ Function:**het y r** main ** test ne;**
         Parameter: naybingeohuhu
         Body:
 Var: r = 10., v;
-v = (4. \. 3.) *. 3.14 *. r *. r *. r;
+v = (4. \\. 3.) *. 3.14 *. r *. r *. r;
 EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,246))
     def test47(self):
         input = """Function: assign 
         Parameter: n
-        Body: a = {1,2,3}, b[2][3] = 5
+        Body: a = {1,2,3}, b[2][3] = 5;
         c[2] = {{1,3},{,5,7}}
         EndBody."""
         expect = "successful"
@@ -474,7 +474,7 @@ EndBody."""
         input = """Function: fullIf 
         Body: 
             If (x == (b!=c && (a > b + c))) Then Return;
-            ElseIf (x=="Chung Xon@@") Break;
+            ElseIf (x=="Chung Xon@@") Then Break;
             Else 
             x="successful";
             EndIf.
@@ -498,13 +498,12 @@ EndBody."""
         input = """Function: iflongnhau
         Parameter: a, b
         Body:
-        Var: id[4312][867][9856][i812], stringID[108] = "day la \\\\ 1 chuoi !!",
-,literal = 120000e-1,  array[2][3] = {{867,345,987},{76,12,744}};
+        Var: id[4312][867][9856][867], stringID[108] = "day la \\\\ 1 chuoi !!",literal = 120000e-1,  array[2][3] = {{867,345,987},{76,12,744}};
             If n > 10 Then
-                If n <. 20.5 Then Return x=3;
+                If n <. 20.5 Then Return x;
                 EndIf.
                 printStrLn(arg);
-            Else fact(x) + 3;
+            Else fact(x);
             EndIf.
         EndBody."""
         expect = "Error on line 6 col 16: If"
@@ -512,7 +511,7 @@ EndBody."""
     def test54(self):
         input = """Function: nothen
         Body:
-            If e==True 
+            If e==True Then
                 print("Hello cac cau\\n");
             EndIf.
         EndBody."""
@@ -533,7 +532,7 @@ EndBody."""
         Function: forinitfail 
         Parameter: n[5]
         Body: 
-            For (n[i] = 0, i < 10, i=i+1) Do
+            For (n[i] = 0, i < 10, 1) Do
                 n[i]=n+i;
             EndFor.
         EndBody."""
@@ -563,7 +562,7 @@ EndBody."""
         input = """
         Function: fornotendfor
         Body: 
-            For (i = 1, i <= x*x*x,i=i*i+.1.5)
+            For (i = 1, i <= x*x,i*i+.1.5)
             Do x=x+1;
             EndDo.
         EndBody."""
@@ -575,7 +574,7 @@ EndBody."""
         Parameter: row,col,sum,arr[5][9]
         Body:
             Var: sum=0;
-            For( i=0,i<=row,i=i+1) Do
+            For( i=0,i<=row,1) Do
                 For(j=0,j<col,j=j+1) Do
                     sum=sum+arr[i][j]
                 EndFor.
@@ -659,7 +658,7 @@ EndBody."""
                 While a<100 Do
                     a=a-30;
                 EndWhile.
-            While (a>1);
+            While (a>1)
             EndDo.
         EndBody."""
         expect = "successful"
@@ -700,7 +699,7 @@ EndBody."""
         Parameter: x
         Body: 
             While x >= 1 Do
-                If y<100 Break;
+                If y<100 Then Break;
                 EndIf.
             EndWhile.
         EndBody."""
@@ -709,7 +708,7 @@ EndBody."""
     def test72(self):
         input = """Function: breakwithoutsemi
         Body: 
-            For((i=0), i!=9, i=i*.2.0) Do
+            For (i=0, i!=9, (i*.2.0)) Do
                 If i>=10 Then Breakk;
                 EndIf.
             EndFor.
@@ -719,7 +718,7 @@ EndBody."""
     def test73(self):
         input = """Function: continue 
         Body: 
-            For((i=0), i!=9, i=i*.2.0) Do
+            For (i=0, i!=9, i) Do
                 If i==10 Then Continue;
                 EndIf.
                 foo();
@@ -739,7 +738,7 @@ EndBody."""
         input = """Function: callstmt 
         Parameter: x,y
         Body:
-            foo(2 + x, 4. \. y);
+            foo(2 + x, 4. \\. y);
             goo();
         EndBody."""
         expect = "successful"
@@ -768,15 +767,15 @@ EndBody."""
         Parameter: n
         Body: 
             Var: t=False;
-            If n<100 Then t=True
+            If n<100 Then t=True;
             EndIf.
             Return t;
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,279))
     def test80(self):
-        input = """Var: returnwithoutfunction
-        Var: t=0
+        input = """Var: returnwithoutfunction;
+        Var: t=0;
         Return t;"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,280))
@@ -785,13 +784,14 @@ EndBody."""
         Parameter: i
         Body: 
             If i==0 Then Return;
+            EndIf;
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,281))
     def test82(self):
         input = """Function: returnstring
             Body:
-                Return "String'""
+                Return "String'"";
             EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,282))
@@ -803,6 +803,7 @@ EndBody."""
                 Return True;
             Else
                 Return False;
+                EndIf.
             EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,283))
@@ -857,7 +858,7 @@ EndBody."""
         self.assertTrue(TestParser.checkParser(input,expect,289))
     def test90(self):
         input = """Function: complexarray
-            Body: x[123]={"duwat73\r \t", "@#&\n rwFEW54",54312,10.e13, 0.123, 543.0e-6  ,{"xe mau xanh"},"xe mau do"};
+            Body: x[123]={"duwat73\\r \\t", "@#&\\n rwFEW54",54312,10.e13, 0.123, 543.0e-6  ,{"xe mau xanh"},"xe mau do"};
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,290))
@@ -873,14 +874,14 @@ EndBody."""
     def test92(self):
         input = """Function: multicallstmt
         Body:
-            a =-((func1(a)+23) * -func2(4)+arr[3])\. 0.5;
+            a =-((func1(a)+23) * -func2(4)+arr[3])\\. 0.5;
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,292))
     def test93(self):
         input = """Function: callincall
         Body:
-            a =func1(foo(3))+23) - func2(goo(foo(a)));
+            a =func1(foo(3))+23 - func2(goo(foo(a)));
         EndBody."""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,293))
@@ -913,8 +914,9 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
         Body: 
             Do
                 While(1) Do
-                foo (2 + x, 4. \. y);goo ();
+                foo (2 + x, 4. \\. y);goo ();
             EndWhile.
+            While(1)
             EndDo.
         EndBody."""
         expect = "Error on line 1 col 10: +"
@@ -925,7 +927,7 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
         Body:
         Var: x = {{1,2,3}, **Comment here** "abc"};
         Var: i = 0;
-        While (i < 5)
+        While (i < 5) Do
         If i == 3 ThenReturn 1;EndIf.
         i = i + 1;
         EndWhile.
@@ -937,11 +939,10 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
         Parameter: n
         Body:
         Var:factorial=1;
-        print("Enter integer: ")
+        print("Enter integer: ");
         read();
-        For i=0, i<=n, i=i+1 Do(
-            factorial=factorial*i
-        )
+        For (i=0, i<=n, 1) Do
+            factorial=factorial*i;
         EndFor.
         print(factorial);
         return factorial;
@@ -956,14 +957,13 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
             print("Enter the number of terms: ");
             getline(n);
             print("Fibonacci Series: ");
-            For (i = 1, i <= n, i=i+1) Do
-                If(i == 1) Then(
+            For (i = 1, i <= n, 1) Do
+                If(i == 1) Then
                 print(" " + t1);
                 Continue;
                 EndIf.
-            )
             If(i == 2) Then
-                cout << t2 << " ";
+                print( t2+" ");
         Continue;
         EndIf.
         nextTerm = t1 + t2;
@@ -971,9 +971,8 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
         t2 = nextTerm;
         
         print(nextTerm + " ");
-    )
     EndFor.
-    return 0;
+    Return 0;
     EndBody."""
         expect = "Error on line 2 col 8: Parameter"
         self.assertTrue(TestParser.checkParser(input,expect,299))
@@ -985,8 +984,8 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
         While (octalNumber != 0) Do
             rem = octalNumber % 10;
             octalNumber =octalNumber \\ 10;
-            decimalNumber =decimalNumber  + rem * pow({8,i});
-            i=i+1;;
+            decimalNumber =decimalNumber  + rem * pow(8,i);
+            i=i+1;
         EndWhile.
     Return decimalNumber;
     EndBody."""

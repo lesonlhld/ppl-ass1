@@ -7,6 +7,69 @@ class ParserSuite(unittest.TestCase):
         input = r"""Var: faji342F__324dADS;""" 
         expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,201))
+    def test_202(self):
+        """Created automatically"""
+        input = r"""Var: 
+        
+        """ 
+        expect = r"""Error on line 3 col 8: <EOF>"""
+        self.assertTrue(TestParser.checkParser(input,expect,202))
+    def test_203(self):
+        """Created automatically"""
+        input = r"""
+        Var:                ;
+        """ 
+        expect = r"""Error on line 2 col 28: ;"""
+        self.assertTrue(TestParser.checkParser(input,expect,203))
+    def test_204(self):
+        """Created automatically"""
+        input = r""" 
+        Var: a = 5;
+Var: b[2][3] = {{2,3,4},{4,5,6}};
+Var: c, d = 6, e, f;
+Var: m, n[10];
+        """ 
+        expect = r"""successful"""
+        self.assertTrue(TestParser.checkParser(input,expect,204))
+    def test_205(self):
+        """Created automatically"""
+        input = r""" 
+        Var: decimal[108], hexadecimal[0X5456A][0x205F], octdecimal[0o413215][0O123];
+        Var: array[5][13456];
+        """ 
+        expect = r"""successful"""
+        self.assertTrue(TestParser.checkParser(input,expect,205))
+    def test_206(self):
+        """Created automatically"""
+        input = r""" 
+        Var: dsa[432][0X364][0o95721], b = 20.e5, c = "mot con vit xoe ra 2 \n cai canh";
+        """ 
+        expect = r"""Error on line 2 col 30: o95721"""
+        self.assertTrue(TestParser.checkParser(input,expect,206))
+    def test_207(self):
+        """Created automatically"""
+        input = r""" 
+        Var: x = {**comment trong array**{34221}, {"fsd\h" **cmt**},2};
+        """ 
+        expect = r"""fsd\h"""
+        self.assertTrue(TestParser.checkParser(input,expect,207))
+    def test_208(self):
+        """Created automatically"""
+        input = r""" 
+        Var **COMMENT**: ****id = 465632
+        **dsfhfsdhjnc^#%#@@~!**
+    vAr: sss;
+    EndBody.
+        """ 
+        expect = r"""Error on line 4 col 4: vAr"""
+        self.assertTrue(TestParser.checkParser(input,expect,208))
+    def test_209(self):
+        """Created automatically"""
+        input = r""" 
+        Var: ppl[20.e5]=56508;
+        """ 
+        expect = r"""Error on line 2 col 17: 20.e5"""
+        self.assertTrue(TestParser.checkParser(input,expect,209))
     def test_210(self):
         """Created automatically"""
         input = r""" 
@@ -14,22 +77,6 @@ class ParserSuite(unittest.TestCase):
         """ 
         expect = r"""Error on line 2 col 20: ]"""
         self.assertTrue(TestParser.checkParser(input,expect,210))
-    def test_300(self):
-        """Created automatically"""
-        input = r"""Function: octalToDecimal
-        Parameter: octalNumber
-        Body:
-        Var: decimalNumber = 0, i = 0, rem;
-        While (octalNumber != 0) Do
-            rem = octalNumber % 10;
-            octalNumber =octalNumber \ 10;
-            decimalNumber =decimalNumber  + rem * pow({8,i});
-            i=i+1;;
-        EndWhile.
-    Return decimalNumber;
-    EndBody.""" 
-        expect = r"""Error on line 8 col 57: i"""
-        self.assertTrue(TestParser.checkParser(input,expect,300))
     def test_211(self):
         """Created automatically"""
         input = r""" 
@@ -141,13 +188,6 @@ EndBody."""
         EndBody.""" 
         expect = r"""Error on line 2 col 21: ="""
         self.assertTrue(TestParser.checkParser(input,expect,219))
-    def test_202(self):
-        """Created automatically"""
-        input = r"""Var: 
-        
-        """ 
-        expect = r"""Error on line 3 col 8: <EOF>"""
-        self.assertTrue(TestParser.checkParser(input,expect,202))
     def test_220(self):
         """Created automatically"""
         input = r"""Function: foo""" 
@@ -206,7 +246,7 @@ Function:**het y r** main ** test ne;**
     def test_226(self):
         """Created automatically"""
         input = r"""Var **test comment**: **bien = "STRING"**
-        ****fu={0X74365,0o86523**cmt**}****;****""" 
+        ****fu={0X74365,0o86523,321 **cmt**}****;****""" 
         expect = r"""Error on line 2 col 25: o86523"""
         self.assertTrue(TestParser.checkParser(input,expect,226))
     def test_227(self):
@@ -226,10 +266,10 @@ Function:**het y r** main ** test ne;**
         """Created automatically"""
         input = r"""Function: keyword 
         Body: 
-            Iff=1 Then Return;
-            EndIf.
+            Dooo=1; While True
+            EndDo.
         EndBody.""" 
-        expect = r"""Error on line 3 col 15: ="""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,228))
     def test_229(self):
         """Created automatically"""
@@ -240,27 +280,6 @@ Function:**het y r** main ** test ne;**
         """ 
         expect = r"""Error on line 2 col 8: parameter"""
         self.assertTrue(TestParser.checkParser(input,expect,229))
-    def test_297(self):
-        """Created automatically"""
-        input = r"""Function: more1
-        Parameter: a[5], b
-        Body:
-        Var: x = {{1,2,3}, **Comment here** "abc"};
-        Var: i = 0;
-        While (i < 5)
-        If i == 3 ThenReturn 1;EndIf.
-        i = i + 1;
-        EndWhile.
-        EndBody.""" 
-        expect = r"""Error on line 6 col 8: While"""
-        self.assertTrue(TestParser.checkParser(input,expect,297))
-    def test_203(self):
-        """Created automatically"""
-        input = r"""
-        Var:                ;
-        """ 
-        expect = r"""Error on line 2 col 28: ;"""
-        self.assertTrue(TestParser.checkParser(input,expect,203))
     def test_230(self):
         """Created automatically"""
         input = r"""Function:mainParameter:xBody:If!aThenbElseWhile(x>0)Thena++EndWhileEndIfEndBody.""" 
@@ -302,17 +321,17 @@ Function:**het y r** main ** test ne;**
         input = r"""Function: calculate 
         Parameter: n
         Body: 
-            Var: a = {1,2,3}, b[2][3] = 5, c[2] = {{1,3},{,5,7}};
+            Var: a = {1,2,3}, b[2][3] = 5, c[2] = {{1,3},{3,5,7}};
             a[3+foo(3)] = a[b[2][3]] + 4;
         EndBody.""" 
-        expect = r"""Error on line 4 col 58: ,"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,234))
     def test_235(self):
         """Created automatically"""
         input = r"""Function: test_precedence___ 
         Parameter: n
         Body: 
-            x = !(!(!a && b) || (c >. 3.e+3) !(d < 2);
+            x = !(!(!a && b) || (c >. 3.e+3) !(d < 2));
         EndBody.""" 
         expect = r"""Error on line 4 col 45: !"""
         self.assertTrue(TestParser.checkParser(input,expect,235))
@@ -332,7 +351,7 @@ Function:**het y r** main ** test ne;**
         input = r"""Function: stmtcallinindex 
         Parameter: n
         Body: 
-            a = 3*.4.5\.0e-2+arr[3-function("call")];
+            a = 3*.4.5\0e-2+arr[3-function("call")];
         EndBody.""" 
         expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,237))
@@ -354,26 +373,16 @@ Function:**het y r** main ** test ne;**
         EndBody.""" 
         expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,239))
-    def test_204(self):
-        """Created automatically"""
-        input = r""" 
-        Var: a = 5;
-Var: b[2][3] = {{2,3,4},{4,5,6}};
-Var: c, d = 6, e, f;
-Var: m, n[10];
-        """ 
-        expect = r"""successful"""
-        self.assertTrue(TestParser.checkParser(input,expect,204))
     def test_240(self):
         """Created automatically"""
         input = r"""Function: positionoflogicalop 
         Parameter: n
         Body: 
             While (True) Do
-                logic=[e+3]&&var!variable;
+                logic=a&&var!variable;
             EndWhile.
         EndBody.""" 
-        expect = r"""Error on line 5 col 22: ["""
+        expect = r"""Error on line 5 col 28: !"""
         self.assertTrue(TestParser.checkParser(input,expect,240))
     def test_241(self):
         """Created automatically"""
@@ -385,9 +394,9 @@ Var: m, n[10];
             c = -0o21345;
             d = -a;
             c = -call(a);
-            b = -.352.4E-12 
+            b = -.352.4E-12 ;
         EndBody.""" 
-        expect = r"""Error on line 10 col 8: EndBody"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,241))
     def test_242(self):
         """Created automatically"""
@@ -442,7 +451,7 @@ EndBody."""
         """Created automatically"""
         input = r"""Function: assign 
         Parameter: n
-        Body: a = {1,2,3}, b[2][3] = 5
+        Body: a = {1,2,3}, b[2][3] = 5;
         c[2] = {{1,3},{,5,7}}
         EndBody.""" 
         expect = r"""Error on line 3 col 25: ,"""
@@ -474,14 +483,6 @@ EndBody."""
         EndBody.""" 
         expect = r"""Error on line 8 col 12: Else"""
         self.assertTrue(TestParser.checkParser(input,expect,249))
-    def test_205(self):
-        """Created automatically"""
-        input = r""" 
-        Var: decimal[108], hexadecimal[0X5456A][0x205F], octdecimal[0o413215][0O123];
-        Var: array[5][13456];
-        """ 
-        expect = r"""successful"""
-        self.assertTrue(TestParser.checkParser(input,expect,205))
     def test_250(self):
         """Created automatically"""
         input = r"""Function: iFElseIFNotElse 
@@ -495,19 +496,19 @@ EndBody."""
                 Return n;
             EndIf.
         EndBody.""" 
-        expect = r"""Error on line 6 col 28: 8"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,250))
     def test_251(self):
         """Created automatically"""
         input = r"""Function: fullIf 
         Body: 
             If (x == (b!=c && (a > b + c))) Then Return;
-            ElseIf (x=="Chung Xon@@") Break;
+            ElseIf (x=="Chung Xon@@") Then Break;
             Else 
             x="successful";
             EndIf.
         EndBody.""" 
-        expect = r"""Error on line 4 col 38: Break"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,251))
     def test_252(self):
         """Created automatically"""
@@ -528,26 +529,25 @@ EndBody."""
         input = r"""Function: iflongnhau
         Parameter: a, b
         Body:
-        Var: id[4312][867][9856][i812], stringID[108] = "day la \\ 1 chuoi !!",
-,literal = 120000e-1,  array[2][3] = {{867,345,987},{76,12,744}};
+        Var: id[4312][867][9856][867], stringID[108] = "day la \\ 1 chuoi !!",literal = 120000e-1,  array[2][3] = {{867,345,987},{76,12,744}};
             If n > 10 Then
-                If n <. 20.5 Then Return x=3;
+                If n <. 20.5 Then Return x;
                 EndIf.
                 printStrLn(arg);
-            Else fact(x) + 3;
+            Else fact(x);
             EndIf.
         EndBody.""" 
-        expect = r"""Error on line 4 col 33: i812"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,253))
     def test_254(self):
         """Created automatically"""
         input = r"""Function: nothen
         Body:
-            If e==True 
+            If e==True Then
                 print("Hello cac cau\n");
             EndIf.
         EndBody.""" 
-        expect = r"""Error on line 4 col 16: print"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,254))
     def test_255(self):
         """Created automatically"""
@@ -566,7 +566,7 @@ EndBody."""
         Function: forinitfail 
         Parameter: n[5]
         Body: 
-            For (n[i] = 0, i < 10, i=i+1) Do
+            For (n[i] = 0, i < 10, 1) Do
                 n[i]=n+i;
             EndFor.
         EndBody.""" 
@@ -599,19 +599,12 @@ EndBody."""
         input = r"""
         Function: fornotendfor
         Body: 
-            For (i = 1, i <= x*x*x,i=i*i+.1.5)
+            For (i = 1, i <= x*x,i*i+.1.5)
             Do x=x+1;
             EndDo.
         EndBody.""" 
-        expect = r"""Error on line 4 col 36: ="""
+        expect = r"""Error on line 6 col 12: EndDo"""
         self.assertTrue(TestParser.checkParser(input,expect,259))
-    def test_206(self):
-        """Created automatically"""
-        input = r""" 
-        Var: dsa[432][0X364][0o95721], b = 20.e5, c = "mot con vit xoe ra 2 \n cai canh";
-        """ 
-        expect = r"""Error on line 2 col 30: o95721"""
-        self.assertTrue(TestParser.checkParser(input,expect,206))
     def test_260(self):
         """Created automatically"""
         input = r"""
@@ -619,13 +612,13 @@ EndBody."""
         Parameter: row,col,sum,arr[5][9]
         Body:
             Var: sum=0;
-            For( i=0,i<=row,i=i+1) Do
+            For( i=0,i<=row,1) Do
                 For(j=0,j<col,j=j+1) Do
                     sum=sum+arr[i][j]
                 EndFor.
             EndFor.
         EndBody.""" 
-        expect = r"""Error on line 6 col 29: ="""
+        expect = r"""Error on line 7 col 31: ="""
         self.assertTrue(TestParser.checkParser(input,expect,260))
     def test_261(self):
         """Created automatically"""
@@ -710,10 +703,10 @@ EndBody."""
                 While a<100 Do
                     a=a-30;
                 EndWhile.
-            While (a>1);
+            While (a>1)
             EndDo.
         EndBody.""" 
-        expect = r"""Error on line 8 col 23: ;"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,267))
     def test_268(self):
         """Created automatically"""
@@ -738,13 +731,6 @@ EndBody."""
         EndBody.""" 
         expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,269))
-    def test_207(self):
-        """Created automatically"""
-        input = r""" 
-        Var: x = {**comment trong array**{34221}, {"fsd\h" **cmt**},2};
-        """ 
-        expect = r"""fsd\h"""
-        self.assertTrue(TestParser.checkParser(input,expect,207))
     def test_270(self):
         """Created automatically"""
         input = r"""Function: notexpr 
@@ -762,34 +748,34 @@ EndBody."""
         Parameter: x
         Body: 
             While x >= 1 Do
-                If y<100 Break;
+                If y<100 Then Break;
                 EndIf.
             EndWhile.
         EndBody.""" 
-        expect = r"""Error on line 5 col 25: Break"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,271))
     def test_272(self):
         """Created automatically"""
         input = r"""Function: breakwithoutsemi
         Body: 
-            For((i=0), i!=9, i=i*.2.0) Do
+            For (i=0, i!=9, (i*.2.0)) Do
                 If i>=10 Then Breakk;
                 EndIf.
             EndFor.
         EndBody.""" 
-        expect = r"""Error on line 3 col 16: ("""
+        expect = r"""Error on line 4 col 35: k"""
         self.assertTrue(TestParser.checkParser(input,expect,272))
     def test_273(self):
         """Created automatically"""
         input = r"""Function: continue 
         Body: 
-            For((i=0), i!=9, i=i*.2.0) Do
+            For (i=0, i!=9, i) Do
                 If i==10 Then Continue;
                 EndIf.
                 foo();
             EndFor.
         EndBody.""" 
-        expect = r"""Error on line 3 col 16: ("""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,273))
     def test_274(self):
         """Created automatically"""
@@ -838,28 +824,18 @@ EndBody."""
         Parameter: n
         Body: 
             Var: t=False;
-            If n<100 Then t=True
+            If n<100 Then t=True;
             EndIf.
             Return t;
         EndBody.""" 
-        expect = r"""Error on line 6 col 12: EndIf"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,279))
-    def test_208(self):
-        """Created automatically"""
-        input = r""" 
-        Var **COMMENT**: ****id = 465632
-        **dsfhfsdhjnc^#%#@@~!**
-    vAr: sss;
-    EndBody.
-        """ 
-        expect = r"""Error on line 4 col 4: vAr"""
-        self.assertTrue(TestParser.checkParser(input,expect,208))
     def test_280(self):
         """Created automatically"""
-        input = r"""Var: returnwithoutfunction
-        Var: t=0
+        input = r"""Var: returnwithoutfunction;
+        Var: t=0;
         Return t;""" 
-        expect = r"""Error on line 2 col 8: Var"""
+        expect = r"""Error on line 3 col 8: Return"""
         self.assertTrue(TestParser.checkParser(input,expect,280))
     def test_281(self):
         """Created automatically"""
@@ -867,16 +843,17 @@ EndBody."""
         Parameter: i
         Body: 
             If i==0 Then Return;
+            EndIf;
         EndBody.""" 
-        expect = r"""Error on line 5 col 8: EndBody"""
+        expect = r"""Error on line 5 col 17: ;"""
         self.assertTrue(TestParser.checkParser(input,expect,281))
     def test_282(self):
         """Created automatically"""
         input = r"""Function: returnstring
             Body:
-                Return "String'""
+                Return "String'"";
             EndBody.""" 
-        expect = r"""Error on line 4 col 12: EndBody"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,282))
     def test_283(self):
         """Created automatically"""
@@ -887,8 +864,9 @@ EndBody."""
                 Return True;
             Else
                 Return False;
+                EndIf.
             EndBody.""" 
-        expect = r"""Error on line 8 col 12: EndBody"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,283))
     def test_284(self):
         """Created automatically"""
@@ -942,22 +920,12 @@ EndBody."""
         EndBody.""" 
         expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,289))
-    def test_209(self):
-        """Created automatically"""
-        input = r""" 
-        Var: ppl[20.e5]=56508;
-        """ 
-        expect = r"""Error on line 2 col 17: 20.e5"""
-        self.assertTrue(TestParser.checkParser(input,expect,209))
     def test_290(self):
         """Created automatically"""
         input = r"""Function: complexarray
-            Body: x[123]={"duwat73
- 	", "@#&
- rwFEW54",54312,10.e13, 0.123, 543.0e-6  ,{"xe mau xanh"},"xe mau do"};
+            Body: x[123]={"duwat73\r \t", "@#&\n rwFEW54",54312,10.e13, 0.123, 543.0e-6  ,{"xe mau xanh"},"xe mau do"};
         EndBody.""" 
-        expect = r"""duwat73
-"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,290))
     def test_291(self):
         """Created automatically"""
@@ -981,9 +949,9 @@ EndBody."""
         """Created automatically"""
         input = r"""Function: callincall
         Body:
-            a =func1(foo(3))+23) - func2(goo(foo(a)));
+            a =func1(foo(3))+23 - func2(goo(foo(a)));
         EndBody.""" 
-        expect = r"""Error on line 3 col 31: )"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,293))
     def test_294(self):
         """Created automatically"""
@@ -1016,26 +984,40 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
                 While(1) Do
                 foo (2 + x, 4. \. y);goo ();
             EndWhile.
+            While(1)
             EndDo.
         EndBody.""" 
-        expect = r"""Error on line 7 col 12: EndDo"""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,296))
+    def test_297(self):
+        """Created automatically"""
+        input = r"""Function: more1
+        Parameter: a[5], b
+        Body:
+        Var: x = {{1,2,3}, **Comment here** "abc"};
+        Var: i = 0;
+        While (i < 5) Do
+        If i == 3 ThenReturn 1;EndIf.
+        i = i + 1;
+        EndWhile.
+        EndBody.""" 
+        expect = r"""successful"""
+        self.assertTrue(TestParser.checkParser(input,expect,297))
     def test_298(self):
         """Created automatically"""
         input = r"""Function: factorialOfNumber
         Parameter: n
         Body:
         Var:factorial=1;
-        print("Enter integer: ")
+        print("Enter integer: ");
         read();
-        For i=0, i<=n, i=i+1 Do(
-            factorial=factorial*i
-        )
+        For (i=0, i<=n, 1) Do
+            factorial=factorial*i;
         EndFor.
         print(factorial);
         return factorial;
         EndBody.""" 
-        expect = r"""Error on line 6 col 8: read"""
+        expect = r"""Error on line 11 col 15: factorial"""
         self.assertTrue(TestParser.checkParser(input,expect,298))
     def test_299(self):
         """Created automatically"""
@@ -1046,14 +1028,13 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
             print("Enter the number of terms: ");
             getline(n);
             print("Fibonacci Series: ");
-            For (i = 1, i <= n, i=i+1) Do
-                If(i == 1) Then(
+            For (i = 1, i <= n, 1) Do
+                If(i == 1) Then
                 print(" " + t1);
                 Continue;
                 EndIf.
-            )
             If(i == 2) Then
-                cout << t2 << " ";
+                print( t2+" ");
         Continue;
         EndIf.
         nextTerm = t1 + t2;
@@ -1061,9 +1042,24 @@ Function: d**Here some too**Parameter: d Body: EndBody."""
         t2 = nextTerm;
         
         print(nextTerm + " ");
-    )
     EndFor.
-    return 0;
+    Return 0;
     EndBody.""" 
-        expect = r"""Error on line 8 col 33: ="""
+        expect = r"""successful"""
         self.assertTrue(TestParser.checkParser(input,expect,299))
+    def test_300(self):
+        """Created automatically"""
+        input = r"""Function: octalToDecimal
+        Parameter: octalNumber
+        Body:
+        Var: decimalNumber = 0, i = 0, rem;
+        While (octalNumber != 0) Do
+            rem = octalNumber % 10;
+            octalNumber =octalNumber \ 10;
+            decimalNumber =decimalNumber  + rem * pow(8,i);
+            i=i+1;
+        EndWhile.
+    Return decimalNumber;
+    EndBody.""" 
+        expect = r"""successful"""
+        self.assertTrue(TestParser.checkParser(input,expect,300))

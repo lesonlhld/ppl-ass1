@@ -69,8 +69,8 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.checkLexeme(input,output,113))
     def test_114(self):
         """Created automatically"""
-        input = r"""0O0 0o1 0o413215""" 
-        output = r"""0,Error Token O"""
+        input = r"""0o1 0o413215 0O0""" 
+        output = r"""0o1,0o413215,0,Error Token O"""
         self.assertTrue(TestLexer.checkLexeme(input,output,114))
     def test_115(self):
         """Created automatically"""

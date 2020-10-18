@@ -1,4 +1,4 @@
 Function: returnstring
             Body:
-                Return "String'""
+                Return "String'"";
             EndBody.

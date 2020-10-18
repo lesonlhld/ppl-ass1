@@ -1,5 +1,5 @@
 Function: keyword 
         Body: 
-            Iff=1 Then Return;
-            EndIf.
+            Dooo=1; While True
+            EndDo.
         EndBody.

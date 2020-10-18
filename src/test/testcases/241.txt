@@ -6,5 +6,5 @@ Function: signop
             c = -0o21345;
             d = -a;
             c = -call(a);
-            b = -.352.4E-12 
+            b = -.352.4E-12 ;
         EndBody.

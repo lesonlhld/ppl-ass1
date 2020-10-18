@@ -3,7 +3,7 @@ Function: more1
         Body:
         Var: x = {{1,2,3}, **Comment here** "abc"};
         Var: i = 0;
-        While (i < 5)
+        While (i < 5) Do
         If i == 3 ThenReturn 1;EndIf.
         i = i + 1;
         EndWhile.

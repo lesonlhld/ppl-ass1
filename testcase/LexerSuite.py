@@ -34,7 +34,7 @@ class LexerSuite(unittest.TestCase):
     def test_integer_3(self):
         self.assertTrue(TestLexer.checkLexeme("01 8 0108 2000 000","0,1,10,0,0,1,100,<EOF>",113))
     def test_integer_4(self):
-        self.assertTrue(TestLexer.checkLexeme("0O0 0o1 0o413215","Var,x0,.,12e51,.,2,<EOF>",114))
+        self.assertTrue(TestLexer.checkLexeme("0o1 0o413215 0O0","Var,x0,.,12e51,.,2,<EOF>",114))
     def test_integer_5(self):
         self.assertTrue(TestLexer.checkLexeme("0B2005","-,0,-,1,-,10,-.,e3,-,10.,e,-,10.e3,<EOF>",115))
 

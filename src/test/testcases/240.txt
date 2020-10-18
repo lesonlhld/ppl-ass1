@@ -2,6 +2,6 @@ Function: positionoflogicalop
         Parameter: n
         Body: 
             While (True) Do
-                logic=[e+3]&&var!variable;
+                logic=a&&var!variable;
             EndWhile.
         EndBody.

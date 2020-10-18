@@ -1,1 +1,0 @@
-If,!,aThenbElseWhile,(,x,>,0,),Then,a,+,+,EndWhile,Error Token E
