@@ -1,9 +1,11 @@
  
-        Function: foo 
-        Parameter: n 
+        Function: **comment chut da**funcinfunc 
         Body: 
-            If a==5 Then b = 5;
-            ElseIf a==6 Then c=6; 
-            EndIf.
+            x=20;
+            Function: foo 
+            Parameter: n
+            Body: 
+                x=100.0;
+            EndBody.
         EndBody.
         

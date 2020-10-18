@@ -1,1 +1,1 @@
-IfaThenbElseWhile(x>0)Thena++EndWhileEndIF
+If!aThenbElseWhile(x>0)Thena++EndWhileEndIF

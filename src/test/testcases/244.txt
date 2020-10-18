@@ -1,9 +1,4 @@
-Function: foo 
-        Parameter: n
+Function: misspareninop 
         Body: 
-            While x>1 Do
-                If x==1 Then Return;
-                Else Break abc;
-                EndIf.
-            EndWhile.
+             x = ((a >=. 2.3e-13 || (x =/= 2e-35));
         EndBody.

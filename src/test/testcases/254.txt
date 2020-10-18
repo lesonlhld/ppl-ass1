@@ -1,6 +1,6 @@
-
-        Function: foo 
-        Parameter: n 
-        Body: 
-            For (,,) Do x=6; EndFor.
+Function: nothen
+        Body:
+            If e==True 
+                print("Hello cac cau\n");
+            EndIf.
         EndBody.

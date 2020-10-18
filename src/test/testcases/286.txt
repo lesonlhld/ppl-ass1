@@ -1,2 +1,6 @@
-Function: foo Parameter: abc Body: EndBody. Function: foo Body: EndBody.
-Function: goo Parameter: abc Body: EndBody.
+Function: arrayinarray 
+                Parameter: x[2][3]
+        Body:
+            Var: i = 0;
+            x[2][3]={{867,345,987},{76,12,744}};
+        EndBody.

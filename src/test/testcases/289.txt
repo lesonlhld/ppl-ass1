@@ -1,5 +1,4 @@
-
-        Function: main
-        Body:
-            While True print("Hello World"); EndWhile.
+Function: arrayhavespace
+        Body: 
+            Var  : x[123]={   20, 2   ,108  };
         EndBody.

@@ -1,6 +1,12 @@
-
-        Function: foo 
-        Parameter: n 
-        Body: 
-            For (i=0, i != 5,) Do x=6; EndFor.
+Function: iflongnhau
+        Parameter: a, b
+        Body:
+        Var: id[4312][867][9856][i812], stringID[108] = "day la \\ 1 chuoi !!",
+,literal = 120000e-1,  array[2][3] = {{867,345,987},{76,12,744}};
+            If n > 10 Then
+                If n <. 20.5 Then Return x=3;
+                EndIf.
+                printStrLn(arg);
+            Else fact(x) + 3;
+            EndIf.
         EndBody.

@@ -1,11 +1,8 @@
-Function: foo 
-        Parameter: n
+
+        Function: forinitfail 
+        Parameter: n[5]
         Body: 
-            If n == 0 Then
-                Return 1;
-            Else
-                Return n * fact (n - 1);
-            Else
-                Return n;
-            EndIf.
+            For (n[i] = 0, i < 10, i=i+1) Do
+                n[i]=n+i;
+            EndFor.
         EndBody.

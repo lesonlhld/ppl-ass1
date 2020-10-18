@@ -1,4 +1,5 @@
-Function: foo
-    Parameter: abc
-    Body:
-    EndBody
+
+        Function: funccallfail 
+        Body:
+        foo(x)+a+2;
+        EndBody.

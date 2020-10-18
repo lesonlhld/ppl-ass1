@@ -2,8 +2,6 @@ import unittest
 from TestUtils import TestLexer
 
 class LexerSuite(unittest.TestCase):
-	###########################################################
-	# Test identifiers
     def test_101(self):
         """Created automatically"""
         input = r"""abc""" 
@@ -54,9 +52,6 @@ class LexerSuite(unittest.TestCase):
         input = r"""tu1 1a` le^ trun9 son!!!""" 
         output = r"""tu1,1,a,Error Token `"""
         self.assertTrue(TestLexer.checkLexeme(input,output,110))
-
-	###########################################################
-	# Test integers
     def test_111(self):
         """Created automatically"""
         input = r"""0X54J54""" 
@@ -82,9 +77,6 @@ class LexerSuite(unittest.TestCase):
         input = r"""0B2005""" 
         output = r"""0,Error Token B"""
         self.assertTrue(TestLexer.checkLexeme(input,output,115))
-
-	###########################################################
-	# Test floats
     def test_116(self):
         """Created automatically"""
         input = r"""20.e5 18.E9 9.e+3 33.e-3 0.e """ 
@@ -110,9 +102,6 @@ class LexerSuite(unittest.TestCase):
         input = r"""e97 E-66 16e 30E4 12.0e3""" 
         output = r"""e97,Error Token E"""
         self.assertTrue(TestLexer.checkLexeme(input,output,120))
-
-	###########################################################
-	# Test illegal escape
     def test_121(self):
         """Created automatically"""
         input = r""" "abc\h def"  """ 
@@ -140,8 +129,8 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.checkLexeme(input,output,125))
     def test_126(self):
         """Created automatically"""
-        input = r""" xin chao "phan thanh truong\haha" 456""" 
-        output = r"""xin,chao,Illegal Escape In String: phan thanh truong\h"""
+        input = r""" xin chao "phan thanh truong'haha" 456""" 
+        output = r"""xin,chao,Illegal Escape In String: phan thanh truong'h"""
         self.assertTrue(TestLexer.checkLexeme(input,output,126))
     def test_127(self):
         """Created automatically"""
@@ -155,17 +144,14 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.checkLexeme(input,output,128))
     def test_129(self):
         """Created automatically"""
-        input = r""" "Test met qua troi \Wa dat luon ne""" 
-        output = r"""Illegal Escape In String: Test met qua troi \W"""
+        input = r""" "Test met qua troi '"\Wa dat luon ne""" 
+        output = r"""Illegal Escape In String: Test met qua troi '"\W"""
         self.assertTrue(TestLexer.checkLexeme(input,output,129))
     def test_130(self):
         """Created automatically"""
         input = r""" "ngoi TAo \\tESt eScapE '" ne ' \r" """ 
         output = r"""Illegal Escape In String: ngoi TAo \\tESt eScapE '" ne ' """
         self.assertTrue(TestLexer.checkLexeme(input,output,130))
-
-	###########################################################
-	# Test unclosed string
     def test_131(self):
         """Created automatically"""
         input = r""" "abc def  """ 
@@ -218,9 +204,6 @@ class LexerSuite(unittest.TestCase):
         input = r""""fe23%$.81r " {"abc"} 123"abc""" 
         output = r"""fe23%$.81r ,{,abc,},123,Unclosed String: abc"""
         self.assertTrue(TestLexer.checkLexeme(input,output,140))
-
-	###########################################################
-	# Test normal string
     def test_141(self):
         """Created automatically"""
         input = r""" "Day la 1 string nha Dang Huynh Minh Tri"  """ 
@@ -272,9 +255,6 @@ class LexerSuite(unittest.TestCase):
         input = r""" "\b\f\r\n\t\'\\"  """ 
         output = r"""\b\f\r\n\t\'\\,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input,output,150))
-    
-	###########################################################
-	# Test keyword
     def test_151(self):
         """Created automatically"""
         input = r"""Body Break  Continue Do Else ElseIf EndBody EndIf EndFor EndWhile For Function If Parameter Return Then Var While True False EndDo""" 
@@ -333,12 +313,9 @@ EndBody."""
         self.assertTrue(TestLexer.checkLexeme(input,output,159))
     def test_160(self):
         """Created automatically"""
-        input = r"""IfaThenbElseWhile(x>0)Thena++EndWhileEndIF""" 
-        output = r"""If,aThenbElseWhile,(,x,>,0,),Then,a,+,+,EndWhile,Error Token E"""
+        input = r"""If!aThenbElseWhile(x>0)Thena++EndWhileEndIF""" 
+        output = r"""If,!,aThenbElseWhile,(,x,>,0,),Then,a,+,+,EndWhile,Error Token E"""
         self.assertTrue(TestLexer.checkLexeme(input,output,160))
-
-	###########################################################
-	# Test operator
     def test_161(self):
         """Created automatically"""
         input = r"""25+6-.2.5%3\100""" 
@@ -364,9 +341,6 @@ EndBody."""
         input = r"""!x&&a<=.b\.d*""" 
         output = r"""!,x,&&,a,<=.,b,\.,d,*,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input,output,165))
-
-    ###########################################################
-	# Test comment
     def test_166(self):
         """Created automatically"""
         input = r"""** This is a single-line comment. **""" 
@@ -424,9 +398,6 @@ EndBody."""
         **""" 
         output = r"""comment,trong,cmt,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input,output,175))
-
-	###########################################################
-	# Test error token
     def test_176(self):
         """Created automatically"""
         input = r"""fjiwef883_Fef_GRWE4324 r3fe 23728DFRfdw""" 
@@ -452,10 +423,6 @@ EndBody."""
         input = r""""string nay co 2 \' nha qui vi ^.^"' """ 
         output = r"""string nay co 2 \' nha qui vi ^.^,Error Token '"""
         self.assertTrue(TestLexer.checkLexeme(input,output,180))
-
-    
-	###########################################################
-	# Test array
     def test_181(self):
         """Created automatically"""
         input = r"""{996,712,216}""" 
@@ -506,8 +473,6 @@ EndBody."""
         input = r""" {True,False}  """ 
         output = r"""{,True,,,False,},<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input,output,190))
-	###########################################################
-	# Test Fucntion
     def test_191(self):
         """Created automatically"""
         input = r"""** comment nha **
@@ -565,11 +530,11 @@ some_more_id[987],muchmoreID = 123.321e-2,  lots_m0rE_1D[123][123] = {12,3};"""
         input = r"""Function: foo
     Parameter: abc;
     Body:
-    Var **some COMMENT**: ****someid = 3
-        **more more**
-    vAr: someid;
+    Var **COMMENT**: ****id = 465632
+        **dsfhfsdhjnc^#%#@@~!**
+    vAr: sss;
     EndBody.""" 
-        output = r"""Function,:,foo,Parameter,:,abc,;,Body,:,Var,:,someid,=,3,vAr,:,someid,;,EndBody,.,<EOF>"""
+        output = r"""Function,:,foo,Parameter,:,abc,;,Body,:,Var,:,id,=,465632,vAr,:,sss,;,EndBody,.,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input,output,196))
     def test_197(self):
         """Created automatically"""

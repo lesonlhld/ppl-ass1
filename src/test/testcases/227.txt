@@ -1,9 +1,9 @@
-Function: foo 
-        Parameter: n
+Function: iDenTIfier_SS__ 
+        Parameter: varrr
         Body: 
-            While x>1 Do
-                If x==1 Then Return;
-                Else Break;
-                EndIf.
-            EndWhile.
+            **Do
+                x= x+1;
+            While x>1 
+            EndDo.
+            **
         EndBody.

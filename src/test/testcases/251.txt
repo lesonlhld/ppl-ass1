@@ -1,6 +1,8 @@
-
-        Function: foo 
-        Parameter: n 
+Function: fullIf 
         Body: 
-            For (, i != 5, i*1) Do x=6; EndFor.
+            If (x == (b!=c && (a > b + c))) Then Return;
+            ElseIf (x=="Chung Xon@@") Break;
+            Else 
+            x="successful";
+            EndIf.
         EndBody.

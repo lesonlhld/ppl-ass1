@@ -1,1 +1,8 @@
-Var:someid, mor3Id= "SomeSTRING",   some_more_id,muchmoreID = 123.321e-2;
+Function: miss_one_do 
+        Body:
+            While a<100 Do
+                a=a-30;
+                While (a>1);
+                EndDo.
+            EndWhile.
+        EndBody.

@@ -1,6 +1,5 @@
- Function: foo 
-        Parameter: n 
+ Function: lan2
+        Parameter: var
         Body: 
-            If !a Then b = 5; EndIf.
         EndBody.
         

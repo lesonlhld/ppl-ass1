@@ -64,13 +64,13 @@ class LexerSuite(unittest.TestCase):
     def test_illegal_escape_5(self):
         self.assertTrue(TestLexer.checkLexeme(""" "To la Chung Xon \\Ne" ""","""Illegal Escape In String: ado\\m""",125))
     def test_illegal_escape_6(self):
-        self.assertTrue(TestLexer.checkLexeme(""" xin chao "phan thanh truong\\haha" 456""","""123,abc,Illegal Escape In String: xyz\\k""",126))
+        self.assertTrue(TestLexer.checkLexeme(""" xin chao "phan thanh truong'haha" 456""","""123,abc,Illegal Escape In String: xyz\\k""",126))
     def test_illegal_escape_7(self):
         self.assertTrue(TestLexer.checkLexeme(""" "ahihi do ngoc\\\\" ""","""" Illegal Escape In String: aa\" """,127))
     def test_illegal_escape_8(self):
         self.assertTrue(TestLexer.checkLexeme(""" "Day la ' illegal" ""","""Illegal Escape In String: This is '""",128))
     def test_illegal_escape_9(self):
-        self.assertTrue(TestLexer.checkLexeme(""" "Test met qua troi \\Wa dat luon ne""","""Illegal Escape In String: This is \\W""",129))
+        self.assertTrue(TestLexer.checkLexeme(""" "Test met qua troi '"\\Wa dat luon ne""","""Illegal Escape In String: This is \\W""",129))
     def test_illegal_escape_10(self):
         self.assertTrue(TestLexer.checkLexeme(""" "ngoi TAo \\\\tESt eScapE '" ne ' \\r" ""","""Illegal Escape In String: This is a test '" asdsadasd '""",130))
 
@@ -154,7 +154,7 @@ i = i + 1;
 EndWhile.
 EndBody.""","sTRIng,False,<EOF>",159))
     def test_keyword_10(self):
-        self.assertTrue(TestLexer.checkLexeme("IfaThenbElseWhile(x>0)Thena++EndWhileEndIF","EndDo,EndFor,Error Token W",160))
+        self.assertTrue(TestLexer.checkLexeme("If!aThenbElseWhile(x>0)Thena++EndWhileEndIF","EndDo,EndFor,Error Token W",160))
 
 	###########################################################
 	# Test operator
@@ -277,9 +277,9 @@ some_more_id[987],muchmoreID = 123.321e-2,  lots_m0rE_1D[123][123] = {12,3};""",
         self.assertTrue(TestLexer.checkLexeme("""Function: foo
     Parameter: abc;
     Body:
-    Var **some COMMENT**: ****someid = 3
-        **more more**
-    vAr: someid;
+    Var **COMMENT**: ****id = 465632
+        **dsfhfsdhjnc^#%#@@~!**
+    vAr: sss;
     EndBody.""","""{10.e13, 0.123},<EOF>""",196))
     def test_function_7(self):
         self.assertTrue(TestLexer.checkLexeme("""Function:fooParameter:nBody:Ifn==0ThenReturn1;ElseReturnn*fact(n-1);ElseReturnn;EndIf.EndBody.""","""{{"abc"},"asd"},<EOF>""",197))

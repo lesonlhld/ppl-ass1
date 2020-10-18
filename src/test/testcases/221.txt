@@ -1,9 +1,9 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            If n == 0 Then
-                Return 1;
-            Else
-                Return n * fact (n - 1);
-            EndIf.
+Function: varinstmtlist
+        Body:
+            Var: i = 0;
+            Do
+                Var: k = 10;
+                i = i + 1;
+            While i <= 10 
+            EndDo.
         EndBody.

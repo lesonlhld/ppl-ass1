@@ -1,1 +1,7 @@
-Var: someid[1.23E-2] = {"w","h","oops"};
+Function: breakwithoutsemi
+        Body: 
+            For((i=0), i!=9, i=i*.2.0) Do
+                If i>=10 Then Breakk;
+                EndIf.
+            EndFor.
+        EndBody.

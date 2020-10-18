@@ -1,1 +1,8 @@
-Var: someid[] = {"w","h","oops"};
+Function: breaktest 
+        Parameter: x
+        Body: 
+            While x >= 1 Do
+                If y<100 Break;
+                EndIf.
+            EndWhile.
+        EndBody.

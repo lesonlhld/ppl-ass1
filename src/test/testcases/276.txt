@@ -1,1 +1,4 @@
-Var: someid = 123
+Function: callmore
+        Body: 
+            call(a,876,var*.65e-1,arr[3],True,"chuoi~~\n");
+        EndBody.

@@ -1,6 +1,11 @@
-
-        Function: foo 
-        Parameter: n 
+Function: if__more_Else 
+        Parameter: khaibaobien
         Body: 
-            For (i == 0, i != 5, i*1) Do x=6; EndFor.
+            If n == 0 Then
+                Return 1;
+            Else
+                Return n * fact (n - 1);
+            Else
+                Return False;
+            EndIf.
         EndBody.

@@ -1,9 +1,5 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            Var: i = 0;
-            While i < 5 Do
-                a[i] = b +. 1.0;
-                i = i + 1;
-            EndWhile.
-        EndBody.
+** This is a single-line comment. **
+** This is a
+* multi-line
+* comment.
+**

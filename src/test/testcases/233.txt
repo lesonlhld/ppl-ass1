@@ -1,11 +1,6 @@
-Function: foo 
-        Parameter: n
+Function: testop 
         Body: 
-            If n == 0 Then
-                Return 1;
-            Else
-                Return n * fact (n - 1);
-            Else
-                Return n;
+            If ((k==1)&&(i!=0))||(k==5)||!j Then
+                f=f%3;
             EndIf.
         EndBody.

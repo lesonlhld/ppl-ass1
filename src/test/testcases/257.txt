@@ -1,7 +1,7 @@
-Function: foo 
-        Parameter: n
+
+        Function: formissing
         Body: 
-            While x>1 Do
-                Var: a = 10;
-            EndWhile.
+            For (, i < k, i=i*i) Do
+            goo();
+            EndFor.
         EndBody.

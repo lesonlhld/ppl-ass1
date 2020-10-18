@@ -1,8 +1,5 @@
-Function: foo 
+Function: indexop
         Parameter: n
         Body: 
-            Var: i = 0;
-            While i < 5 Do
-
-            EndWhile.
+            a[a[3 + foo(2)][b||True]][b[b[1+0x369]]] = a[b[2][b[12E-9]*3]] + 4;
         EndBody.

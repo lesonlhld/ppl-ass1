@@ -1,1 +1,8 @@
-vAr: someid;
+Function: continue 
+        Body: 
+            For((i=0), i!=9, i=i*.2.0) Do
+                If i==10 Then Continue;
+                EndIf.
+                foo();
+            EndFor.
+        EndBody.

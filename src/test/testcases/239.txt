@@ -1,10 +1,6 @@
-Function: foo 
-        Parameter: n
+Function: array 
+        Parameter: i , j, arr[1001]
         Body: 
-            Var: i = 0;
-            While i < 5 Do
-                Var: k = 10;
-                a[i] = b +. 1.0;
-                i = i + 1;
-            EndWhile.
+            a[i] = arr[c[2+j][b[i]*3]] + 4;
+            i = i + 1;
         EndBody.

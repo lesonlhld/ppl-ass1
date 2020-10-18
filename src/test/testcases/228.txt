@@ -1,9 +1,5 @@
-Function: foo 
-        Parameter: n
+Function: keyword 
         Body: 
-            While x>1 Do
-                If x==1 Then Return;
-                Else Continue;
-                EndIf.
-            EndWhile.
+            Iff=1 Then Return;
+            EndIf.
         EndBody.

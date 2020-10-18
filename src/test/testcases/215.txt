@@ -1,6 +1,16 @@
 
-        Function: foo 
-        Parameter: n 
-        Body: 
-            For (i = 0, i != 5, i*1) Do x=6; EndFor.
-        EndBody.
+        Var: x;
+Function: fact
+Parameter: n
+Body:
+If n == 0 Then
+Return 1;
+Else
+Return n * fact (n - 1);
+EndIf.
+EndBody.
+Function: main
+Body:
+x = 10;
+fact (x);
+EndBody.

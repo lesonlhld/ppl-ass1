@@ -1,8 +1,5 @@
- Function: foo 
-        Parameter: n 
-        Body: 
-            If !a Then b = 5; 
-            Else c=5; 
+ Function: nobody
+            If x==i Then Break;
             EndIf. 
         EndBody.
         

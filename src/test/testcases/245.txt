@@ -1,9 +1,10 @@
-Function: foo 
-        Parameter: n
-        Body: 
-            While x>1 Do
-                If x==1 Then Return;
-                Else Continue absd;
-                EndIf.
-            EndWhile.
+
+        Function: test
+        Body:
+            Var: x=1;
+            If x > 10 Then
+                x=25+6-.2.5%3\100*x;
+            Else
+                x=x+2;
+            EndIf.
         EndBody.

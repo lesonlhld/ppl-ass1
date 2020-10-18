@@ -1,5 +1,5 @@
 Function: foo 
         Parameter: n
         Body: 
-            x = !(!(!(y) && z) || (x > 3) !(y < 2));
+            a[12]={{1,2,3},{"abc"},{0.12e3,0X12F,0o456}};
         EndBody.

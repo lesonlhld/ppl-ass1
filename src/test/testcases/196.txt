@@ -1,7 +1,7 @@
 Function: foo
     Parameter: abc;
     Body:
-    Var **some COMMENT**: ****someid = 3
-        **more more**
-    vAr: someid;
+    Var **COMMENT**: ****id = 465632
+        **dsfhfsdhjnc^#%#@@~!**
+    vAr: sss;
     EndBody.

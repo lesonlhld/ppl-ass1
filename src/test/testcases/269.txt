@@ -1,4 +1,7 @@
-Var :         someid, mor3Id
-        = "SomeSTRING"
-        ,
-    some_more_id,muchmoreID = {"str","s"},  lots_m0rE_1D = False;
+Function: testdowhile
+        Parameter: x,a,b
+        Body: 
+            Do x = a + b;
+            While(x<1000.e5)
+            EndDo.
+        EndBody.
