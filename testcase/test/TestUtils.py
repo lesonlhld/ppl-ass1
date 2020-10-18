@@ -38,10 +38,10 @@ class TestUtil:
 
 
 class TestLexer:
-    __count = 100
+    __count = 101
     @staticmethod
     def checkLexeme(input,expect,num):
-        testcase = "./test/LexerSuite.py"
+        testcase = "./test/LexerSuite.txt"
         testfile = open(testcase,"a")
         testfile.write("""
     def test_""" + str(TestLexer._TestLexer__count)+"""(self):
@@ -87,20 +87,20 @@ class SyntaxException(Exception):
         self.message = msg
 
 class TestParser:
-    __count = 200
+    __count = 201
     @staticmethod
     def createErrorListener():
          return NewErrorListener.INSTANCE
 
     @staticmethod
     def checkParser(input,expect,num):
-        testcase = "./test/ParserSuite.py"
+        testcase = "./test/ParserSuite.txt"
         testfile = open(testcase,"a")
         testfile.write("""
     def test_""" + str(TestParser._TestParser__count)+"""(self):
         \"\"\"Created automatically\"\"\"
         input = r\"\"\"""" + input + """\"\"\" 
-        output = r\"\"\"""")
+        expect = r\"\"\"""")
 
         inputfile = TestUtil.makeSource(input,num)
         dest = open("./test/solutions/" + str(num) + ".txt","w")

@@ -82,9 +82,9 @@ echo "Testing Lexer..."
 python run.py test LexerSuite
 
 cd ..
-if exist %CD%\src\test\testLexer.py (
-    robocopy %CD%\src\test\ %CD%\output\ testLexer.py /move /NFL /NDL /NJH /NJS /nc /ns /np
-    del %CD%\src\test\testParser.py /f /q
+if exist %CD%\src\test\LexerSuite.txt (
+    robocopy %CD%\src\test\ %CD%\output\ LexerSuite.txt /move /NFL /NDL /NJH /NJS /nc /ns /np
+    del %CD%\src\test\ParserSuite.txt /f /q
 )
 cd src
 
@@ -94,9 +94,9 @@ echo "Testing Parser..."
 python run.py test ParserSuite
 
 cd ..
-if exist %CD%\src\test\testParser.py (
-    robocopy %CD%\src\test\ %CD%\output\ testParser.py /move /NFL /NDL /NJH /NJS /nc /ns /np
-    del %CD%\src\test\testLexer.py /f /q
+if exist %CD%\src\test\ParserSuite.txt (
+    robocopy %CD%\src\test\ %CD%\output\ ParserSuite.txt /move /NFL /NDL /NJH /NJS /nc /ns /np
+    del %CD%\src\test\LexerSuite.txt /f /q
 )
 cd src
 
@@ -141,4 +141,4 @@ if exist %CD%\src\test\solutionsSample\ (
     robocopy %CD%\src\test\solutionsSample\ %CD%\output\test\solutions /move /NFL /NDL /NJH /NJS /nc /ns /np
 )
 
-::pause >nul
+pause >nul

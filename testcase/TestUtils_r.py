@@ -97,7 +97,7 @@ class TestParser:
     def test_""" + str(num)+"""(self):
         \"\"\"Created automatically\"\"\"
         input = r\"\"\"""" + input + """\"\"\" 
-        output = r\"\"\"""")
+        expect = r\"\"\"""")
 
         inputfile = TestUtil.makeSource(input,num)
         dest = open("./test/solutions/" + str(num) + ".txt","w")
