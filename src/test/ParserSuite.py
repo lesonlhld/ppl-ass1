@@ -718,7 +718,7 @@ EndBody."""
                 EndDo.
             EndWhile.
         EndBody.""" 
-        expect = r"""Error on line 5 col 16: While"""
+        expect = r"""Error on line 5 col 27: ;"""
         self.assertTrue(TestParser.checkParser(input,expect,268))
     def test_269(self):
         """Created automatically"""

@@ -148,15 +148,19 @@ SKIP_ : (COMMENT | WS | NEWLINE) -> skip ; // skip spaces, tabs, newlines or com
 /*
  * Parser rules
  */
-variable_decl: VAR COLON variable_list (ASSIGN init_value)? (COMMA variable_list (ASSIGN init_value)?)* SEMI;
+variable_decl: VAR COLON variable_list SEMI;
 
-variable_list: (ID | array_decl) COMMA variable_list | ID | array_decl;
+// variable_list: (ID | array_decl) COMMA variable_list | ID | array_decl;
 
-array_decl: ID dimension+;
+variable_list: variable (ASSIGN init_value)? COMMA variable_list | variable (ASSIGN init_value)?;
 
-dimension: LEFT_BRACKET integer RIGHT_BRACKET;
+variable: ID | array_decl;
 
-init_value: literal (COMMA literal)*;
+array_decl: ID dimension;
+
+dimension: LEFT_BRACKET integer RIGHT_BRACKET dimension | LEFT_BRACKET integer RIGHT_BRACKET;
+
+init_value: literal COMMA init_value | literal;
 
 literal: array | integer | FLOAT  | boolean_literal | STRING;
 
@@ -166,24 +170,32 @@ boolean_literal: TRUE | FALSE ;
 
 array: LEFT_BRACE array_list? RIGHT_BRACE;
 
-array_list: literal (COMMA literal)*;
+array_list: literal COMMA array_list | literal;
 
 body_decl: init_body body;
 
-init_body: FUNCTION COLON ID parameter?;
+init_body: FUNCTION COLON ID parameter;
 
-parameter: PARAMETER COLON variable_list;
+// parameter: PARAMETER COLON variable_list;
 
-body: BODY COLON variable_decl* stmt_list ENDBODY DOT;
+parameter: PARAMETER COLON parameter_list |;
+
+parameter_list: variable COMMA parameter_list | variable;
+
+body: BODY COLON var_list stmt_list ENDBODY DOT;
+
+var_list: variable_decl var_list | variable_decl |;
 
 // Statement
 stmt: assign_stmt | if_stmt | for_stmt | while_stmt | do_while_stmt | break_stmt | continue_stmt | call_stmt | return_stmt;
 
-stmt_list: stmt*;
+stmt_list: stmt stmt_list | stmt |;
 
 assign_stmt: ID index_operators? ASSIGN exp SEMI;
 
-if_stmt: IF exp THEN stmt_list (ELSEIF exp THEN stmt_list)* (ELSE stmt_list)? ENDIF DOT;
+if_stmt: IF exp THEN stmt_list else_if (ELSE stmt_list)? ENDIF DOT;
+
+else_if: ELSEIF exp THEN stmt_list else_if | ELSEIF exp THEN stmt_list |;
 
 for_stmt: FOR LEFT_PAREN for_condition RIGHT_PAREN DO stmt_list ENDFOR DOT;
 
@@ -221,7 +233,7 @@ exp6: exp6 index_operators | exp7;
 
 exp7: function_call | LEFT_PAREN exp RIGHT_PAREN | operands;
 
-exp_list: exp (COMMA exp)*;
+exp_list: exp COMMA exp_list | exp;
 
 operands: ID | literal | element_exp;
 
@@ -238,7 +250,7 @@ relational_operators: EQUAL | NOT_EQUAL | LESS_THAN | GREATER_THAN | GREATER_EQU
 
 element_exp: expr_index index_operators;
 
-index_operators: LEFT_BRACKET exp RIGHT_BRACKET | LEFT_BRACKET exp RIGHT_BRACKET index_operators; //Dimension
+index_operators: LEFT_BRACKET exp RIGHT_BRACKET | LEFT_BRACKET exp RIGHT_BRACKET index_operators;
 
 expr_index: ID | function_call;
 
