@@ -1,1 +1,1 @@
-Error on line 11 col 15: factorial
+Error on line 1 col 0: Function

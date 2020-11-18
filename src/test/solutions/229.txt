@@ -1,1 +1,1 @@
-Error on line 2 col 8: parameter
+Error on line 1 col 0: Function

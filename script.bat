@@ -141,4 +141,4 @@ if exist %CD%\src\test\solutionsSample\ (
     robocopy %CD%\src\test\solutionsSample\ %CD%\output\test\solutions /move /NFL /NDL /NJH /NJS /nc /ns /np
 )
 
-pause >nul
+::pause >nul

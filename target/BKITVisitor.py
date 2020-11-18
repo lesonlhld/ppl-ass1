@@ -14,13 +14,18 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#variable_decl.
-    def visitVariable_decl(self, ctx:BKITParser.Variable_declContext):
+    # Visit a parse tree produced by BKITParser#global_var_declare.
+    def visitGlobal_var_declare(self, ctx:BKITParser.Global_var_declareContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#variable_list.
-    def visitVariable_list(self, ctx:BKITParser.Variable_listContext):
+    # Visit a parse tree produced by BKITParser#var_list.
+    def visitVar_list(self, ctx:BKITParser.Var_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKITParser#var_def.
+    def visitVar_def(self, ctx:BKITParser.Var_defContext):
         return self.visitChildren(ctx)
 
 
@@ -29,8 +34,13 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#array_decl.
-    def visitArray_decl(self, ctx:BKITParser.Array_declContext):
+    # Visit a parse tree produced by BKITParser#scalar_var.
+    def visitScalar_var(self, ctx:BKITParser.Scalar_varContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKITParser#composite_var.
+    def visitComposite_var(self, ctx:BKITParser.Composite_varContext):
         return self.visitChildren(ctx)
 
 
@@ -49,38 +59,28 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#integer.
-    def visitInteger(self, ctx:BKITParser.IntegerContext):
+    # Visit a parse tree produced by BKITParser#array_literal.
+    def visitArray_literal(self, ctx:BKITParser.Array_literalContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#boolean_literal.
-    def visitBoolean_literal(self, ctx:BKITParser.Boolean_literalContext):
+    # Visit a parse tree produced by BKITParser#array_element_list.
+    def visitArray_element_list(self, ctx:BKITParser.Array_element_listContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#array.
-    def visitArray(self, ctx:BKITParser.ArrayContext):
+    # Visit a parse tree produced by BKITParser#array_element.
+    def visitArray_element(self, ctx:BKITParser.Array_elementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#array_list.
-    def visitArray_list(self, ctx:BKITParser.Array_listContext):
+    # Visit a parse tree produced by BKITParser#bool_literal.
+    def visitBool_literal(self, ctx:BKITParser.Bool_literalContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#body_decl.
-    def visitBody_decl(self, ctx:BKITParser.Body_declContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKITParser#init_body.
-    def visitInit_body(self, ctx:BKITParser.Init_bodyContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKITParser#parameter.
-    def visitParameter(self, ctx:BKITParser.ParameterContext):
+    # Visit a parse tree produced by BKITParser#function_declare.
+    def visitFunction_declare(self, ctx:BKITParser.Function_declareContext):
         return self.visitChildren(ctx)
 
 
@@ -89,88 +89,88 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#body.
-    def visitBody(self, ctx:BKITParser.BodyContext):
+    # Visit a parse tree produced by BKITParser#parameter.
+    def visitParameter(self, ctx:BKITParser.ParameterContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#var_list.
-    def visitVar_list(self, ctx:BKITParser.Var_listContext):
+    # Visit a parse tree produced by BKITParser#statement_list.
+    def visitStatement_list(self, ctx:BKITParser.Statement_listContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#stmt.
-    def visitStmt(self, ctx:BKITParser.StmtContext):
+    # Visit a parse tree produced by BKITParser#statement.
+    def visitStatement(self, ctx:BKITParser.StatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#stmt_list.
-    def visitStmt_list(self, ctx:BKITParser.Stmt_listContext):
+    # Visit a parse tree produced by BKITParser#local_var_declare.
+    def visitLocal_var_declare(self, ctx:BKITParser.Local_var_declareContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#assign_stmt.
-    def visitAssign_stmt(self, ctx:BKITParser.Assign_stmtContext):
+    # Visit a parse tree produced by BKITParser#assignment_statement.
+    def visitAssignment_statement(self, ctx:BKITParser.Assignment_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#if_stmt.
-    def visitIf_stmt(self, ctx:BKITParser.If_stmtContext):
+    # Visit a parse tree produced by BKITParser#if_statement.
+    def visitIf_statement(self, ctx:BKITParser.If_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#else_if.
-    def visitElse_if(self, ctx:BKITParser.Else_ifContext):
+    # Visit a parse tree produced by BKITParser#for_statement.
+    def visitFor_statement(self, ctx:BKITParser.For_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#for_stmt.
-    def visitFor_stmt(self, ctx:BKITParser.For_stmtContext):
+    # Visit a parse tree produced by BKITParser#initExpr.
+    def visitInitExpr(self, ctx:BKITParser.InitExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#for_condition.
-    def visitFor_condition(self, ctx:BKITParser.For_conditionContext):
+    # Visit a parse tree produced by BKITParser#conditionExpr.
+    def visitConditionExpr(self, ctx:BKITParser.ConditionExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#while_stmt.
-    def visitWhile_stmt(self, ctx:BKITParser.While_stmtContext):
+    # Visit a parse tree produced by BKITParser#updateExpr.
+    def visitUpdateExpr(self, ctx:BKITParser.UpdateExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#do_while_stmt.
-    def visitDo_while_stmt(self, ctx:BKITParser.Do_while_stmtContext):
+    # Visit a parse tree produced by BKITParser#while_statement.
+    def visitWhile_statement(self, ctx:BKITParser.While_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#break_stmt.
-    def visitBreak_stmt(self, ctx:BKITParser.Break_stmtContext):
+    # Visit a parse tree produced by BKITParser#do_while_statement.
+    def visitDo_while_statement(self, ctx:BKITParser.Do_while_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#continue_stmt.
-    def visitContinue_stmt(self, ctx:BKITParser.Continue_stmtContext):
+    # Visit a parse tree produced by BKITParser#break_statement.
+    def visitBreak_statement(self, ctx:BKITParser.Break_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#call_stmt.
-    def visitCall_stmt(self, ctx:BKITParser.Call_stmtContext):
+    # Visit a parse tree produced by BKITParser#continue_statement.
+    def visitContinue_statement(self, ctx:BKITParser.Continue_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#return_stmt.
-    def visitReturn_stmt(self, ctx:BKITParser.Return_stmtContext):
+    # Visit a parse tree produced by BKITParser#call_statement.
+    def visitCall_statement(self, ctx:BKITParser.Call_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#function_call.
-    def visitFunction_call(self, ctx:BKITParser.Function_callContext):
+    # Visit a parse tree produced by BKITParser#return_statement.
+    def visitReturn_statement(self, ctx:BKITParser.Return_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#exp.
-    def visitExp(self, ctx:BKITParser.ExpContext):
+    # Visit a parse tree produced by BKITParser#expression.
+    def visitExpression(self, ctx:BKITParser.ExpressionContext):
         return self.visitChildren(ctx)
 
 
@@ -209,53 +209,48 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#exp_list.
-    def visitExp_list(self, ctx:BKITParser.Exp_listContext):
+    # Visit a parse tree produced by BKITParser#exp8.
+    def visitExp8(self, ctx:BKITParser.Exp8Context):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#operands.
-    def visitOperands(self, ctx:BKITParser.OperandsContext):
+    # Visit a parse tree produced by BKITParser#operand.
+    def visitOperand(self, ctx:BKITParser.OperandContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#multiplying_operators.
-    def visitMultiplying_operators(self, ctx:BKITParser.Multiplying_operatorsContext):
+    # Visit a parse tree produced by BKITParser#adding.
+    def visitAdding(self, ctx:BKITParser.AddingContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#adding_operators.
-    def visitAdding_operators(self, ctx:BKITParser.Adding_operatorsContext):
+    # Visit a parse tree produced by BKITParser#multiplying.
+    def visitMultiplying(self, ctx:BKITParser.MultiplyingContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#sign_operators.
-    def visitSign_operators(self, ctx:BKITParser.Sign_operatorsContext):
+    # Visit a parse tree produced by BKITParser#relational_operator.
+    def visitRelational_operator(self, ctx:BKITParser.Relational_operatorContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#boolean_operators.
-    def visitBoolean_operators(self, ctx:BKITParser.Boolean_operatorsContext):
+    # Visit a parse tree produced by BKITParser#sign.
+    def visitSign(self, ctx:BKITParser.SignContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#relational_operators.
-    def visitRelational_operators(self, ctx:BKITParser.Relational_operatorsContext):
+    # Visit a parse tree produced by BKITParser#index_operator.
+    def visitIndex_operator(self, ctx:BKITParser.Index_operatorContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#element_exp.
-    def visitElement_exp(self, ctx:BKITParser.Element_expContext):
+    # Visit a parse tree produced by BKITParser#function_call.
+    def visitFunction_call(self, ctx:BKITParser.Function_callContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#index_operators.
-    def visitIndex_operators(self, ctx:BKITParser.Index_operatorsContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by BKITParser#expr_index.
-    def visitExpr_index(self, ctx:BKITParser.Expr_indexContext):
+    # Visit a parse tree produced by BKITParser#argument_list.
+    def visitArgument_list(self, ctx:BKITParser.Argument_listContext):
         return self.visitChildren(ctx)
 
 

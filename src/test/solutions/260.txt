@@ -1,1 +1,1 @@
-Error on line 7 col 31: =
+Error on line 2 col 8: Function

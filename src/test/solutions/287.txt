@@ -1,1 +1,1 @@
-Error on line 4 col 20: y65
+Error on line 1 col 0: Function

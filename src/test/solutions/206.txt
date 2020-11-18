@@ -1,1 +1,1 @@
-Error on line 2 col 30: o95721
+Error on line 2 col 8: Var
